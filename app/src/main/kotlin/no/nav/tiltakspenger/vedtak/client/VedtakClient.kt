@@ -1,46 +1,50 @@
 package no.nav.tiltakspenger.vedtak.client
 
-import io.ktor.client.HttpClient
-import io.ktor.client.engine.HttpClientEngine
-import io.ktor.client.plugins.HttpRequestRetry
-import io.ktor.client.plugins.auth.Auth
-import io.ktor.client.plugins.defaultRequest
-import io.ktor.client.request.post
-import io.ktor.client.request.setBody
-import io.ktor.http.isSuccess
-import kotlinx.coroutines.runBlocking
+import com.fasterxml.jackson.databind.ObjectMapper
+import io.ktor.client.*
+import io.ktor.client.call.*
+import io.ktor.client.engine.*
+import io.ktor.client.request.*
+import io.ktor.http.*
+import no.nav.tiltakspenger.vedtak.Configuration
+import no.nav.tiltakspenger.vedtak.defaultHttpClient
+import no.nav.tiltakspenger.vedtak.defaultObjectMapper
 import no.nav.tiltakspenger.vedtak.rivers.ArenaTiltakMottattDTO
 
+interface IVedtakClient {
+    suspend fun mottaTiltak(arenaTiltakMottattDTO: ArenaTiltakMottattDTO, behovId: String)
+}
+
 class VedtakClient(
-    private val baseUrl: String,
-    azureADClient: OIDCClient,
-    block: () -> HttpClientEngine,
-) {
-    private val client: HttpClient = HttpClient(block()) {
-        expectSuccess = true
-        json()
-        install(Auth) {
-            oidc(azureADClient)
-        }
-        install(HttpRequestRetry) {
-            maxRetries = 5
-            retryIf { _, response ->
-                !response.status.isSuccess()
-            }
-            delayMillis { retry ->
-                retry * 3000L
-            }
-        }
-        defaultRequest {
-            json()
+    private val vedtakClientConfig: VedtakClientConfig = Configuration.vedtakClientConfig(),
+    private val objectMapper: ObjectMapper = defaultObjectMapper(),
+    private val getToken: suspend () -> String,
+    engine: HttpClientEngine? = null,
+    private val httpClient: HttpClient = defaultHttpClient(
+        objectMapper = objectMapper,
+        engine = engine
+    ) {}
+) : IVedtakClient {
+    companion object {
+        const val navCallIdHeader = "Nav-Call-Id"
+    }
+
+    @Suppress("TooGenericExceptionThrown")
+    override suspend fun mottaTiltak(arenaTiltakMottattDTO: ArenaTiltakMottattDTO, behovId: String) {
+        val httpResponse = httpClient.preparePost("${vedtakClientConfig.baseUrl}/mottaTiltak") {
+            header(navCallIdHeader, behovId)
+            bearerAuth(getToken())
+            accept(ContentType.Application.Json)
+            contentType(ContentType.Application.Json)
+            setBody(arenaTiltakMottattDTO)
+        }.execute()
+        when (httpResponse.status) {
+            HttpStatusCode.OK -> return
+            else -> throw RuntimeException("error (responseCode=${httpResponse.status.value}) from Vedtak")
         }
     }
 
-    fun mottaTiltak(
-        arenaTiltakMottattDTO: ArenaTiltakMottattDTO
-    ) = runBlocking {
-        client.post("$baseUrl/sak") {
-            setBody(arenaTiltakMottattDTO)
-        }
-    }
+    data class VedtakClientConfig(
+        val baseUrl: String,
+    )
 }

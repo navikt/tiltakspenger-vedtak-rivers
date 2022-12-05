@@ -1,22 +1,18 @@
 package no.nav.tiltakspenger.vedtak.rivers
 
+import io.mockk.coEvery
 import io.mockk.coVerify
-import io.mockk.mockk
+import io.mockk.spyk
 import no.nav.helse.rapids_rivers.testsupport.TestRapid
-import no.nav.tiltakspenger.vedtak.client.VedtakClient
+import no.nav.tiltakspenger.vedtak.client.IVedtakClient
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
 
 internal class ArenaTiltakMottattRiverTest {
 
-    private companion object {
-        const val IDENT = "04927799109"
-        const val JOURNALPOSTID = "foobar2"
-    }
-
     private val testRapid = TestRapid()
 
-    private val vedtakClient = mockk<VedtakClient>()
+    private val vedtakClient = spyk<IVedtakClient>()
 
     init {
         ArenaTiltakMottattRiver(rapidsConnection = testRapid, vedtakClient = vedtakClient)
@@ -28,10 +24,11 @@ internal class ArenaTiltakMottattRiverTest {
     }
 
     @Test
-    fun `Når ArenaTiltakMottattHendelse oppstår, så videresender vi data til tiltakspenger-vedtak`() {
+    fun `Når en løsning for arenaTiltak mottas, så videresender vi data til tiltakspenger-vedtak`() {
         val arenaTiltakMottattHendelse =
             javaClass.getResource("/arenaTiltakMottattHendelse.json")?.readText(Charsets.UTF_8)!!
         testRapid.sendTestMessage(arenaTiltakMottattHendelse)
-        coVerify { vedtakClient.mottaTiltak(any()) }
+        coEvery { vedtakClient.mottaTiltak(any(), any()) } returns Unit
+        coVerify { vedtakClient.mottaTiltak(any(), any()) }
     }
 }

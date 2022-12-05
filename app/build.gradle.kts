@@ -17,8 +17,10 @@ dependencies {
     // Align versions of all Kotlin components
     implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
     implementation(kotlin("stdlib"))
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-slf4j:1.6.4")
 
     implementation(ktor("client-core"))
+    implementation(ktor("client-logging-jvm"))
     implementation(ktor("client-cio"))
     implementation(ktor("client-jackson"))
     implementation(ktor("client-auth"))

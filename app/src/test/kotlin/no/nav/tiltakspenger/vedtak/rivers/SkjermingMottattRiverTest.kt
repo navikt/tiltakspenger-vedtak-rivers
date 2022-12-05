@@ -1,25 +1,18 @@
 package no.nav.tiltakspenger.vedtak.rivers
 
-import io.mockk.every
-import io.mockk.mockk
+import io.mockk.coEvery
+import io.mockk.coVerify
+import io.mockk.spyk
 import no.nav.helse.rapids_rivers.testsupport.TestRapid
-import no.nav.tiltakspenger.objectmothers.nyPersonopplysningHendelse
-import no.nav.tiltakspenger.objectmothers.nySøknadMedArenaTiltak
-import no.nav.tiltakspenger.vedtak.Aktivitetslogg
-import no.nav.tiltakspenger.vedtak.Innsending
-import no.nav.tiltakspenger.vedtak.meldinger.SøknadMottattHendelse
-import no.nav.tiltakspenger.vedtak.repository.InnsendingRepository
-import no.nav.tiltakspenger.vedtak.repository.søker.SøkerRepository
-import org.junit.jupiter.api.Assertions.assertEquals
+import no.nav.tiltakspenger.vedtak.client.VedtakClient
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
+@Disabled
 internal class SkjermingMottattRiverTest {
 
-    private val innsendingRepository = mockk<InnsendingRepository>(relaxed = true)
-    private val søkerRepository = mockk<SøkerRepository>(relaxed = true)
+    private val vedtakClient = spyk<VedtakClient>()
     private val testRapid = TestRapid()
-    private val journalpostId = "wolla"
-    private val ident = "05906398291"
     private val løsning = """
             {
               "@behov": [
@@ -50,46 +43,15 @@ internal class SkjermingMottattRiverTest {
 
     init {
         SkjermingMottattRiver(
+            vedtakClient = vedtakClient,
             rapidsConnection = testRapid,
-            innsendingMediator = InnsendingMediator(
-                innsendingRepository = innsendingRepository,
-                rapidsConnection = testRapid,
-            ),
-            søkerMediator = SøkerMediator(
-                søkerRepository = søkerRepository,
-                rapidsConnection = testRapid,
-            )
         )
     }
 
     @Test
-    fun `En løsning for skjerming mottas`() {
-        // given
-        val aktivitetslogg = Aktivitetslogg(forelder = null)
-        val mottattSøknadHendelse = SøknadMottattHendelse(
-            aktivitetslogg = aktivitetslogg,
-            journalpostId = journalpostId,
-            søknad = nySøknadMedArenaTiltak(
-                journalpostId = journalpostId,
-                ident = ident,
-            )
-        )
-        val personopplysningerMottattHendelse = nyPersonopplysningHendelse(journalpostId = journalpostId)
-        val innsending = Innsending(journalpostId = journalpostId, ident = ident)
-        every { innsendingRepository.hent(journalpostId) } returns innsending
-
-        // when
-        innsending.håndter(mottattSøknadHendelse)
-        innsending.håndter(personopplysningerMottattHendelse)
+    fun `Når en løsning for skjerming mottas, så videresender vi data til tiltakspenger-vedtak`() {
         testRapid.sendTestMessage(løsning)
-
-        // then
-        with(testRapid.inspektør) {
-            assertEquals(1, this.size)
-            assertEquals("behov", field(0, "@event_name").asText())
-            assertEquals(ident, field(0, "ident").asText())
-            assertEquals(journalpostId, field(0, "journalpostId").asText())
-            assertEquals("arenatiltak", field(0, "@behov")[0].asText())
-        }
+        coEvery { vedtakClient.mottaTiltak(any(), any()) } returns Unit
+        coVerify { vedtakClient.mottaTiltak(any(), any()) }
     }
 }
