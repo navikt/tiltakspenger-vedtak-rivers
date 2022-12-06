@@ -1,5 +1,6 @@
 val ktorVersion = "2.1.3"
 val kotestVersion = "5.5.4"
+val koCoroutinVersion = "1.6.4"
 val mockkVersion = "1.13.3"
 val testContainersVersion = "1.17.6"
 
@@ -17,7 +18,7 @@ dependencies {
     // Align versions of all Kotlin components
     implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
     implementation(kotlin("stdlib"))
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-slf4j:1.6.4")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-slf4j:$koCoroutinVersion")
 
     implementation(ktor("client-core"))
     implementation(ktor("client-logging-jvm"))
@@ -59,6 +60,7 @@ dependencies {
     implementation("com.github.seratch:kotliquery:1.9.0")
 
     testImplementation(platform("org.junit:junit-bom:5.9.1"))
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$koCoroutinVersion")
     testImplementation("org.junit.jupiter:junit-jupiter")
     testImplementation("org.junit.jupiter:junit-jupiter-params")
     testImplementation("io.mockk:mockk:$mockkVersion")
