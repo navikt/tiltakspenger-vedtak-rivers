@@ -2,7 +2,7 @@
   "@event_name": "behov",
   "@opprettet": "2022-12-01T12:11:08.683068651",
   "@id": "test",
-  "@behovId": "behovId",
+  "@behovId": "42",
   "@behov": [
     "arenatiltak"
   ],
