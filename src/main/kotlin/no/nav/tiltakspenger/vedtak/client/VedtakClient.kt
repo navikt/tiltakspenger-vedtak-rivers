@@ -31,7 +31,7 @@ class VedtakClient(
 
     @Suppress("TooGenericExceptionThrown")
     override suspend fun mottaTiltak(arenaTiltakMottattDTO: ArenaTiltakMottattDTO, behovId: String) {
-        val httpResponse = httpClient.preparePost("${vedtakClientConfig.baseUrl}/mottaTiltak") {
+        val httpResponse = httpClient.preparePost("${vedtakClientConfig.baseUrl}/rivers/tiltak") {
             header(navCallIdHeader, behovId)
             bearerAuth(getToken())
             accept(ContentType.Application.Json)
