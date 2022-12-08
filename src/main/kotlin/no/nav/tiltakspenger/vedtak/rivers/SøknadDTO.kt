@@ -24,9 +24,7 @@ class SøknadDTO(
     val trygdOgPensjon: List<TrygdOgPensjonDTO>? = emptyList(),
     val fritekst: String?,
     val vedlegg: List<VedleggDTO>? = emptyList(),
-) {
-
-}
+) 
 
 data class BrukerregistrertTiltakDTO(
     val tiltakskode: String,
@@ -78,7 +76,7 @@ data class BarnetilleggDTO(
 )
 
 enum class TypeInstitusjonDTO(val type: String) {
-    barneverninstitusjon("barneverninstitusjon"),
-    overgangsbolig("overgangsbolig"),
-    annet("annet"),
+    BARNEVERNINSTITUSJON("barneverninstitusjon"),
+    OVERGANGSBOLIG("overgangsbolig"),
+    ANNET("annet"),
 }

@@ -3,7 +3,6 @@ package no.nav.tiltakspenger.vedtak.rivers
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
-import io.mockk.spyk
 import no.nav.helse.rapids_rivers.testsupport.TestRapid
 import no.nav.tiltakspenger.vedtak.client.IVedtakClient
 import org.junit.jupiter.api.AfterEach
@@ -29,7 +28,7 @@ internal class ArenaTiltakMottattRiverTest {
     fun `Når en løsning for arenaTiltak mottas, så videresender vi data til tiltakspenger-vedtak`() {
         coEvery { vedtakClient.mottaTiltak(any(), "42") } returns Unit
         val arenaTiltakMottattHendelse =
-            javaClass.getResource("/resources/arenaTiltakMottattHendelse.json")?.readText(Charsets.UTF_8)!!
+            javaClass.getResource("/arenaTiltakMottattHendelse.json")?.readText(Charsets.UTF_8)!!
         testRapid.sendTestMessage(arenaTiltakMottattHendelse)
         coVerify { vedtakClient.mottaTiltak(any(), "42") }
     }
@@ -38,7 +37,7 @@ internal class ArenaTiltakMottattRiverTest {
     fun `Når en løsning for arenaTiltak mottas, så videresender vi data til tiltakspenger-vedtak som feiler`() {
         coEvery { vedtakClient.mottaTiltak(any(), "42") } throws RuntimeException()
         val arenaTiltakMottattHendelse =
-            javaClass.getResource("/resources/arenaTiltakMottattHendelse.json")?.readText(Charsets.UTF_8)!!
+            javaClass.getResource("/arenaTiltakMottattHendelse.json")?.readText(Charsets.UTF_8)!!
         assertThrows<RuntimeException> {
             testRapid.sendTestMessage(arenaTiltakMottattHendelse)
         }

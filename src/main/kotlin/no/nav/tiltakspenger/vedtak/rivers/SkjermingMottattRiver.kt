@@ -29,8 +29,9 @@ internal class SkjermingMottattRiver(
     }
 
     override fun onPacket(packet: JsonMessage, context: MessageContext) {
-//        LOG.info("Received skjerming")
-//        SECURELOG.info("Received skjerming for ident id: ${packet["ident"].asText()}")
+        LOG.info("Received skjerming")
+        LOG.debug { vedtakClient }
+        SECURELOG.info("Received skjerming for ident id: ${packet["ident"].asText()}")
 //
 //        val skjermingMottattHendelse = SkjermingMottattHendelse(
 //            aktivitetslogg = Aktivitetslogg(),

@@ -31,8 +31,9 @@ internal class PersonopplysningerMottattRiver(
     }
 
     override fun onPacket(packet: JsonMessage, context: MessageContext) {
-//        LOG.info("Received personopplysninger")
-//        SECURELOG.info("Received personopplysninger for ident id: ${packet["ident"].asText()}")
+        LOG.info("Received personopplysninger")
+        LOG.debug { vedtakClient }
+        SECURELOG.info("Received personopplysninger for ident id: ${packet["ident"].asText()}")
 //
 //        //Metrics.mottakskanalInc(packet["mottaksKanal"].asText())
 //

@@ -31,8 +31,9 @@ internal class ArenaYtelserMottattRiver(
     }
 
     override fun onPacket(packet: JsonMessage, context: MessageContext) {
-//        LOG.info("Received arenaytelser")
-//        SECURELOG.info("Received arenaytelser for ident id: ${packet["ident"].asText()}")
+        LOG.info("Received arenaytelser")
+        LOG.debug { vedtakClient }
+        SECURELOG.info("Received arenaytelser for ident id: ${packet["ident"].asText()}")
 //
 //        //Metrics.mottakskanalInc(packet["mottaksKanal"].asText())
 //

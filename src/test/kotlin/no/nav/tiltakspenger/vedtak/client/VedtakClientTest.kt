@@ -11,6 +11,7 @@ import java.time.LocalDateTime
 
 internal class VedtakClientTest {
 
+    @OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)
     @Test
     fun `happy case`() = runTest {
         val vedtakClient = VedtakClient(
@@ -36,6 +37,7 @@ internal class VedtakClientTest {
         }
     }
 
+    @OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)
     @Test
     fun `kaster exception ved feil fra vedtak`() = runTest {
         val vedtakClient = VedtakClient(

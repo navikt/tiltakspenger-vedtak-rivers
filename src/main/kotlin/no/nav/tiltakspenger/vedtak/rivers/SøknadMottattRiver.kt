@@ -29,8 +29,9 @@ internal class SøknadMottattRiver(
     }
 
     override fun onPacket(packet: JsonMessage, context: MessageContext) {
-//        LOG.info("Received søknad")
-//        SECURELOG.info("Received søknad: ${packet.toJson()}")
+        LOG.info("Received søknad")
+        LOG.debug { vedtakClient }
+        SECURELOG.info("Received søknad: ${packet.toJson()}")
 //
 //        //Metrics.mottakskanalInc(packet["mottaksKanal"].asText())
 //
