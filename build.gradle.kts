@@ -54,7 +54,7 @@ dependencies {
     implementation("com.github.navikt:rapids-and-rivers:2022112407251669271100.df879df951cf")
     implementation("com.natpryce:konfig:1.6.10.0")
     implementation("com.auth0:jwks-rsa:0.21.2")
-    implementation("org.flywaydb:flyway-core:9.8.3")
+    implementation("org.flywaydb:flyway-core:9.10.0")
     implementation("com.zaxxer:HikariCP:5.0.1")
     implementation("org.postgresql:postgresql:42.5.1")
     implementation("com.github.seratch:kotliquery:1.9.0")
