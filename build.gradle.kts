@@ -3,7 +3,6 @@ val ktorVersion = "2.1.3"
 val kotestVersion = "5.5.4"
 val koCoroutinVersion = "1.6.4"
 val mockkVersion = "1.13.3"
-val testContainersVersion = "1.17.6"
 
 plugins {
     application
@@ -54,10 +53,6 @@ dependencies {
     implementation("com.github.navikt:rapids-and-rivers:2022112407251669271100.df879df951cf")
     implementation("com.natpryce:konfig:1.6.10.0")
     implementation("com.auth0:jwks-rsa:0.21.2")
-    implementation("org.flywaydb:flyway-core:9.10.0")
-    implementation("com.zaxxer:HikariCP:5.0.1")
-    implementation("org.postgresql:postgresql:42.5.1")
-    implementation("com.github.seratch:kotliquery:1.9.0")
 
     testImplementation(platform("org.junit:junit-bom:5.9.1"))
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$koCoroutinVersion")
@@ -70,11 +65,6 @@ dependencies {
     testImplementation("io.kotest:kotest-assertions-json:$kotestVersion")
     testImplementation("io.kotest:kotest-extensions:$kotestVersion")
     testImplementation("org.skyscreamer:jsonassert:1.5.1")
-    testImplementation("org.testcontainers:testcontainers:$testContainersVersion")
-    testImplementation("org.testcontainers:junit-jupiter:$testContainersVersion")
-    testImplementation("org.testcontainers:postgresql:$testContainersVersion")
-    // need quarkus-junit-4-mock because of https://github.com/testcontainers/testcontainers-java/issues/970
-    testImplementation("io.quarkus:quarkus-junit4-mock:2.15.0.Final")
 }
 
 configurations.all {
