@@ -28,7 +28,7 @@ object Configuration {
         "AZURE_APP_CLIENT_ID" to System.getenv("AZURE_APP_CLIENT_ID"),
         "AZURE_APP_CLIENT_SECRET" to System.getenv("AZURE_APP_CLIENT_SECRET"),
         "AZURE_APP_WELL_KNOWN_URL" to System.getenv("AZURE_APP_WELL_KNOWN_URL"),
-        "logback.configurationFile" to "logback.gcp.xml"
+        "logback.configurationFile" to "resources/logback.gcp.xml"
     )
     private val defaultProperties = ConfigurationMap(rapidsAndRivers + otherDefaultProperties)
 
@@ -37,7 +37,7 @@ object Configuration {
             "application.profile" to Profile.LOCAL.toString(),
             "vedtakScope" to "api://dev-gcp.tpts.tiltakspenger-vedtak/.default",
             "vedtakBaseUrl" to "https://tiltakspenger-vedtak.dev.intern.nav.no",
-            "logback.configurationFile" to "logback.local.xml",
+            "logback.configurationFile" to "resources/logback.local.xml",
         )
     )
     private val devProperties = ConfigurationMap(

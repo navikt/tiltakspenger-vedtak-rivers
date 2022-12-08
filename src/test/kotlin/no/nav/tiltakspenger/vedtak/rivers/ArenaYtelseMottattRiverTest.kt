@@ -10,13 +10,14 @@ import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
 @Disabled
-internal class PersonopplysningerMottattRiverTest {
+internal class ArenaYtelseMottattRiverTest {
+
     private val testRapid = TestRapid()
 
     private val vedtakClient = spyk<VedtakClient>()
 
     init {
-        PersonopplysningerMottattRiver(rapidsConnection = testRapid, vedtakClient = vedtakClient)
+        ArenaYtelserMottattRiver(rapidsConnection = testRapid, vedtakClient = vedtakClient)
     }
 
     @AfterEach
@@ -25,9 +26,9 @@ internal class PersonopplysningerMottattRiverTest {
     }
 
     @Test
-    fun `Når en løsning for personopplysninger mottas, så videresender vi data til tiltakspenger-vedtak`() {
+    fun `Når en løsning for arenaYtelser mottas, så videresender vi data til tiltakspenger-vedtak`() {
         val arenaTiltakMottattHendelse =
-            javaClass.getResource("/personopplysningerMottattHendelse.json")?.readText(Charsets.UTF_8)!!
+            javaClass.getResource("/resources/arenaYtelserMottattHendelse.json")?.readText(Charsets.UTF_8)!!
         testRapid.sendTestMessage(arenaTiltakMottattHendelse)
         coEvery { vedtakClient.mottaTiltak(any(), any()) } returns Unit
         coVerify { vedtakClient.mottaTiltak(any(), any()) }

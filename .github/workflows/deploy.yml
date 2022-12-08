@@ -1,29 +1,29 @@
-#name: Build, push, and deploy
-#
-#on: push
-#
-#env:
-#  IMAGE: ghcr.io/${{ github.repository }}:${{ github.sha }}
-#  PRINT_PAYLOAD: true
-#
-#jobs:
-#  build:
-#    name: Test, build and push
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Checkout
-#        uses: actions/checkout@v3
-#
-#      - name: Set up JDK 17
-#        uses: actions/setup-java@v3
-#        with:
-#          distribution: 'temurin'
-#          java-version: 17
-#
-#      - uses: gradle/gradle-build-action@v2
-#        with:
-#          arguments: build --info app:installDist
-#
+name: Build, push, and deploy
+
+on: push
+
+env:
+  IMAGE: ghcr.io/${{ github.repository }}:${{ github.sha }}
+  PRINT_PAYLOAD: true
+
+jobs:
+  build:
+    name: Test, build and push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: 17
+
+      - uses: gradle/gradle-build-action@v2
+        with:
+          arguments: build --info app:installDist
+
 #      - name: Set up Docker Buildx
 #        if: github.ref == 'refs/heads/main'
 #        uses: docker/setup-buildx-action@v2
