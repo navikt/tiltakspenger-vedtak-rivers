@@ -7,6 +7,7 @@ import no.nav.tiltakspenger.vedtak.client.VedtakClient
 import no.nav.tiltakspenger.vedtak.oauth.AzureTokenProvider
 import no.nav.tiltakspenger.vedtak.rivers.ArenaTiltakMottattRiver
 import no.nav.tiltakspenger.vedtak.rivers.ArenaYtelserMottattRiver
+import no.nav.tiltakspenger.vedtak.rivers.SkjermingMottattRiver
 import no.nav.tiltakspenger.vedtak.rivers.PersonopplysningerMottattRiver
 
 fun main() {
@@ -27,6 +28,11 @@ fun main() {
     )
 
     RapidApplication.create(Configuration.rapidsAndRivers).apply {
+
+        SkjermingMottattRiver(
+            rapidsConnection = this,
+            vedtakClient = vedtakClient,
+        )
 
         ArenaTiltakMottattRiver(
             rapidsConnection = this,

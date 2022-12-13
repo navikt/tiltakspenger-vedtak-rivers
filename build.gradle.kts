@@ -1,7 +1,7 @@
 val javaVersion = JavaVersion.VERSION_17
 val ktorVersion = "2.2.1"
 val kotestVersion = "5.5.4"
-val koCoroutinVersion = "1.6.4"
+val kotlinxCoroutinesVersion = "1.6.4"
 val mockkVersion = "1.13.3"
 
 plugins {
@@ -23,7 +23,7 @@ dependencies {
     // Align versions of all Kotlin components
     implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
     implementation(kotlin("stdlib"))
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-slf4j:$koCoroutinVersion")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-slf4j:$kotlinxCoroutinesVersion")
     implementation(ktor("client-core"))
     implementation(ktor("client-logging-jvm"))
     implementation(ktor("client-cio"))
@@ -55,7 +55,7 @@ dependencies {
     implementation("com.auth0:jwks-rsa:0.21.2")
 
     testImplementation(platform("org.junit:junit-bom:5.9.1"))
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$koCoroutinVersion")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinxCoroutinesVersion")
     testImplementation("org.junit.jupiter:junit-jupiter")
     testImplementation("org.junit.jupiter:junit-jupiter-params")
     testImplementation("io.mockk:mockk:$mockkVersion")
