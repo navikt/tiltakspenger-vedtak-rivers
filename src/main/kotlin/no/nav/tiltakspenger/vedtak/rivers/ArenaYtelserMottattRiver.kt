@@ -1,14 +1,14 @@
 package no.nav.tiltakspenger.vedtak.rivers
 
-import mu.KotlinLogging
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.slf4j.MDCContext
+import mu.withLoggingContext
 import no.nav.helse.rapids_rivers.JsonMessage
 import no.nav.helse.rapids_rivers.MessageContext
 import no.nav.helse.rapids_rivers.RapidsConnection
 import no.nav.helse.rapids_rivers.River
+import no.nav.helse.rapids_rivers.asLocalDateTime
 import no.nav.tiltakspenger.vedtak.client.IVedtakClient
-
-private val LOG = KotlinLogging.logger {}
-private val SECURELOG = KotlinLogging.logger("tjenestekall")
 
 internal class ArenaYtelserMottattRiver(
     private val vedtakClient: IVedtakClient,
@@ -31,21 +31,36 @@ internal class ArenaYtelserMottattRiver(
     }
 
     override fun onPacket(packet: JsonMessage, context: MessageContext) {
-        LOG.info("Received arenaytelser")
-        LOG.debug { vedtakClient }
-        SECURELOG.info("Received arenaytelser for ident id: ${packet["ident"].asText()}")
-//
-//        //Metrics.mottakskanalInc(packet["mottaksKanal"].asText())
-//
-//        val ytelserMottattHendelse = YtelserMottattHendelse(
-//            aktivitetslogg = Aktivitetslogg(),
-//            journalpostId = packet["journalpostId"].asText(),
-//            ytelseSak = mapYtelser(
-//                ytelseSakDTO = packet["@løsning.arenaytelser"].asList(),
-//                tidsstempelHosOss = packet["@opprettet"].asLocalDateTime(),
-//            )
-//        )
-//
-//        innsendingMediator.håndter(ytelserMottattHendelse)
+        runCatching {
+            loggVedInngang("arenaytelser", packet)
+            withLoggingContext(
+                "id" to packet["@id"].asText(),
+                "behovId" to packet["@behovId"].asText()
+            ) {
+                val ident = packet["ident"].asText()
+                val behovId = packet["@behovId"].asText()
+                val ytelser =
+                    if (packet["@løsning.arenaytelser"].asText() == "null")
+                        null
+                    else packet["@løsning.arenaytelser"]
+                val journalpostId = packet["journalpostId"].asText()
+                val innhentet = packet["@opprettet"].asLocalDateTime()
+
+                runBlocking(MDCContext()) {
+                    vedtakClient.mottaYtelser(
+                        arenaYtelserMottattDTO = ArenaYtelserMottattDTO(
+                            ytelser = ytelser.asList(),
+                            ident = ident,
+                            journalpostId = journalpostId,
+                            innhentet = innhentet
+                        ),
+                        behovId = behovId
+                    )
+                }
+                loggVedUtgang("arenaytelser", packet)
+            }
+        }.onFailure {
+            loggVedFeil("arenaytelser", it, packet)
+        }.getOrThrow()
     }
 }

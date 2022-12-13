@@ -1,11 +1,7 @@
 package no.nav.tiltakspenger.vedtak.rivers
 
-import asList
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.slf4j.MDCContext
-import loggVedFeil
-import loggVedInngang
-import loggVedUtgang
 import mu.withLoggingContext
 import no.nav.helse.rapids_rivers.JsonMessage
 import no.nav.helse.rapids_rivers.MessageContext

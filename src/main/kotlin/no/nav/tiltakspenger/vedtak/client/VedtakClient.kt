@@ -10,9 +10,11 @@ import no.nav.tiltakspenger.vedtak.Configuration
 import no.nav.tiltakspenger.vedtak.defaultHttpClient
 import no.nav.tiltakspenger.vedtak.defaultObjectMapper
 import no.nav.tiltakspenger.vedtak.rivers.ArenaTiltakMottattDTO
+import no.nav.tiltakspenger.vedtak.rivers.ArenaYtelserMottattDTO
 
 interface IVedtakClient {
     suspend fun mottaTiltak(arenaTiltakMottattDTO: ArenaTiltakMottattDTO, behovId: String)
+    suspend fun mottaYtelser(arenaYtelserMottattDTO: ArenaYtelserMottattDTO, behovId: String)
 }
 
 class VedtakClient(
@@ -37,6 +39,21 @@ class VedtakClient(
             accept(ContentType.Application.Json)
             contentType(ContentType.Application.Json)
             setBody(arenaTiltakMottattDTO)
+        }.execute()
+        when (httpResponse.status) {
+            HttpStatusCode.OK -> return
+            else -> throw RuntimeException("error (responseCode=${httpResponse.status.value}) from Vedtak")
+        }
+    }
+
+    @Suppress("TooGenericExceptionThrown")
+    override suspend fun mottaYtelser(arenaYtelserMottattDTO: ArenaYtelserMottattDTO, behovId: String) {
+        val httpResponse = httpClient.preparePost("${vedtakClientConfig.baseUrl}/rivers/ytelser") {
+            header(navCallIdHeader, behovId)
+            bearerAuth(getToken())
+            accept(ContentType.Application.Json)
+            contentType(ContentType.Application.Json)
+            setBody(arenaYtelserMottattDTO)
         }.execute()
         when (httpResponse.status) {
             HttpStatusCode.OK -> return

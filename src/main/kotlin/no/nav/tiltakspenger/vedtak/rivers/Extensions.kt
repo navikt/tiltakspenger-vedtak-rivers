@@ -1,3 +1,5 @@
+package no.nav.tiltakspenger.vedtak.rivers
+
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.type.CollectionType
 import mu.KotlinLogging
