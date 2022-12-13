@@ -7,6 +7,7 @@ import no.nav.tiltakspenger.vedtak.client.VedtakClient
 import no.nav.tiltakspenger.vedtak.oauth.AzureTokenProvider
 import no.nav.tiltakspenger.vedtak.rivers.ArenaTiltakMottattRiver
 import no.nav.tiltakspenger.vedtak.rivers.ArenaYtelserMottattRiver
+import no.nav.tiltakspenger.vedtak.rivers.PersonopplysningerMottattRiver
 
 fun main() {
     System.setProperty("logback.configurationFile", Configuration.logbackConfigurationFile())
@@ -35,6 +36,11 @@ fun main() {
         ArenaYtelserMottattRiver(
             rapidsConnection = this,
             vedtakClient = vedtakClient,
+        )
+
+        PersonopplysningerMottattRiver(
+            rapidsConnection = this,
+            vedtakClient = vedtakClient
         )
 
         register(object : RapidsConnection.StatusListener {
