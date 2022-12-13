@@ -1,12 +1,12 @@
 package no.nav.tiltakspenger.vedtak
 
-import io.ktor.client.engine.cio.*
 import mu.KotlinLogging
 import no.nav.helse.rapids_rivers.RapidApplication
 import no.nav.helse.rapids_rivers.RapidsConnection
 import no.nav.tiltakspenger.vedtak.client.VedtakClient
 import no.nav.tiltakspenger.vedtak.oauth.AzureTokenProvider
 import no.nav.tiltakspenger.vedtak.rivers.ArenaTiltakMottattRiver
+import no.nav.tiltakspenger.vedtak.rivers.ArenaYtelserMottattRiver
 
 fun main() {
     System.setProperty("logback.configurationFile", Configuration.logbackConfigurationFile())
@@ -28,6 +28,11 @@ fun main() {
     RapidApplication.create(Configuration.rapidsAndRivers).apply {
 
         ArenaTiltakMottattRiver(
+            rapidsConnection = this,
+            vedtakClient = vedtakClient,
+        )
+
+        ArenaYtelserMottattRiver(
             rapidsConnection = this,
             vedtakClient = vedtakClient,
         )
