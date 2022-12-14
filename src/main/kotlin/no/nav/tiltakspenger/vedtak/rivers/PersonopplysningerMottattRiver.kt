@@ -2,7 +2,6 @@ package no.nav.tiltakspenger.vedtak.rivers
 
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.slf4j.MDCContext
-import mu.KotlinLogging
 import mu.withLoggingContext
 import no.nav.helse.rapids_rivers.JsonMessage
 import no.nav.helse.rapids_rivers.MessageContext
@@ -10,9 +9,6 @@ import no.nav.helse.rapids_rivers.RapidsConnection
 import no.nav.helse.rapids_rivers.River
 import no.nav.helse.rapids_rivers.asLocalDateTime
 import no.nav.tiltakspenger.vedtak.client.IVedtakClient
-
-private val LOG = KotlinLogging.logger {}
-private val SECURELOG = KotlinLogging.logger("tjenestekall")
 
 internal class PersonopplysningerMottattRiver(
     private val vedtakClient: IVedtakClient,
@@ -35,15 +31,13 @@ internal class PersonopplysningerMottattRiver(
     }
 
     override fun onPacket(packet: JsonMessage, context: MessageContext) {
-        LOG.info("Received personopplysninger")
-        SECURELOG.info("Received personopplysninger for ident id: ${packet["ident"].asText()}")
-
+        val ident = packet["ident"].asText()
         runCatching {
+            loggFeltVedInngang("personopplysninger", "fnr", ident)
             withLoggingContext(
                 "id" to packet["@id"].asText(),
                 "behovId" to packet["@behovId"].asText()
             ) {
-                val ident = packet["ident"].asText()
                 val behovId = packet["@behovId"].asText()
                 val journalpostId = packet["journalpostId"].asText()
                 val innhentet = packet["@opprettet"].asLocalDateTime()
@@ -60,7 +54,10 @@ internal class PersonopplysningerMottattRiver(
                         behovId = behovId
                     )
                 }
+                loggFeltVedUtgang("personopplysninger", "fnr", ident)
             }
-        }
+        }.onFailure {
+            loggFeltVedFeil("personopplysninger", it, "fnr", ident)
+        }.getOrThrow()
     }
 }

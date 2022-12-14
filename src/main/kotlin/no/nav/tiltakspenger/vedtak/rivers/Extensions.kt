@@ -22,6 +22,27 @@ inline fun <reified T> JsonNode?.asList(): List<T> {
 
 inline fun <reified T> JsonNode?.asObject(clazz: Class<T>): T = objectMapper.treeToValue(this, clazz)
 
+fun loggFeltVedInngang(behov: String, feltNavn: String, felt: String) {
+    SECURELOG.info(
+        "mottar løsning for $behov med {}",
+        StructuredArguments.keyValue(feltNavn, felt)
+    )
+}
+
+fun loggFeltVedUtgang(behov: String, feltNavn: String, felt: String) {
+    SECURELOG.info(
+        "har mottatt løsning for $behov med {}",
+        StructuredArguments.keyValue(feltNavn, felt)
+    )
+}
+
+fun loggFeltVedFeil(behov: String, ex: Throwable, feltNavn: String, felt: String) {
+    SECURELOG.error(
+        "feil ${ex.message} ved behandling av løsning for behov $behov med {}",
+        StructuredArguments.keyValue(feltNavn, felt),
+        ex
+    )
+}
 
 fun loggVedInngang(behov: String, packet: JsonMessage) {
     LOG.info(
