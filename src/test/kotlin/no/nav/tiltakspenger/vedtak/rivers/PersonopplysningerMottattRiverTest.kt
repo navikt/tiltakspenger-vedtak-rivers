@@ -33,7 +33,7 @@ internal class PersonopplysningerMottattRiverTest {
     }
 
     @Test
-    fun `Når en løsning for personopplysninger mottas, men kallet mot tiltakspenger-vedtak feiler, kaster vi en RuntimeException`() {
+    fun `Nå kallet mot tiltakspenger-vedtak feiler, kaster vi en RuntimeException`() {
         coEvery { vedtakClient.mottaPersonopplysninger(any(), any()) } throws RuntimeException()
         val personopplysningerMottattHendelse =
             javaClass.getResource("/personopplysningerMottattHendelse.json")?.readText(Charsets.UTF_8)!!
