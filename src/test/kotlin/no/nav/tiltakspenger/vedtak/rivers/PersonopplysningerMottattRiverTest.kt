@@ -2,18 +2,17 @@ package no.nav.tiltakspenger.vedtak.rivers
 
 import io.mockk.coEvery
 import io.mockk.coVerify
-import io.mockk.spyk
+import io.mockk.mockk
 import no.nav.helse.rapids_rivers.testsupport.TestRapid
-import no.nav.tiltakspenger.vedtak.client.VedtakClient
+import no.nav.tiltakspenger.vedtak.client.IVedtakClient
 import org.junit.jupiter.api.AfterEach
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 
-@Disabled
 internal class PersonopplysningerMottattRiverTest {
     private val testRapid = TestRapid()
 
-    private val vedtakClient = spyk<VedtakClient>()
+    private val vedtakClient = mockk<IVedtakClient>()
 
     init {
         PersonopplysningerMottattRiver(rapidsConnection = testRapid, vedtakClient = vedtakClient)
@@ -26,10 +25,20 @@ internal class PersonopplysningerMottattRiverTest {
 
     @Test
     fun `Når en løsning for personopplysninger mottas, så videresender vi data til tiltakspenger-vedtak`() {
-        val arenaTiltakMottattHendelse =
-            javaClass.getResource("/resources/personopplysningerMottattHendelse.json")?.readText(Charsets.UTF_8)!!
-        testRapid.sendTestMessage(arenaTiltakMottattHendelse)
-        coEvery { vedtakClient.mottaTiltak(any(), any()) } returns Unit
-        coVerify { vedtakClient.mottaTiltak(any(), any()) }
+        coEvery { vedtakClient.mottaPersonopplysninger(any(), any()) } returns Unit
+        val personopplysningerMottattHendelse =
+            javaClass.getResource("/personopplysningerMottattHendelse.json")?.readText(Charsets.UTF_8)!!
+        testRapid.sendTestMessage(personopplysningerMottattHendelse)
+        coVerify { vedtakClient.mottaPersonopplysninger(any(), any()) }
+    }
+
+    @Test
+    fun `Nå kallet mot tiltakspenger-vedtak feiler, kaster vi en RuntimeException`() {
+        coEvery { vedtakClient.mottaPersonopplysninger(any(), any()) } throws RuntimeException()
+        val personopplysningerMottattHendelse =
+            javaClass.getResource("/personopplysningerMottattHendelse.json")?.readText(Charsets.UTF_8)!!
+        assertThrows<RuntimeException> {
+            testRapid.sendTestMessage(personopplysningerMottattHendelse)
+        }
     }
 }

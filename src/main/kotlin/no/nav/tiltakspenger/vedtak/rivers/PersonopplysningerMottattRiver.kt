@@ -1,14 +1,14 @@
 package no.nav.tiltakspenger.vedtak.rivers
 
-import mu.KotlinLogging
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.slf4j.MDCContext
+import mu.withLoggingContext
 import no.nav.helse.rapids_rivers.JsonMessage
 import no.nav.helse.rapids_rivers.MessageContext
 import no.nav.helse.rapids_rivers.RapidsConnection
 import no.nav.helse.rapids_rivers.River
+import no.nav.helse.rapids_rivers.asLocalDateTime
 import no.nav.tiltakspenger.vedtak.client.IVedtakClient
-
-private val LOG = KotlinLogging.logger {}
-private val SECURELOG = KotlinLogging.logger("tjenestekall")
 
 internal class PersonopplysningerMottattRiver(
     private val vedtakClient: IVedtakClient,
@@ -31,24 +31,33 @@ internal class PersonopplysningerMottattRiver(
     }
 
     override fun onPacket(packet: JsonMessage, context: MessageContext) {
-        LOG.info("Received personopplysninger")
-        LOG.debug { vedtakClient }
-        SECURELOG.info("Received personopplysninger for ident id: ${packet["ident"].asText()}")
-//
-//        //Metrics.mottakskanalInc(packet["mottaksKanal"].asText())
-//
-//        val personopplysningerMottattHendelse = PersonopplysningerMottattHendelse(
-//            aktivitetslogg = Aktivitetslogg(),
-//            journalpostId = packet["journalpostId"].asText(),
-//            ident = packet["ident"].asText(),
-//            personopplysninger = mapPersonopplysninger(
-//                dto = packet["@løsning.personopplysninger.person"].asObject(PersonopplysningerDTO::class.java),
-//                innhentet = packet["@opprettet"].asLocalDateTime(),
-//                ident = packet["ident"].asText(),
-//            ),
-//        )
-//
-//        innsendingMediator.håndter(personopplysningerMottattHendelse)
-//        søkerMediator.håndter(personopplysningerMottattHendelse)
+        val ident = packet["ident"].asText()
+        runCatching {
+            loggFeltVedInngang("personopplysninger", "fnr", ident)
+            withLoggingContext(
+                "id" to packet["@id"].asText(),
+                "behovId" to packet["@behovId"].asText()
+            ) {
+                val behovId = packet["@behovId"].asText()
+                val journalpostId = packet["journalpostId"].asText()
+                val innhentet = packet["@opprettet"].asLocalDateTime()
+                val dto = packet["@løsning.personopplysninger.person"].asObject(PersonopplysningerDTO::class.java)
+
+                runBlocking(MDCContext()) {
+                    vedtakClient.mottaPersonopplysninger(
+                        PersonopplysningerMottattDTO(
+                            journalpostId = journalpostId,
+                            ident = ident,
+                            personopplysninger = dto,
+                            innhentet = innhentet
+                        ),
+                        behovId = behovId
+                    )
+                }
+                loggFeltVedUtgang("personopplysninger", "fnr", ident)
+            }
+        }.onFailure {
+            loggFeltVedFeil("personopplysninger", it, "fnr", ident)
+        }.getOrThrow()
     }
 }
