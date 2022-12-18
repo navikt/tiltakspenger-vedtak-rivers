@@ -16,7 +16,10 @@ internal class ArenaTiltakMottattRiverTest {
     private val vedtakClient = mockk<IVedtakClient>()
 
     init {
-        ArenaTiltakMottattRiver(rapidsConnection = testRapid, vedtakClient = vedtakClient)
+        ArenaTiltakMottattRiver(
+            rapidsConnection = testRapid,
+            vedtakClient = vedtakClient
+        )
     }
 
     @AfterEach

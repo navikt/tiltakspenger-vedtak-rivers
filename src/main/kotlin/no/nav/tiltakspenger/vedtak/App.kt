@@ -8,6 +8,7 @@ import no.nav.tiltakspenger.vedtak.oauth.AzureTokenProvider
 import no.nav.tiltakspenger.vedtak.rivers.ArenaTiltakMottattRiver
 import no.nav.tiltakspenger.vedtak.rivers.ArenaYtelserMottattRiver
 import no.nav.tiltakspenger.vedtak.rivers.SkjermingMottattRiver
+import no.nav.tiltakspenger.vedtak.rivers.SøknadMottattRiver
 import no.nav.tiltakspenger.vedtak.rivers.PersonopplysningerMottattRiver
 
 fun main() {
@@ -28,6 +29,10 @@ fun main() {
     )
 
     RapidApplication.create(Configuration.rapidsAndRivers).apply {
+        SøknadMottattRiver(
+            rapidsConnection = this,
+            vedtakClient = vedtakClient,
+        )
 
         SkjermingMottattRiver(
             rapidsConnection = this,

@@ -5,7 +5,7 @@ package no.nav.tiltakspenger.vedtak.rivers
 import java.time.LocalDate
 import java.time.LocalDateTime
 
-class SøknadDTO(
+data class SøknadDTO(
     val søknadId: String,
     val journalpostId: String,
     val dokumentInfoId: String,

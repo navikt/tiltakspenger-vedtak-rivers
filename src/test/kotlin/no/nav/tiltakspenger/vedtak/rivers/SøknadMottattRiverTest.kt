@@ -2,17 +2,20 @@ package no.nav.tiltakspenger.vedtak.rivers
 
 import io.mockk.coEvery
 import io.mockk.coVerify
+import io.mockk.mockk
 import io.mockk.spyk
 import no.nav.helse.rapids_rivers.testsupport.TestRapid
+import no.nav.tiltakspenger.vedtak.client.IVedtakClient
 import no.nav.tiltakspenger.vedtak.client.VedtakClient
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
+import java.time.LocalDate
+import java.time.LocalDateTime
 
-@Disabled
 internal class SøknadMottattRiverTest {
 
-    private val vedtakClient = spyk<VedtakClient>()
+    private val vedtakClient = mockk<IVedtakClient>()
     private val testRapid = TestRapid()
 
     init {
@@ -29,9 +32,42 @@ internal class SøknadMottattRiverTest {
 
     @Test
     fun `Når en søknad mottas, så videresender vi data til tiltakspenger-vedtak`() {
+        coEvery { vedtakClient.mottaSøknad(any(), any()) } returns Unit
         testRapid.sendTestMessage(søknad())
-        coEvery { vedtakClient.mottaTiltak(any(), any()) } returns Unit
-        coVerify { vedtakClient.mottaTiltak(any(), any()) }
+        coVerify { vedtakClient.mottaSøknad(dto(), "journalpostId1") }
+    }
+
+    private fun dto(): SøknadDTO {
+        return SøknadDTO(
+            søknadId = "whatever",
+            journalpostId = "journalpostId1",
+            dokumentInfoId = "whatever3",
+            fornavn = "LEVENDE",
+            etternavn = "POTET",
+            ident = "ident1",
+            deltarKvp = false,
+            deltarIntroduksjonsprogrammet = false,
+            introduksjonsprogrammetDetaljer = null,
+            oppholdInstitusjon = false,
+            typeInstitusjon = null,
+            opprettet =LocalDateTime.of(2022,6, 29, 16, 24,2,608000000),
+            barnetillegg = emptyList(),
+            arenaTiltak = ArenaTiltakDTO(
+                arenaId = "id",
+                arrangoer = "navn",
+                harSluttdatoFraArena = false,
+                tiltakskode = "MENTOR",
+                erIEndreStatus = false,
+                opprinneligSluttdato = null,
+                opprinneligStartdato = LocalDate.of(2022,6,21),
+                sluttdato = LocalDate.of(2022,6,29),
+                startdato = LocalDate.of(2022,6,21),
+            ),
+            brukerregistrertTiltak = null,
+            trygdOgPensjon = emptyList(),
+            fritekst = null,
+            vedlegg = emptyList()
+        )
     }
 
     private fun søknad(): String =
