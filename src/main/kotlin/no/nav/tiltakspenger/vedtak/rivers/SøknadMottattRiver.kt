@@ -43,7 +43,6 @@ internal class SøknadMottattRiver(
                 val journalpostId = packet["søknad.journalpostId"].asText()
                 val dto = packet["søknad"].asObject(SøknadDTO::class.java)
 
-                println(dto)
                 runBlocking(MDCContext()) {
                     vedtakClient.mottaSøknad(
                         søknadDTO = dto,
