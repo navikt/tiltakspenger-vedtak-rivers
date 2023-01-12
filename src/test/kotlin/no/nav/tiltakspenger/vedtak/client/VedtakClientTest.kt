@@ -62,4 +62,30 @@ internal class VedtakClientTest {
             )
         }
     }
+
+    @OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)
+    @Test
+    fun `kaster exception ved autentiseringsfeil fra vedtak`() = runTest {
+        val vedtakClient = VedtakClient(
+            getToken = { "token" },
+            engine = MockEngine {
+                respond(status = HttpStatusCode.Unauthorized, content = "")
+            },
+        )
+
+        val arenaDTO = ArenaTiltakMottattDTO(
+            tiltak = null,
+            ident = "ident",
+            journalpostId = "journalpostId",
+            innhentet = LocalDateTime.now(),
+            feil = null,
+        )
+
+        assertThrows<RuntimeException> {
+            vedtakClient.mottaTiltak(
+                arenaTiltakMottattDTO = arenaDTO,
+                behovId = "BehovId",
+            )
+        }
+    }
 }

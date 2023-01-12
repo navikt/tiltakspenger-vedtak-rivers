@@ -3,13 +3,11 @@ package no.nav.tiltakspenger.vedtak.rivers
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
-import io.mockk.spyk
 import no.nav.helse.rapids_rivers.testsupport.TestRapid
 import no.nav.tiltakspenger.vedtak.client.IVedtakClient
-import no.nav.tiltakspenger.vedtak.client.VedtakClient
 import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import java.time.LocalDate
 import java.time.LocalDateTime
 
@@ -37,6 +35,15 @@ internal class SøknadMottattRiverTest {
         coVerify { vedtakClient.mottaSøknad(dto(), "journalpostId1") }
     }
 
+    @Test
+    fun `Når tiltakspenger-vedtak returnerer en feil, så skal vi kræsje`() {
+        coEvery { vedtakClient.mottaSøknad(any(), any()) } throws RuntimeException("Feil")
+        assertThrows<RuntimeException> {
+            testRapid.sendTestMessage(søknad())
+        }
+        coVerify { vedtakClient.mottaSøknad(dto(), "journalpostId1") }
+    }
+
     private fun dto(): SøknadDTO {
         return SøknadDTO(
             søknadId = "whatever",
@@ -50,7 +57,7 @@ internal class SøknadMottattRiverTest {
             introduksjonsprogrammetDetaljer = null,
             oppholdInstitusjon = false,
             typeInstitusjon = null,
-            opprettet =LocalDateTime.of(2022,6, 29, 16, 24,2,608000000),
+            opprettet = LocalDateTime.of(2022, 6, 29, 16, 24, 2, 608000000),
             barnetillegg = emptyList(),
             arenaTiltak = ArenaTiltakDTO(
                 arenaId = "id",
@@ -59,9 +66,9 @@ internal class SøknadMottattRiverTest {
                 tiltakskode = "MENTOR",
                 erIEndreStatus = false,
                 opprinneligSluttdato = null,
-                opprinneligStartdato = LocalDate.of(2022,6,21),
-                sluttdato = LocalDate.of(2022,6,29),
-                startdato = LocalDate.of(2022,6,21),
+                opprinneligStartdato = LocalDate.of(2022, 6, 21),
+                sluttdato = LocalDate.of(2022, 6, 29),
+                startdato = LocalDate.of(2022, 6, 21),
             ),
             brukerregistrertTiltak = null,
             trygdOgPensjon = emptyList(),
