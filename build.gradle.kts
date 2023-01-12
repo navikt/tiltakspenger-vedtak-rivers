@@ -24,6 +24,9 @@ dependencies {
     implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
     implementation(kotlin("stdlib"))
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-slf4j:$kotlinxCoroutinesVersion")
+
+    implementation("com.github.navikt.tiltakspenger-libs:arenatiltak-dtos:0.0.9")
+    implementation("com.github.navikt.tiltakspenger-libs:arenaytelser-dtos:0.0.9")
     implementation(ktor("client-core"))
     implementation(ktor("client-logging-jvm"))
     implementation(ktor("client-cio"))
