@@ -3,6 +3,7 @@ val ktorVersion = "2.2.2"
 val kotestVersion = "5.5.4"
 val kotlinxCoroutinesVersion = "1.6.4"
 val mockkVersion = "1.13.3"
+val felleslibVersion = "0.0.9"
 
 plugins {
     application
@@ -53,6 +54,7 @@ dependencies {
     implementation("ch.qos.logback:logback-classic:1.4.5")
     implementation("net.logstash.logback:logstash-logback-encoder:7.2")
     implementation("com.papertrailapp:logback-syslog4j:1.0.0")
+    implementation("com.github.navikt:tiltakspenger-libs:$felleslibVersion")
     implementation("com.github.navikt:rapids-and-rivers:2022122311551671792919.2bdd972d7bdb")
     implementation("com.natpryce:konfig:1.6.10.0")
     implementation("com.auth0:jwks-rsa:0.21.3")

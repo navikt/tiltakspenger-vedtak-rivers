@@ -8,6 +8,7 @@ import no.nav.helse.rapids_rivers.MessageContext
 import no.nav.helse.rapids_rivers.RapidsConnection
 import no.nav.helse.rapids_rivers.River
 import no.nav.helse.rapids_rivers.asLocalDateTime
+import no.nav.tiltakspenger.libs.person.PersonRespons
 import no.nav.tiltakspenger.vedtak.client.IVedtakClient
 
 internal class PersonopplysningerMottattRiver(
@@ -25,7 +26,7 @@ internal class PersonopplysningerMottattRiver(
                 it.requireKey("ident")
                 it.requireKey("journalpostId")
                 it.requireKey("@opprettet")
-                it.interestedIn("@løsning.personopplysninger.person")
+                it.interestedIn("@løsning.personopplysninger")
             }
         }.register(this)
     }
@@ -41,7 +42,7 @@ internal class PersonopplysningerMottattRiver(
                 val behovId = packet["@behovId"].asText()
                 val journalpostId = packet["journalpostId"].asText()
                 val innhentet = packet["@opprettet"].asLocalDateTime()
-                val dto = packet["@løsning.personopplysninger.person"].asObject(PersonopplysningerDTO::class.java)
+                val dto = packet["@løsning.personopplysninger"].asObject(PersonRespons::class.java)
 
                 runBlocking(MDCContext()) {
                     vedtakClient.mottaPersonopplysninger(

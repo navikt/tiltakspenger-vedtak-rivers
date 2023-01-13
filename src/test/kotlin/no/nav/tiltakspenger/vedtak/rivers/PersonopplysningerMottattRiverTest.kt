@@ -33,6 +33,15 @@ internal class PersonopplysningerMottattRiverTest {
     }
 
     @Test
+    fun `Når en løsning for personopplysninger mottas med feil, så `() {
+        coEvery { vedtakClient.mottaPersonopplysninger(any(), any()) } returns Unit
+        val personopplysningerMottattHendelse =
+            javaClass.getResource("/personopplysningerMottattHendelseMedFeil.json")?.readText(Charsets.UTF_8)!!
+        testRapid.sendTestMessage(personopplysningerMottattHendelse)
+        coVerify { vedtakClient.mottaPersonopplysninger(any(), any()) }
+    }
+
+    @Test
     fun `Nå kallet mot tiltakspenger-vedtak feiler, kaster vi en RuntimeException`() {
         coEvery { vedtakClient.mottaPersonopplysninger(any(), any()) } throws RuntimeException()
         val personopplysningerMottattHendelse =
