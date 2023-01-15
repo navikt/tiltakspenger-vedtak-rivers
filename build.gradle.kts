@@ -3,7 +3,7 @@ val ktorVersion = "2.2.2"
 val kotestVersion = "5.5.4"
 val kotlinxCoroutinesVersion = "1.6.4"
 val mockkVersion = "1.13.3"
-val felleslibVersion = "0.0.9"
+val felleslibVersion = "0.0.10"
 
 plugins {
     application
@@ -26,8 +26,9 @@ dependencies {
     implementation(kotlin("stdlib"))
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-slf4j:$kotlinxCoroutinesVersion")
 
-    implementation("com.github.navikt.tiltakspenger-libs:arenatiltak-dtos:0.0.9")
-    implementation("com.github.navikt.tiltakspenger-libs:arenaytelser-dtos:0.0.9")
+    implementation("com.github.navikt.tiltakspenger-libs:arenatiltak-dtos:$felleslibVersion")
+    implementation("com.github.navikt.tiltakspenger-libs:arenaytelser-dtos:$felleslibVersion")
+    implementation("com.github.navikt.tiltakspenger-libs:person-dtos:$felleslibVersion")
     implementation(ktor("client-core"))
     implementation(ktor("client-logging-jvm"))
     implementation(ktor("client-cio"))
@@ -54,7 +55,6 @@ dependencies {
     implementation("ch.qos.logback:logback-classic:1.4.5")
     implementation("net.logstash.logback:logstash-logback-encoder:7.2")
     implementation("com.papertrailapp:logback-syslog4j:1.0.0")
-    implementation("com.github.navikt:tiltakspenger-libs:$felleslibVersion")
     implementation("com.github.navikt:rapids-and-rivers:2022122311551671792919.2bdd972d7bdb")
     implementation("com.natpryce:konfig:1.6.10.0")
     implementation("com.auth0:jwks-rsa:0.21.3")

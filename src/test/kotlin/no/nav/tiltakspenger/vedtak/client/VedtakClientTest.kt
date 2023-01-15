@@ -3,6 +3,7 @@ package no.nav.tiltakspenger.vedtak.client
 import io.ktor.client.engine.mock.*
 import io.ktor.http.*
 import kotlinx.coroutines.test.runTest
+import no.nav.tiltakspenger.libs.arena.tiltak.ArenaTiltaksaktivitetResponsDTO
 import no.nav.tiltakspenger.vedtak.rivers.ArenaTiltakMottattDTO
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
@@ -22,11 +23,13 @@ internal class VedtakClientTest {
         )
 
         val arenaDTO = ArenaTiltakMottattDTO(
-            tiltak = null,
+            respons = ArenaTiltaksaktivitetResponsDTO(
+                tiltaksaktiviteter = emptyList(),
+                feil = null
+            ),
             ident = "ident",
             journalpostId = "journalpostId",
             innhentet = LocalDateTime.now(),
-            feil = null,
         )
 
         assertDoesNotThrow {
@@ -48,11 +51,13 @@ internal class VedtakClientTest {
         )
 
         val arenaDTO = ArenaTiltakMottattDTO(
-            tiltak = null,
+            respons = ArenaTiltaksaktivitetResponsDTO(
+                tiltaksaktiviteter = emptyList(),
+                feil = null
+            ),
             ident = "ident",
             journalpostId = "journalpostId",
             innhentet = LocalDateTime.now(),
-            feil = null,
         )
 
         assertThrows<RuntimeException> {
@@ -74,11 +79,13 @@ internal class VedtakClientTest {
         )
 
         val arenaDTO = ArenaTiltakMottattDTO(
-            tiltak = null,
+            respons = ArenaTiltaksaktivitetResponsDTO(
+                tiltaksaktiviteter = emptyList(),
+                feil = null
+            ),
             ident = "ident",
             journalpostId = "journalpostId",
             innhentet = LocalDateTime.now(),
-            feil = null,
         )
 
         assertThrows<RuntimeException> {
