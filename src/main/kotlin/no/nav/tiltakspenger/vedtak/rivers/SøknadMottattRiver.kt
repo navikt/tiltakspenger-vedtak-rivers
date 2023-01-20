@@ -8,7 +8,6 @@ import no.nav.helse.rapids_rivers.JsonMessage
 import no.nav.helse.rapids_rivers.MessageContext
 import no.nav.helse.rapids_rivers.RapidsConnection
 import no.nav.helse.rapids_rivers.River
-import no.nav.helse.rapids_rivers.asLocalDateTime
 import no.nav.tiltakspenger.vedtak.client.IVedtakClient
 
 private val LOG = KotlinLogging.logger {}
@@ -52,7 +51,7 @@ internal class SøknadMottattRiver(
                 LOG.info { "Søknad med journalpostId $journalpostId sendt ok til vedtak" }
             }
         }.onFailure {
-            LOG.error { "Feil ved vedtak for søknad med journalpostid: ${packet["søknad.journalpostId"].asText()}"  }
+            LOG.error { "Feil ved vedtak for søknad med journalpostid: ${packet["søknad.journalpostId"].asText()}" }
         }.getOrThrow()
     }
 }

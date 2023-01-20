@@ -1,8 +1,8 @@
-//package no.nav.tiltakspenger.vedtak.rivers
+// package no.nav.tiltakspenger.vedtak.rivers
 //
-//import java.time.LocalDate
+// import java.time.LocalDate
 //
-//data class PersonopplysningerDTO(
+// data class PersonopplysningerDTO(
 //    val fødselsdato: LocalDate,
 //    val fornavn: String,
 //    val mellomnavn: String?,
@@ -13,4 +13,4 @@
 //    val gtLand: String?,
 //    val barn: List<BarnDTO>,
 //    val barnUtenFolkeregisteridentifikator: List<BarnUtenFolkeregisteridentifikatorDTO> = emptyList()
-//)
+// )

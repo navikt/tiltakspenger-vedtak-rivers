@@ -8,7 +8,7 @@ val felleslibVersion = "0.0.16"
 plugins {
     application
     kotlin("jvm") version "1.8.0"
-    id("io.gitlab.arturbosch.detekt").version("1.22.0")
+    id("com.diffplug.spotless") version "5.0.0"
 }
 
 repositories {
@@ -88,10 +88,10 @@ java {
 }
 
 
-detekt {
-    buildUponDefaultConfig = true
-    allRules = false
-    config = files("$projectDir/config/detekt.yml")
+spotless {
+    kotlin {
+        ktlint("0.45.2")
+    }
 }
 
 tasks {

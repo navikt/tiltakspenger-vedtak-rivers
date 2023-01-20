@@ -10,7 +10,6 @@ import no.nav.tiltakspenger.vedtak.defaultObjectMapper
 private val LOG = KotlinLogging.logger {}
 private val SECURELOG = KotlinLogging.logger("tjenestekall")
 
-
 val objectMapper = defaultObjectMapper()
 
 inline fun <reified T> JsonNode?.asList(): List<T> {

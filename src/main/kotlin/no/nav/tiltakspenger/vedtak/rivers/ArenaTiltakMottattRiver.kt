@@ -3,10 +3,13 @@ package no.nav.tiltakspenger.vedtak.rivers
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.slf4j.MDCContext
 import mu.withLoggingContext
-import no.nav.helse.rapids_rivers.*
+import no.nav.helse.rapids_rivers.JsonMessage
+import no.nav.helse.rapids_rivers.MessageContext
+import no.nav.helse.rapids_rivers.RapidsConnection
+import no.nav.helse.rapids_rivers.River
+import no.nav.helse.rapids_rivers.asLocalDateTime
 import no.nav.tiltakspenger.libs.arena.tiltak.ArenaTiltaksaktivitetResponsDTO
 import no.nav.tiltakspenger.vedtak.client.IVedtakClient
-
 
 internal class ArenaTiltakMottattRiver(
     private val vedtakClient: IVedtakClient,
@@ -61,6 +64,4 @@ internal class ArenaTiltakMottattRiver(
             loggVedFeil("arenatiltak", it, packet)
         }.getOrThrow()
     }
-
-
 }

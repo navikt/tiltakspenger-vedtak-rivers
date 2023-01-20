@@ -1,19 +1,24 @@
 package no.nav.tiltakspenger.vedtak.client
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import io.ktor.client.*
-import io.ktor.client.call.*
-import io.ktor.client.engine.*
-import io.ktor.client.request.*
-import io.ktor.http.*
+import io.ktor.client.HttpClient
+import io.ktor.client.engine.HttpClientEngine
+import io.ktor.client.request.accept
+import io.ktor.client.request.bearerAuth
+import io.ktor.client.request.header
+import io.ktor.client.request.preparePost
+import io.ktor.client.request.setBody
+import io.ktor.http.ContentType
+import io.ktor.http.HttpStatusCode
+import io.ktor.http.contentType
 import no.nav.tiltakspenger.vedtak.Configuration
 import no.nav.tiltakspenger.vedtak.defaultHttpClient
 import no.nav.tiltakspenger.vedtak.defaultObjectMapper
 import no.nav.tiltakspenger.vedtak.rivers.ArenaTiltakMottattDTO
 import no.nav.tiltakspenger.vedtak.rivers.ArenaYtelserMottattDTO
+import no.nav.tiltakspenger.vedtak.rivers.PersonopplysningerMottattDTO
 import no.nav.tiltakspenger.vedtak.rivers.SkjermingDTO
 import no.nav.tiltakspenger.vedtak.rivers.SøknadDTO
-import no.nav.tiltakspenger.vedtak.rivers.PersonopplysningerMottattDTO
 
 interface IVedtakClient {
     suspend fun mottaSkjerming(skjermingDTO: SkjermingDTO, behovId: String)
@@ -37,7 +42,6 @@ class VedtakClient(
         const val navCallIdHeader = "Nav-Call-Id"
     }
 
-    @Suppress("TooGenericExceptionThrown")
     override suspend fun mottaSøknad(søknadDTO: SøknadDTO, journalpostId: String) {
         val httpResponse = httpClient.preparePost("${vedtakClientConfig.baseUrl}/rivers/soknad") {
             header(navCallIdHeader, journalpostId)
@@ -52,7 +56,6 @@ class VedtakClient(
         }
     }
 
-    @Suppress("TooGenericExceptionThrown")
     override suspend fun mottaSkjerming(skjermingDTO: SkjermingDTO, behovId: String) {
         val httpResponse = httpClient.preparePost("${vedtakClientConfig.baseUrl}/rivers/skjerming") {
             header(navCallIdHeader, behovId)
@@ -67,7 +70,6 @@ class VedtakClient(
         }
     }
 
-    @Suppress("TooGenericExceptionThrown")
     override suspend fun mottaTiltak(arenaTiltakMottattDTO: ArenaTiltakMottattDTO, behovId: String) {
         val httpResponse = httpClient.preparePost("${vedtakClientConfig.baseUrl}/rivers/tiltak") {
             header(navCallIdHeader, behovId)
@@ -82,7 +84,6 @@ class VedtakClient(
         }
     }
 
-    @Suppress("TooGenericExceptionThrown")
     override suspend fun mottaYtelser(arenaYtelserMottattDTO: ArenaYtelserMottattDTO, behovId: String) {
         val httpResponse = httpClient.preparePost("${vedtakClientConfig.baseUrl}/rivers/ytelser") {
             header(navCallIdHeader, behovId)
@@ -97,7 +98,6 @@ class VedtakClient(
         }
     }
 
-    @Suppress("TooGenericExceptionThrown")
     override suspend fun mottaPersonopplysninger(
         personopplysningerMottattDTO: PersonopplysningerMottattDTO,
         behovId: String

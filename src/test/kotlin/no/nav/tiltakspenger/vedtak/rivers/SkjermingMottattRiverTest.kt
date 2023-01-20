@@ -3,19 +3,15 @@ package no.nav.tiltakspenger.vedtak.rivers
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
-import io.mockk.spyk
 import no.nav.helse.rapids_rivers.testsupport.TestRapid
 import no.nav.tiltakspenger.vedtak.client.IVedtakClient
-import no.nav.tiltakspenger.vedtak.client.VedtakClient
 import org.junit.jupiter.api.AfterEach
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
 internal class SkjermingMottattRiverTest {
 
     private val vedtakClient = mockk<IVedtakClient>()
     private val testRapid = TestRapid()
-
 
     init {
         SkjermingMottattRiver(

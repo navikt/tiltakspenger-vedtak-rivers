@@ -24,7 +24,7 @@ data class SøknadDTO(
     val trygdOgPensjon: List<TrygdOgPensjonDTO>? = emptyList(),
     val fritekst: String?,
     val vedlegg: List<VedleggDTO>? = emptyList(),
-) 
+)
 
 data class BrukerregistrertTiltakDTO(
     val tiltakskode: String,
@@ -55,7 +55,10 @@ data class IntroduksjonsprogrammetDetaljerDTO(
 )
 
 data class TrygdOgPensjonDTO(
-    val utbetaler: String, val prosent: Int? = null, val fom: LocalDate? = null, val tom: LocalDate? = null
+    val utbetaler: String,
+    val prosent: Int? = null,
+    val fom: LocalDate? = null,
+    val tom: LocalDate? = null
 )
 
 data class VedleggDTO(
@@ -72,7 +75,7 @@ data class BarnetilleggDTO(
     val fornavn: String? = null,
     val mellomnavn: String? = null,
     val etternavn: String? = null,
-    val søktBarnetillegg: Boolean? = null, //Er midlertidig at det er null, endres når alt er i sync
+    val søktBarnetillegg: Boolean? = null, // Er midlertidig at det er null, endres når alt er i sync
 )
 
 enum class TypeInstitusjonDTO(val type: String) {
