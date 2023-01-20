@@ -59,7 +59,16 @@ internal class SkjermingMottattRiverTest {
                 }
               ],
               "@løsning": {
-                "skjerming": false
+                "skjerming": {
+                    "skjermingForPersoner" : {
+                        "søker": {
+                            "ident": "05906398291",
+                            "skjerming": false
+                        },
+                        "barn": []
+                    },
+                    "feil": null
+                }
               }
             }
         """

@@ -55,32 +55,4 @@ internal class SøknadMottattRiver(
             LOG.error { "Feil ved vedtak for søknad med journalpostid: ${packet["søknad.journalpostId"].asText()}"  }
         }.getOrThrow()
     }
-
-
-//
-//        LOG.info("Received søknad")
-//        LOG.debug { vedtakClient }
-//        SECURELOG.info("Received søknad: ${packet.toJson()}")
-//
-//        //Metrics.mottakskanalInc(packet["mottaksKanal"].asText())
-//
-//        val søknad = mapSøknad(
-//            dto = packet["søknad"].asObject(SøknadDTO::class.java),
-//            innhentet = packet["@opprettet"].asLocalDateTime()
-//        )
-//        val søknadMottattHendelse = SøknadMottattHendelse(
-//            aktivitetslogg = Aktivitetslogg(),
-//            journalpostId = packet["søknad.journalpostId"].asText(),
-//            søknad = søknad
-//        )
-//
-//        innsendingMediator.håndter(søknadMottattHendelse)
-//
-//        val identMottattHendelse = IdentMottattHendelse(
-//            aktivitetslogg = Aktivitetslogg(),
-//            ident = packet["søknad.ident"].asText(),
-//        )
-//        søkerMediator.håndter(identMottattHendelse)
-//    }
-
 }
