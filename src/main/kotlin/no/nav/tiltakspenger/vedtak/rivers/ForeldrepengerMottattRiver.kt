@@ -49,7 +49,7 @@ internal class ForeldrepengerMottattRiver(
                         foreldrepengerDTO = ForeldrepengerDTO(
                             ident = ident,
                             journalpostId = journalpostId,
-                            skjerming = dto,
+                            foreldrepenger = dto,
                             innhentet = innhentet,
                         ),
                         behovId = behovId

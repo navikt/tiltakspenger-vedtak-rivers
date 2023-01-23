@@ -6,6 +6,6 @@ import java.time.LocalDateTime
 data class ForeldrepengerDTO(
     val ident: String,
     val journalpostId: String,
-    val skjerming: FPResponsDTO,
+    val foreldrepenger: FPResponsDTO,
     val innhentet: LocalDateTime,
 )
