@@ -30,6 +30,7 @@ dependencies {
     implementation("com.github.navikt.tiltakspenger-libs:arenaytelser-dtos:$felleslibVersion")
     implementation("com.github.navikt.tiltakspenger-libs:person-dtos:$felleslibVersion")
     implementation("com.github.navikt.tiltakspenger-libs:skjerming-dtos:$felleslibVersion")
+    implementation("com.github.navikt.tiltakspenger-libs:fp-dtos:$felleslibVersion")
     implementation(ktor("client-core"))
     implementation(ktor("client-logging-jvm"))
     implementation(ktor("client-cio"))

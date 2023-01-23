@@ -7,6 +7,7 @@ import no.nav.tiltakspenger.vedtak.client.VedtakClient
 import no.nav.tiltakspenger.vedtak.oauth.AzureTokenProvider
 import no.nav.tiltakspenger.vedtak.rivers.ArenaTiltakMottattRiver
 import no.nav.tiltakspenger.vedtak.rivers.ArenaYtelserMottattRiver
+import no.nav.tiltakspenger.vedtak.rivers.ForeldrepengerMottattRiver
 import no.nav.tiltakspenger.vedtak.rivers.PersonopplysningerMottattRiver
 import no.nav.tiltakspenger.vedtak.rivers.SkjermingMottattRiver
 import no.nav.tiltakspenger.vedtak.rivers.SøknadMottattRiver
@@ -50,6 +51,11 @@ fun main() {
         )
 
         PersonopplysningerMottattRiver(
+            rapidsConnection = this,
+            vedtakClient = vedtakClient
+        )
+
+        ForeldrepengerMottattRiver(
             rapidsConnection = this,
             vedtakClient = vedtakClient
         )

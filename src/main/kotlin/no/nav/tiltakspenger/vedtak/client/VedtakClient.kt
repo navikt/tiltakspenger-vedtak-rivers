@@ -16,11 +16,13 @@ import no.nav.tiltakspenger.vedtak.defaultHttpClient
 import no.nav.tiltakspenger.vedtak.defaultObjectMapper
 import no.nav.tiltakspenger.vedtak.rivers.ArenaTiltakMottattDTO
 import no.nav.tiltakspenger.vedtak.rivers.ArenaYtelserMottattDTO
+import no.nav.tiltakspenger.vedtak.rivers.ForeldrepengerDTO
 import no.nav.tiltakspenger.vedtak.rivers.PersonopplysningerMottattDTO
 import no.nav.tiltakspenger.vedtak.rivers.SkjermingDTO
 import no.nav.tiltakspenger.vedtak.rivers.SøknadDTO
 
 interface IVedtakClient {
+    suspend fun mottaForeldrepenger(foreldrepengerDTO: ForeldrepengerDTO, behovId: String)
     suspend fun mottaSkjerming(skjermingDTO: SkjermingDTO, behovId: String)
     suspend fun mottaTiltak(arenaTiltakMottattDTO: ArenaTiltakMottattDTO, behovId: String)
     suspend fun mottaYtelser(arenaYtelserMottattDTO: ArenaYtelserMottattDTO, behovId: String)
@@ -49,6 +51,20 @@ class VedtakClient(
             accept(ContentType.Application.Json)
             contentType(ContentType.Application.Json)
             setBody(søknadDTO)
+        }.execute()
+        when (httpResponse.status) {
+            HttpStatusCode.OK -> return
+            else -> throw RuntimeException("error (responseCode=${httpResponse.status.value}) from Vedtak")
+        }
+    }
+
+    override suspend fun mottaForeldrepenger(foreldrepengerDTO: ForeldrepengerDTO, behovId: String) {
+        val httpResponse = httpClient.preparePost("${vedtakClientConfig.baseUrl}/rivers/foreldrepenger") {
+            header(navCallIdHeader, behovId)
+            bearerAuth(getToken())
+            accept(ContentType.Application.Json)
+            contentType(ContentType.Application.Json)
+            setBody(foreldrepengerDTO)
         }.execute()
         when (httpResponse.status) {
             HttpStatusCode.OK -> return
