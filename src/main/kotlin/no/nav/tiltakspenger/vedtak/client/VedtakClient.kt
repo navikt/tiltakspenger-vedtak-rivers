@@ -17,12 +17,14 @@ import no.nav.tiltakspenger.vedtak.defaultObjectMapper
 import no.nav.tiltakspenger.vedtak.rivers.ArenaTiltakMottattDTO
 import no.nav.tiltakspenger.vedtak.rivers.ArenaYtelserMottattDTO
 import no.nav.tiltakspenger.vedtak.rivers.DayHasBegunEvent
+import no.nav.tiltakspenger.vedtak.rivers.ForeldrepengerDTO
 import no.nav.tiltakspenger.vedtak.rivers.InnsendingUtdatert
 import no.nav.tiltakspenger.vedtak.rivers.PersonopplysningerMottattDTO
 import no.nav.tiltakspenger.vedtak.rivers.SkjermingDTO
 import no.nav.tiltakspenger.vedtak.rivers.SøknadDTO
 
 interface IVedtakClient {
+    suspend fun mottaForeldrepenger(foreldrepengerDTO: ForeldrepengerDTO, behovId: String)
     suspend fun mottaSkjerming(skjermingDTO: SkjermingDTO, behovId: String)
     suspend fun mottaTiltak(arenaTiltakMottattDTO: ArenaTiltakMottattDTO, behovId: String)
     suspend fun mottaYtelser(arenaYtelserMottattDTO: ArenaYtelserMottattDTO, behovId: String)
@@ -39,8 +41,8 @@ class VedtakClient(
     engine: HttpClientEngine? = null,
     private val httpClient: HttpClient = defaultHttpClient(
         objectMapper = objectMapper,
-        engine = engine
-    ) {}
+        engine = engine,
+    ) {},
 ) : IVedtakClient {
     companion object {
         const val navCallIdHeader = "Nav-Call-Id"
@@ -81,6 +83,20 @@ class VedtakClient(
             accept(ContentType.Application.Json)
             contentType(ContentType.Application.Json)
             setBody(utdatertDTO)
+        }.execute()
+        when (httpResponse.status) {
+            HttpStatusCode.OK -> return
+            else -> throw RuntimeException("error (responseCode=${httpResponse.status.value}) from Vedtak")
+        }
+    }
+
+    override suspend fun mottaForeldrepenger(foreldrepengerDTO: ForeldrepengerDTO, behovId: String) {
+        val httpResponse = httpClient.preparePost("${vedtakClientConfig.baseUrl}/rivers/foreldrepenger") {
+            header(navCallIdHeader, behovId)
+            bearerAuth(getToken())
+            accept(ContentType.Application.Json)
+            contentType(ContentType.Application.Json)
+            setBody(foreldrepengerDTO)
         }.execute()
         when (httpResponse.status) {
             HttpStatusCode.OK -> return
@@ -132,7 +148,7 @@ class VedtakClient(
 
     override suspend fun mottaPersonopplysninger(
         personopplysningerMottattDTO: PersonopplysningerMottattDTO,
-        behovId: String
+        behovId: String,
     ) {
         val httpResponse = httpClient.preparePost("${vedtakClientConfig.baseUrl}/rivers/personopplysninger") {
             header(navCallIdHeader, behovId)
