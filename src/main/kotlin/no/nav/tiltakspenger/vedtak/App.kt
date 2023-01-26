@@ -7,8 +7,8 @@ import no.nav.tiltakspenger.vedtak.client.VedtakClient
 import no.nav.tiltakspenger.vedtak.oauth.AzureTokenProvider
 import no.nav.tiltakspenger.vedtak.rivers.ArenaTiltakMottattRiver
 import no.nav.tiltakspenger.vedtak.rivers.ArenaYtelserMottattRiver
+import no.nav.tiltakspenger.vedtak.rivers.DayHasBegunRiver
 import no.nav.tiltakspenger.vedtak.rivers.PersonopplysningerMottattRiver
-import no.nav.tiltakspenger.vedtak.rivers.SkjermingMottattRiver
 import no.nav.tiltakspenger.vedtak.rivers.SøknadMottattRiver
 
 fun main() {
@@ -34,7 +34,7 @@ fun main() {
             vedtakClient = vedtakClient,
         )
 
-        SkjermingMottattRiver(
+        DayHasBegunRiver(
             rapidsConnection = this,
             vedtakClient = vedtakClient,
         )

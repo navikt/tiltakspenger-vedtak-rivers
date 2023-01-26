@@ -16,6 +16,8 @@ import no.nav.tiltakspenger.vedtak.defaultHttpClient
 import no.nav.tiltakspenger.vedtak.defaultObjectMapper
 import no.nav.tiltakspenger.vedtak.rivers.ArenaTiltakMottattDTO
 import no.nav.tiltakspenger.vedtak.rivers.ArenaYtelserMottattDTO
+import no.nav.tiltakspenger.vedtak.rivers.DayHasBegunEvent
+import no.nav.tiltakspenger.vedtak.rivers.InnsendingUtdatert
 import no.nav.tiltakspenger.vedtak.rivers.PersonopplysningerMottattDTO
 import no.nav.tiltakspenger.vedtak.rivers.SkjermingDTO
 import no.nav.tiltakspenger.vedtak.rivers.SøknadDTO
@@ -26,6 +28,8 @@ interface IVedtakClient {
     suspend fun mottaYtelser(arenaYtelserMottattDTO: ArenaYtelserMottattDTO, behovId: String)
     suspend fun mottaSøknad(søknadDTO: SøknadDTO, journalpostId: String)
     suspend fun mottaPersonopplysninger(personopplysningerMottattDTO: PersonopplysningerMottattDTO, behovId: String)
+    suspend fun mottaUtdatert(utdatertDTO: InnsendingUtdatert)
+    suspend fun mottaDayHasBegun(dayHasBegunEvent: DayHasBegunEvent)
 }
 
 class VedtakClient(
@@ -49,6 +53,34 @@ class VedtakClient(
             accept(ContentType.Application.Json)
             contentType(ContentType.Application.Json)
             setBody(søknadDTO)
+        }.execute()
+        when (httpResponse.status) {
+            HttpStatusCode.OK -> return
+            else -> throw RuntimeException("error (responseCode=${httpResponse.status.value}) from Vedtak")
+        }
+    }
+
+    override suspend fun mottaDayHasBegun(dayHasBegunEvent: DayHasBegunEvent) {
+        val httpResponse = httpClient.preparePost("${vedtakClientConfig.baseUrl}/rivers/utdatert") {
+            header(navCallIdHeader, dayHasBegunEvent.date)
+            bearerAuth(getToken())
+            accept(ContentType.Application.Json)
+            contentType(ContentType.Application.Json)
+            setBody(dayHasBegunEvent)
+        }.execute()
+        when (httpResponse.status) {
+            HttpStatusCode.OK -> return
+            else -> throw RuntimeException("error (responseCode=${httpResponse.status.value}) from Vedtak")
+        }
+    }
+
+    override suspend fun mottaUtdatert(utdatertDTO: InnsendingUtdatert) {
+        val httpResponse = httpClient.preparePost("${vedtakClientConfig.baseUrl}/rivers/utdatert") {
+            header(navCallIdHeader, utdatertDTO.journalpostId)
+            bearerAuth(getToken())
+            accept(ContentType.Application.Json)
+            contentType(ContentType.Application.Json)
+            setBody(utdatertDTO)
         }.execute()
         when (httpResponse.status) {
             HttpStatusCode.OK -> return
