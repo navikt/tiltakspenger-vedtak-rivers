@@ -8,6 +8,7 @@ import no.nav.tiltakspenger.vedtak.oauth.AzureTokenProvider
 import no.nav.tiltakspenger.vedtak.rivers.ArenaTiltakMottattRiver
 import no.nav.tiltakspenger.vedtak.rivers.ArenaYtelserMottattRiver
 import no.nav.tiltakspenger.vedtak.rivers.ForeldrepengerMottattRiver
+import no.nav.tiltakspenger.vedtak.rivers.OvergangsstønadMottattRiver
 import no.nav.tiltakspenger.vedtak.rivers.PersonopplysningerMottattRiver
 import no.nav.tiltakspenger.vedtak.rivers.SkjermingMottattRiver
 import no.nav.tiltakspenger.vedtak.rivers.SøknadMottattRiver
@@ -60,15 +61,22 @@ fun main() {
             vedtakClient = vedtakClient
         )
 
-        register(object : RapidsConnection.StatusListener {
-            override fun onStartup(rapidsConnection: RapidsConnection) {
-                log.info { "Starting tiltakspenger-vedtak-rivers" }
-            }
+        OvergangsstønadMottattRiver(
+            rapidsConnection = this,
+            vedtakClient = vedtakClient
+        )
 
-            override fun onShutdown(rapidsConnection: RapidsConnection) {
-                log.info { "Stopping tiltakspenger-vedtak-rivers" }
-                super.onShutdown(rapidsConnection)
+        register(
+            object : RapidsConnection.StatusListener {
+                override fun onStartup(rapidsConnection: RapidsConnection) {
+                    log.info { "Starting tiltakspenger-vedtak-rivers" }
+                }
+
+                override fun onShutdown(rapidsConnection: RapidsConnection) {
+                    log.info { "Stopping tiltakspenger-vedtak-rivers" }
+                    super.onShutdown(rapidsConnection)
+                }
             }
-        })
+        )
     }.start()
 }
