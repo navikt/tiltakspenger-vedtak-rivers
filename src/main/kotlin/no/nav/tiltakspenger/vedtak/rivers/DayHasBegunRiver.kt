@@ -16,7 +16,7 @@ data class DayHasBegunEvent(val date: LocalDate)
 
 internal class DayHasBegunRiver(
     private val vedtakClient: IVedtakClient,
-    rapidsConnection: RapidsConnection
+    rapidsConnection: RapidsConnection,
 ) : River.PacketListener {
 
     init {
@@ -25,6 +25,7 @@ internal class DayHasBegunRiver(
                 it.demandValue("@event_name", "dayHasBegunEvent")
                 it.requireKey("dayHasBegun")
                 it.requireKey("@opprettet")
+                it.requireKey("@id")
             }
         }.register(this)
     }
@@ -40,7 +41,7 @@ internal class DayHasBegunRiver(
 
                 runBlocking(MDCContext()) {
                     vedtakClient.mottaDayHasBegun(
-                        DayHasBegunEvent(date = dag)
+                        DayHasBegunEvent(date = dag),
                     )
                 }
                 loggVedUtgang("dayHasBegun", packet)

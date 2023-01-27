@@ -15,7 +15,7 @@ data class InnsendingUtdatert(val journalpostId: String)
 
 internal class InnsendingUtdatertRiver(
     private val vedtakClient: IVedtakClient,
-    rapidsConnection: RapidsConnection
+    rapidsConnection: RapidsConnection,
 ) : River.PacketListener {
 
     init {
@@ -24,6 +24,7 @@ internal class InnsendingUtdatertRiver(
                 it.demandValue("@event_name", "InnsendingUtdatertHendelse")
                 it.requireKey("journalpostId")
                 it.requireKey("@opprettet")
+                it.requireKey("@id")
             }
         }.register(this)
     }
@@ -42,7 +43,7 @@ internal class InnsendingUtdatertRiver(
                     vedtakClient.mottaUtdatert(
                         InnsendingUtdatert(
                             journalpostId = journalpostId,
-                        )
+                        ),
                     )
                 }
                 loggVedUtgang("utdatert hendelse", packet)
