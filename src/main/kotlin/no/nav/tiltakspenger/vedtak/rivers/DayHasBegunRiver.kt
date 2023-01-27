@@ -21,8 +21,8 @@ internal class DayHasBegunRiver(
     init {
         River(rapidsConnection).apply {
             validate {
-                it.demandValue("@event_name", "hourHasBegunEvent")
-                it.requireKey("hourHasBegun")
+                it.demandValue("@event_name", "dayHasBegunEvent")
+                it.requireKey("dayHasBegun")
                 it.requireKey("@opprettet")
                 it.requireKey("@id")
             }
@@ -36,7 +36,7 @@ internal class DayHasBegunRiver(
                 "id" to packet["@id"].asText(),
             ) {
                 val innhentet = packet["@opprettet"].asLocalDateTime()
-                val dag = packet["hourHasBegun"].asLocalDateTime().toLocalDate()
+                val dag = packet["dayHasBegun"].asLocalDateTime()
 
                 runBlocking(MDCContext()) {
                     vedtakClient.mottaDayHasBegun(
