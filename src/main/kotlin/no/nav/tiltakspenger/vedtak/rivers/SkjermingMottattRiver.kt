@@ -21,12 +21,12 @@ internal class SkjermingMottattRiver(
             validate {
                 it.demandAllOrAny("@behov", listOf("skjerming"))
                 it.demandKey("@løsning")
+                it.demandKey("@løsning.skjerming")
                 it.demandKey("@id")
                 it.demandKey("@behovId")
                 it.requireKey("ident")
                 it.requireKey("journalpostId")
                 it.requireKey("@opprettet")
-                it.interestedIn("@løsning.skjerming")
             }
         }.register(this)
     }

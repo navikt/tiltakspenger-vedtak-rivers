@@ -21,12 +21,12 @@ internal class ArenaYtelserMottattRiver(
             validate {
                 it.demandAllOrAny("@behov", listOf("arenaytelser"))
                 it.demandKey("@løsning")
+                it.demandKey("@løsning.arenaytelser")
                 it.demandKey("@id")
                 it.demandKey("@behovId")
                 it.requireKey("ident")
                 it.requireKey("journalpostId")
                 it.requireKey("@opprettet")
-                it.interestedIn("@løsning.arenaytelser")
             }
         }.register(this)
     }

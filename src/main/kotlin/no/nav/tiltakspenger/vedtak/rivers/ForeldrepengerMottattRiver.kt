@@ -21,12 +21,12 @@ internal class ForeldrepengerMottattRiver(
             validate {
                 it.demandAllOrAny("@behov", listOf("fpytelser"))
                 it.demandKey("@løsning")
+                it.demandKey("@løsning.fpytelser")
                 it.demandKey("@id")
                 it.demandKey("@behovId")
                 it.requireKey("ident")
                 it.requireKey("journalpostId")
                 it.requireKey("@opprettet")
-                it.interestedIn("@løsning.fpytelser")
             }
         }.register(this)
     }

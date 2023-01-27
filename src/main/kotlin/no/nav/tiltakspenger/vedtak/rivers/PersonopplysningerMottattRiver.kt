@@ -21,12 +21,12 @@ internal class PersonopplysningerMottattRiver(
             validate {
                 it.demandAllOrAny("@behov", listOf("personopplysninger"))
                 it.demandKey("@løsning")
+                it.demandKey("@løsning.personopplysninger")
                 it.demandKey("@id")
                 it.demandKey("@behovId")
                 it.requireKey("ident")
                 it.requireKey("journalpostId")
                 it.requireKey("@opprettet")
-                it.interestedIn("@løsning.personopplysninger")
             }
         }.register(this)
     }
@@ -37,7 +37,7 @@ internal class PersonopplysningerMottattRiver(
             loggFeltVedInngang("personopplysninger", "fnr", ident)
             withLoggingContext(
                 "id" to packet["@id"].asText(),
-                "behovId" to packet["@behovId"].asText()
+                "behovId" to packet["@behovId"].asText(),
             ) {
                 val behovId = packet["@behovId"].asText()
                 val journalpostId = packet["journalpostId"].asText()
@@ -50,9 +50,9 @@ internal class PersonopplysningerMottattRiver(
                             journalpostId = journalpostId,
                             ident = ident,
                             personopplysninger = dto,
-                            innhentet = innhentet
+                            innhentet = innhentet,
                         ),
-                        behovId = behovId
+                        behovId = behovId,
                     )
                 }
                 loggFeltVedUtgang("personopplysninger", "fnr", ident)
