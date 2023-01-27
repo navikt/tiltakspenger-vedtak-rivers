@@ -7,7 +7,6 @@ import no.nav.helse.rapids_rivers.JsonMessage
 import no.nav.helse.rapids_rivers.MessageContext
 import no.nav.helse.rapids_rivers.RapidsConnection
 import no.nav.helse.rapids_rivers.River
-import no.nav.helse.rapids_rivers.asLocalDate
 import no.nav.helse.rapids_rivers.asLocalDateTime
 import no.nav.tiltakspenger.vedtak.client.IVedtakClient
 import java.time.LocalDate
@@ -22,8 +21,8 @@ internal class DayHasBegunRiver(
     init {
         River(rapidsConnection).apply {
             validate {
-                it.demandValue("@event_name", "dayHasBegunEvent")
-                it.requireKey("dayHasBegun")
+                it.demandValue("@event_name", "hourHasBegunEvent")
+                it.requireKey("hourHasBegun")
                 it.requireKey("@opprettet")
                 it.requireKey("@id")
             }
@@ -37,7 +36,7 @@ internal class DayHasBegunRiver(
                 "id" to packet["@id"].asText(),
             ) {
                 val innhentet = packet["@opprettet"].asLocalDateTime()
-                val dag = packet["dayHasBegun"].asLocalDate()
+                val dag = packet["hourHasBegun"].asLocalDateTime().toLocalDate()
 
                 runBlocking(MDCContext()) {
                     vedtakClient.mottaDayHasBegun(
