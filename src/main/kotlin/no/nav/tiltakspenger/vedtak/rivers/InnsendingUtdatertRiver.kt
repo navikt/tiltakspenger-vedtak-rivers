@@ -7,7 +7,6 @@ import no.nav.helse.rapids_rivers.JsonMessage
 import no.nav.helse.rapids_rivers.MessageContext
 import no.nav.helse.rapids_rivers.RapidsConnection
 import no.nav.helse.rapids_rivers.River
-import no.nav.helse.rapids_rivers.asLocalDate
 import no.nav.helse.rapids_rivers.asLocalDateTime
 import no.nav.tiltakspenger.vedtak.client.IVedtakClient
 
@@ -37,7 +36,6 @@ internal class InnsendingUtdatertRiver(
             ) {
                 val innhentet = packet["@opprettet"].asLocalDateTime()
                 val journalpostId = packet["journalpostId"].asText()
-                val dag = packet["dag"].asLocalDate()
 
                 runBlocking(MDCContext()) {
                     vedtakClient.mottaUtdatert(
