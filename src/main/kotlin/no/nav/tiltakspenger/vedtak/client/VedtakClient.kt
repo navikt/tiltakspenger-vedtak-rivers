@@ -63,7 +63,7 @@ class VedtakClient(
     }
 
     override suspend fun mottaDayHasBegun(dayHasBegunEvent: DayHasBegunEvent) {
-        val httpResponse = httpClient.preparePost("${vedtakClientConfig.baseUrl}/rivers/utdatert") {
+        val httpResponse = httpClient.preparePost("${vedtakClientConfig.baseUrl}/rivers/passageoftime/dayhasbegun") {
             header(navCallIdHeader, dayHasBegunEvent.date)
             bearerAuth(getToken())
             accept(ContentType.Application.Json)
@@ -77,7 +77,7 @@ class VedtakClient(
     }
 
     override suspend fun mottaUtdatert(utdatertDTO: InnsendingUtdatert) {
-        val httpResponse = httpClient.preparePost("${vedtakClientConfig.baseUrl}/rivers/utdatert") {
+        val httpResponse = httpClient.preparePost("${vedtakClientConfig.baseUrl}/rivers/innsendingutdatert") {
             header(navCallIdHeader, utdatertDTO.journalpostId)
             bearerAuth(getToken())
             accept(ContentType.Application.Json)
