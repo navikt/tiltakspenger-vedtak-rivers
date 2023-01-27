@@ -33,10 +33,10 @@ internal class ArenaTiltakMottattRiver(
 
     override fun onPacket(packet: JsonMessage, context: MessageContext) {
         runCatching {
-            loggVedInngang("arenatiltak", packet)
+            loggBehovVedInngang("arenatiltak", packet)
             withLoggingContext(
                 "id" to packet["@id"].asText(),
-                "behovId" to packet["@behovId"].asText()
+                "behovId" to packet["@behovId"].asText(),
             ) {
                 val ident = packet["ident"].asText()
                 val behovId = packet["@behovId"].asText()
@@ -55,13 +55,13 @@ internal class ArenaTiltakMottattRiver(
                             journalpostId = journalpostId,
                             innhentet = innhentet,
                         ),
-                        behovId = behovId
+                        behovId = behovId,
                     )
                 }
-                loggVedUtgang("arenatiltak", packet)
+                loggBehovVedUtgang("arenatiltak", packet)
             }
         }.onFailure {
-            loggVedFeil("arenatiltak", it, packet)
+            loggBehovVedFeil("arenatiltak", it, packet)
         }.getOrThrow()
     }
 }

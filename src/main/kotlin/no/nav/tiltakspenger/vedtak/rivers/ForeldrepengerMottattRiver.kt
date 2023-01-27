@@ -13,7 +13,7 @@ import no.nav.tiltakspenger.vedtak.client.IVedtakClient
 
 internal class ForeldrepengerMottattRiver(
     private val vedtakClient: IVedtakClient,
-    rapidsConnection: RapidsConnection
+    rapidsConnection: RapidsConnection,
 ) : River.PacketListener {
 
     init {
@@ -33,10 +33,10 @@ internal class ForeldrepengerMottattRiver(
 
     override fun onPacket(packet: JsonMessage, context: MessageContext) {
         runCatching {
-            loggVedInngang("fpytelser", packet)
+            loggBehovVedInngang("fpytelser", packet)
             withLoggingContext(
                 "id" to packet["@id"].asText(),
-                "behovId" to packet["@behovId"].asText()
+                "behovId" to packet["@behovId"].asText(),
             ) {
                 val ident = packet["ident"].asText()
                 val behovId = packet["@behovId"].asText()
@@ -52,13 +52,13 @@ internal class ForeldrepengerMottattRiver(
                             foreldrepenger = dto,
                             innhentet = innhentet,
                         ),
-                        behovId = behovId
+                        behovId = behovId,
                     )
                 }
-                loggVedUtgang("fpytelser", packet)
+                loggBehovVedUtgang("fpytelser", packet)
             }
         }.onFailure {
-            loggVedFeil("fpytelser", it, packet)
+            loggBehovVedFeil("fpytelser", it, packet)
         }.getOrThrow()
     }
 }

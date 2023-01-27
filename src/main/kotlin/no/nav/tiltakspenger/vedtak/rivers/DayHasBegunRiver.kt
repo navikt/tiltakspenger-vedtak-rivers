@@ -32,7 +32,7 @@ internal class DayHasBegunRiver(
 
     override fun onPacket(packet: JsonMessage, context: MessageContext) {
         runCatching {
-            loggVedInngang("dayHasBegun", packet)
+            loggEventVedInngang("dayHasBegun", packet)
             withLoggingContext(
                 "id" to packet["@id"].asText(),
             ) {
@@ -44,10 +44,10 @@ internal class DayHasBegunRiver(
                         DayHasBegunEvent(date = dag),
                     )
                 }
-                loggVedUtgang("dayHasBegun", packet)
+                loggEventVedUtgang("dayHasBegun", packet)
             }
         }.onFailure {
-            loggVedFeil("dayHasBegun", it, packet)
+            loggEventVedFeil("dayHasBegun", it, packet)
         }.getOrThrow()
     }
 }

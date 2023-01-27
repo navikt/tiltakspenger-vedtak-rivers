@@ -31,7 +31,7 @@ internal class InnsendingUtdatertRiver(
 
     override fun onPacket(packet: JsonMessage, context: MessageContext) {
         runCatching {
-            loggVedInngang("utdatert hendelse", packet)
+            loggEventVedInngang("utdatert hendelse", packet)
             withLoggingContext(
                 "id" to packet["@id"].asText(),
             ) {
@@ -46,10 +46,10 @@ internal class InnsendingUtdatertRiver(
                         ),
                     )
                 }
-                loggVedUtgang("utdatert hendelse", packet)
+                loggEventVedUtgang("utdatert hendelse", packet)
             }
         }.onFailure {
-            loggVedFeil("utdatert hendelse", it, packet)
+            loggEventVedFeil("utdatert hendelse", it, packet)
         }.getOrThrow()
     }
 }
