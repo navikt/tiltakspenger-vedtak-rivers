@@ -9,7 +9,9 @@ import no.nav.tiltakspenger.vedtak.rivers.ArenaTiltakMottattRiver
 import no.nav.tiltakspenger.vedtak.rivers.ArenaYtelserMottattRiver
 import no.nav.tiltakspenger.vedtak.rivers.DayHasBegunRiver
 import no.nav.tiltakspenger.vedtak.rivers.ForeldrepengerMottattRiver
+import no.nav.tiltakspenger.vedtak.rivers.InnsendingUtdatertRiver
 import no.nav.tiltakspenger.vedtak.rivers.PersonopplysningerMottattRiver
+import no.nav.tiltakspenger.vedtak.rivers.SkjermingMottattRiver
 import no.nav.tiltakspenger.vedtak.rivers.SøknadMottattRiver
 
 fun main() {
@@ -56,6 +58,16 @@ fun main() {
         )
 
         ForeldrepengerMottattRiver(
+            rapidsConnection = this,
+            vedtakClient = vedtakClient,
+        )
+
+        SkjermingMottattRiver(
+            rapidsConnection = this,
+            vedtakClient = vedtakClient,
+        )
+
+        InnsendingUtdatertRiver(
             rapidsConnection = this,
             vedtakClient = vedtakClient,
         )
