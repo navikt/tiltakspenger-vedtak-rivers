@@ -23,6 +23,7 @@ internal class DayHasBegunRiver(
         River(rapidsConnection).apply {
             validate {
                 it.demandValue("@event_name", "dayHasBegunEvent")
+                it.demandKey("@id")
                 it.requireKey("dayHasBegun")
                 it.requireKey("@opprettet")
                 it.requireKey("@id")
