@@ -42,7 +42,14 @@ internal class ForeldrepengerMottattRiver(
                 val behovId = packet["@behovId"].asText()
                 val innhentet = packet["@opprettet"].asLocalDateTime()
                 val journalpostId = packet["journalpostId"].asText()
-                val dto = packet["@løsning.fpytelser"].asObject(FPResponsDTO::class.java)
+                val dto = if (packet["@løsning.fpytelser"].isEmpty) {
+                    FPResponsDTO(
+                        ytelser = emptyList(),
+                        feil = null
+                    )
+                } else {
+                    packet["@løsning.fpytelser"].asObject(FPResponsDTO::class.java)
+                }
 
                 runBlocking(MDCContext()) {
                     vedtakClient.mottaForeldrepenger(
