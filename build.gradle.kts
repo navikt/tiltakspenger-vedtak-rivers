@@ -3,7 +3,7 @@ val ktorVersion = "2.2.2"
 val kotestVersion = "5.5.4"
 val kotlinxCoroutinesVersion = "1.6.4"
 val mockkVersion = "1.13.3"
-val felleslibVersion = "0.0.19"
+val felleslibVersion = "0.0.21"
 
 plugins {
     application
@@ -31,6 +31,7 @@ dependencies {
     implementation("com.github.navikt.tiltakspenger-libs:person-dtos:$felleslibVersion")
     implementation("com.github.navikt.tiltakspenger-libs:skjerming-dtos:$felleslibVersion")
     implementation("com.github.navikt.tiltakspenger-libs:fp-dtos:$felleslibVersion")
+    implementation("com.github.navikt.tiltakspenger-libs:ufore-dtos:$felleslibVersion")
     implementation(ktor("client-core"))
     implementation(ktor("client-logging-jvm"))
     implementation(ktor("client-cio"))

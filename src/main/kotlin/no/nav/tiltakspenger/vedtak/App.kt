@@ -13,6 +13,7 @@ import no.nav.tiltakspenger.vedtak.rivers.InnsendingUtdatertRiver
 import no.nav.tiltakspenger.vedtak.rivers.PersonopplysningerMottattRiver
 import no.nav.tiltakspenger.vedtak.rivers.SkjermingMottattRiver
 import no.nav.tiltakspenger.vedtak.rivers.SøknadMottattRiver
+import no.nav.tiltakspenger.vedtak.rivers.UføreMottattRiver
 
 fun main() {
     System.setProperty("logback.configurationFile", Configuration.logbackConfigurationFile())
@@ -58,6 +59,11 @@ fun main() {
         )
 
         ForeldrepengerMottattRiver(
+            rapidsConnection = this,
+            vedtakClient = vedtakClient,
+        )
+
+        UføreMottattRiver(
             rapidsConnection = this,
             vedtakClient = vedtakClient,
         )

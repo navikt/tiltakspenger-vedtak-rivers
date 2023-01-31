@@ -22,8 +22,10 @@ import no.nav.tiltakspenger.vedtak.rivers.InnsendingUtdatert
 import no.nav.tiltakspenger.vedtak.rivers.PersonopplysningerMottattDTO
 import no.nav.tiltakspenger.vedtak.rivers.SkjermingDTO
 import no.nav.tiltakspenger.vedtak.rivers.SøknadDTO
+import no.nav.tiltakspenger.vedtak.rivers.UføreDTO
 
 interface IVedtakClient {
+    suspend fun mottaUføre(uføreDTO: UføreDTO, behovId: String)
     suspend fun mottaForeldrepenger(foreldrepengerDTO: ForeldrepengerDTO, behovId: String)
     suspend fun mottaSkjerming(skjermingDTO: SkjermingDTO, behovId: String)
     suspend fun mottaTiltak(arenaTiltakMottattDTO: ArenaTiltakMottattDTO, behovId: String)
@@ -97,6 +99,20 @@ class VedtakClient(
             accept(ContentType.Application.Json)
             contentType(ContentType.Application.Json)
             setBody(foreldrepengerDTO)
+        }.execute()
+        when (httpResponse.status) {
+            HttpStatusCode.OK -> return
+            else -> throw RuntimeException("error (responseCode=${httpResponse.status.value}) from Vedtak")
+        }
+    }
+
+    override suspend fun mottaUføre(uføreDTO: UføreDTO, behovId: String) {
+        val httpResponse = httpClient.preparePost("${vedtakClientConfig.baseUrl}/rivers/ufore") {
+            header(navCallIdHeader, behovId)
+            bearerAuth(getToken())
+            accept(ContentType.Application.Json)
+            contentType(ContentType.Application.Json)
+            setBody(uføreDTO)
         }.execute()
         when (httpResponse.status) {
             HttpStatusCode.OK -> return
