@@ -14,4 +14,5 @@ data class OvergangsstønadDTO(
     val perioder: List<OvergangsstønadPeriode>,
     val journalpostId: String,
     val innhentet: LocalDateTime,
+    val feil: String? = null,
 )

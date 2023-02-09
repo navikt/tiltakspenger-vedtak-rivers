@@ -25,7 +25,7 @@ internal class OvergangsstønadMottattRiver(
                 it.requireKey("ident")
                 it.requireKey("journalpostId")
                 it.requireKey("@opprettet")
-                it.interestedIn("@løsning.perioder")
+                it.interestedIn("@løsning.overgangsstønad")
             }
         }.register(this)
     }
@@ -41,13 +41,13 @@ internal class OvergangsstønadMottattRiver(
                 val behovId = packet["@behovId"].asText()
                 val innhentet = packet["@opprettet"].asLocalDateTime()
                 val journalpostId = packet["journalpostId"].asText()
-                val perioder = packet["@løsning.perioder"].asList<OvergangsstønadPeriode>()
+                val overgangsstønadData = packet["@løsning.overgangsstønad"].asObject(OvergangsstønadDTO::class.java)
 
                 runBlocking(MDCContext()) {
                     vedtakClient.mottaOvergangsstønad(
                         overgangsstønadDTO = OvergangsstønadDTO(
                             ident = ident,
-                            perioder = perioder,
+                            perioder = overgangsstønadData.perioder,
                             innhentet = innhentet,
                             journalpostId = journalpostId,
                         ),
