@@ -44,13 +44,15 @@ internal class OvergangsstønadMottattRiverTest {
         "ident": "test",
         "@opprettet": "2025-01-01T00:00:00",
         "@løsning": {
-          "perioder": [
-            {"personIdent":"123","fomDato":"2025-01-01","tomDato":"2025-01-10","datakilde":"kilde"}
-          ],
-          "status":"test",
-          "melding":"test",
-          "frontendFeilmelding":"test",
-          "stacktrace":"test"
+          "overgangsstønad": {
+              "perioder": [
+                {"fomDato":"2025-01-01","tomDato":"2025-01-10","datakilde":"kilde"}
+              ],
+              "status":"test",
+              "melding":"test",
+              "frontendFeilmelding":"test",
+              "stacktrace":"test"
+          }
         }
       }"""
 }
