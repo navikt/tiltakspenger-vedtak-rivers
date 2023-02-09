@@ -41,7 +41,8 @@ internal class OvergangsstønadMottattRiver(
                 val behovId = packet["@behovId"].asText()
                 val innhentet = packet["@opprettet"].asLocalDateTime()
                 val journalpostId = packet["journalpostId"].asText()
-                val overgangsstønadData = packet["@løsning.overgangsstønad"].asObject(OvergangsstønadDTO::class.java)
+                val overgangsstønadData =
+                    packet["@løsning.overgangsstønad"].asObject(OvergangsstønadLøsningDTO::class.java)
 
                 runBlocking(MDCContext()) {
                     vedtakClient.mottaOvergangsstønad(
