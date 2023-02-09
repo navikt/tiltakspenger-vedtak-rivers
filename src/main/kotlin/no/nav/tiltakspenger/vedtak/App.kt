@@ -10,6 +10,7 @@ import no.nav.tiltakspenger.vedtak.rivers.ArenaYtelserMottattRiver
 import no.nav.tiltakspenger.vedtak.rivers.DayHasBegunRiver
 import no.nav.tiltakspenger.vedtak.rivers.ForeldrepengerMottattRiver
 import no.nav.tiltakspenger.vedtak.rivers.InnsendingUtdatertRiver
+import no.nav.tiltakspenger.vedtak.rivers.OvergangsstønadMottattRiver
 import no.nav.tiltakspenger.vedtak.rivers.PersonopplysningerMottattRiver
 import no.nav.tiltakspenger.vedtak.rivers.SkjermingMottattRiver
 import no.nav.tiltakspenger.vedtak.rivers.SøknadMottattRiver
@@ -33,6 +34,11 @@ fun main() {
     )
 
     RapidApplication.create(Configuration.rapidsAndRivers).apply {
+        OvergangsstønadMottattRiver(
+            rapidsConnection = this,
+            vedtakClient = vedtakClient,
+        )
+
         SøknadMottattRiver(
             rapidsConnection = this,
             vedtakClient = vedtakClient,
