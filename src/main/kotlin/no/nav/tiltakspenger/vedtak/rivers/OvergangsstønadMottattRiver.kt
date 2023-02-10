@@ -44,6 +44,11 @@ internal class OvergangsstønadMottattRiver(
                 val overgangsstønadData =
                     packet["@løsning.overgangsstønad"].asObject(OvergangsstønadLøsningDTO::class.java)
 
+                val feil = overgangsstønadData.feil;
+                if (feil != null) {
+                    throw RuntimeException("Fikk feil fra løsning overgangsstønad-behov: $feil")
+                }
+
                 runBlocking(MDCContext()) {
                     vedtakClient.mottaOvergangsstønad(
                         overgangsstønadDTO = OvergangsstønadDTO(
