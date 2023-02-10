@@ -47,11 +47,7 @@ internal class OvergangsstønadMottattRiverTest {
           "overgangsstønad": {
               "perioder": [
                 {"fomDato":"2025-01-01","tomDato":"2025-01-10","datakilde":"kilde"}
-              ],
-              "status":"test",
-              "melding":"test",
-              "frontendFeilmelding":"test",
-              "stacktrace":"test"
+              ]
           }
         }
       }"""
