@@ -15,7 +15,7 @@ private val SECURELOG = KotlinLogging.logger("tjenestekall")
 
 internal class SøknadMottattRiver(
     private val vedtakClient: IVedtakClient,
-    rapidsConnection: RapidsConnection
+    rapidsConnection: RapidsConnection,
 ) : River.PacketListener {
 
     init {
@@ -37,7 +37,7 @@ internal class SøknadMottattRiver(
             SECURELOG.info("Received søknad: ${packet.toJson()}")
             withLoggingContext(
                 "id" to packet["@id"].asText(),
-                "journalpostId" to packet["søknad.journalpostId"].asText()
+                "journalpostId" to packet["søknad.journalpostId"].asText(),
             ) {
                 val journalpostId = packet["søknad.journalpostId"].asText()
                 val dto = packet["søknad"].asObject(SøknadDTO::class.java)

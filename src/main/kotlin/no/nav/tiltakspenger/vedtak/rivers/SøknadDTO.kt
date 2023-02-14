@@ -34,7 +34,7 @@ data class BrukerregistrertTiltakDTO(
     val tom: LocalDate,
     val adresse: String? = null,
     val postnummer: String? = null,
-    val antallDager: Int
+    val antallDager: Int,
 )
 
 data class ArenaTiltakDTO(
@@ -46,7 +46,7 @@ data class ArenaTiltakDTO(
     val opprinneligSluttdato: LocalDate? = null,
     val opprinneligStartdato: LocalDate,
     val sluttdato: LocalDate? = null,
-    val startdato: LocalDate
+    val startdato: LocalDate,
 )
 
 data class IntroduksjonsprogrammetDetaljerDTO(
@@ -58,7 +58,7 @@ data class TrygdOgPensjonDTO(
     val utbetaler: String,
     val prosent: Int? = null,
     val fom: LocalDate? = null,
-    val tom: LocalDate? = null
+    val tom: LocalDate? = null,
 )
 
 data class VedleggDTO(

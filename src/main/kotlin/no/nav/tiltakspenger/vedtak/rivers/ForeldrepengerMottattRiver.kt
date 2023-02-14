@@ -45,7 +45,7 @@ internal class ForeldrepengerMottattRiver(
                 val dto = if (packet["@løsning.fpytelser"].isEmpty) {
                     FPResponsDTO(
                         ytelser = emptyList(),
-                        feil = null
+                        feil = null,
                     )
                 } else {
                     packet["@løsning.fpytelser"].asObject(FPResponsDTO::class.java)

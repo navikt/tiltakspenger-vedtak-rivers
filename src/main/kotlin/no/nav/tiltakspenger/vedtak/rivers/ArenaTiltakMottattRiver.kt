@@ -41,9 +41,11 @@ internal class ArenaTiltakMottattRiver(
                 val ident = packet["ident"].asText()
                 val behovId = packet["@behovId"].asText()
                 val tiltak =
-                    if (packet["@løsning.arenatiltak"].asText() == "null")
+                    if (packet["@løsning.arenatiltak"].asText() == "null") {
                         null
-                    else packet["@løsning.arenatiltak"]
+                    } else {
+                        packet["@løsning.arenatiltak"]
+                    }
                 val journalpostId = packet["journalpostId"].asText()
                 val innhentet = packet["@opprettet"].asLocalDateTime()
 

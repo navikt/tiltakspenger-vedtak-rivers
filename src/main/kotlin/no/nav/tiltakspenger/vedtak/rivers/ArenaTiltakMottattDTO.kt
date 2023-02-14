@@ -7,5 +7,5 @@ data class ArenaTiltakMottattDTO(
     val respons: ArenaTiltaksaktivitetResponsDTO,
     val ident: String,
     val journalpostId: String,
-    val innhentet: LocalDateTime
+    val innhentet: LocalDateTime,
 )
