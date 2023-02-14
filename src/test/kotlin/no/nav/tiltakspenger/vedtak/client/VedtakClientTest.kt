@@ -26,7 +26,7 @@ internal class VedtakClientTest {
         val arenaDTO = ArenaTiltakMottattDTO(
             respons = ArenaTiltaksaktivitetResponsDTO(
                 tiltaksaktiviteter = emptyList(),
-                feil = null
+                feil = null,
             ),
             ident = "ident",
             journalpostId = "journalpostId",
@@ -54,7 +54,7 @@ internal class VedtakClientTest {
         val arenaDTO = ArenaTiltakMottattDTO(
             respons = ArenaTiltaksaktivitetResponsDTO(
                 tiltaksaktiviteter = emptyList(),
-                feil = null
+                feil = null,
             ),
             ident = "ident",
             journalpostId = "journalpostId",
@@ -82,7 +82,7 @@ internal class VedtakClientTest {
         val arenaDTO = ArenaTiltakMottattDTO(
             respons = ArenaTiltaksaktivitetResponsDTO(
                 tiltaksaktiviteter = emptyList(),
-                feil = null
+                feil = null,
             ),
             ident = "ident",
             journalpostId = "journalpostId",

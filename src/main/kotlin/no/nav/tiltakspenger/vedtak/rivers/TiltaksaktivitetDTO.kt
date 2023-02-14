@@ -23,7 +23,7 @@ data class TiltaksaktivitetDTO(
 
     data class DeltakerStatusDTO(
         val statusNavn: String,
-        val innerText: DeltakerStatusEnum
+        val innerText: DeltakerStatusEnum,
     )
 
     enum class TiltaksnavnEnum(val tekst: String) {
@@ -134,7 +134,7 @@ data class TiltaksaktivitetDTO(
         VIDRSKOLE("Videregående skole"),
         OPPLT2AAR("2-årig opplæringstiltak"),
         AB("To be deleted"),
-        OUTDEF("Ukjent")
+        OUTDEF("Ukjent"),
     }
 
     enum class DeltakerStatusEnum(val tekst: String) {
@@ -151,6 +151,6 @@ data class TiltaksaktivitetDTO(
         JATAKK("Takket ja til tilbud"),
         NEITAKK("Takket nei til tilbud"),
         TILBUD("Godkjent tiltaksplass"),
-        VENTELISTE("Venteliste")
+        VENTELISTE("Venteliste"),
     }
 }

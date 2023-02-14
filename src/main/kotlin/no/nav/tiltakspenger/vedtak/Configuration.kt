@@ -27,7 +27,7 @@ object Configuration {
         "AZURE_APP_CLIENT_ID" to System.getenv("AZURE_APP_CLIENT_ID"),
         "AZURE_APP_CLIENT_SECRET" to System.getenv("AZURE_APP_CLIENT_SECRET"),
         "AZURE_APP_WELL_KNOWN_URL" to System.getenv("AZURE_APP_WELL_KNOWN_URL"),
-        "logback.configurationFile" to "resources/logback.gcp.xml"
+        "logback.configurationFile" to "resources/logback.gcp.xml",
     )
     private val defaultProperties = ConfigurationMap(rapidsAndRivers + otherDefaultProperties)
 
@@ -37,21 +37,21 @@ object Configuration {
             "vedtakScope" to "api://dev-gcp.tpts.tiltakspenger-vedtak/.default",
             "vedtakBaseUrl" to "https://tiltakspenger-vedtak.dev.intern.nav.no",
             "logback.configurationFile" to "resources/logback.local.xml",
-        )
+        ),
     )
     private val devProperties = ConfigurationMap(
         mapOf(
             "application.profile" to Profile.DEV.toString(),
             "vedtakScope" to "api://dev-gcp.tpts.tiltakspenger-vedtak/.default",
             "vedtakBaseUrl" to "https://tiltakspenger-vedtak.dev.intern.nav.no",
-        )
+        ),
     )
     private val prodProperties = ConfigurationMap(
         mapOf(
             "application.profile" to Profile.PROD.toString(),
             "vedtakScope" to "api://prod-gcp.tpts.tiltakspenger-vedtak/.default",
             "vedtakBaseUrl" to "https://tiltakspenger-vedtak.intern.nav.no",
-        )
+        ),
     )
 
     private fun config() = when (System.getenv("NAIS_CLUSTER_NAME") ?: System.getProperty("NAIS_CLUSTER_NAME")) {
@@ -72,12 +72,12 @@ object Configuration {
         scope: String = config()[Key("vedtakScope", stringType)],
         clientId: String = config()[Key("AZURE_APP_CLIENT_ID", stringType)],
         clientSecret: String = config()[Key("AZURE_APP_CLIENT_SECRET", stringType)],
-        wellknownUrl: String = config()[Key("AZURE_APP_WELL_KNOWN_URL", stringType)]
+        wellknownUrl: String = config()[Key("AZURE_APP_WELL_KNOWN_URL", stringType)],
     ) = AzureTokenProvider.OauthConfig(
         scope = scope,
         clientId = clientId,
         clientSecret = clientSecret,
-        wellknownUrl = wellknownUrl
+        wellknownUrl = wellknownUrl,
     )
 
     fun vedtakClientConfig(baseUrl: String = config()[Key("vedtakBaseUrl", stringType)]) =

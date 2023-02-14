@@ -73,7 +73,7 @@ internal class SøknadMottattRiverTest {
             brukerregistrertTiltak = null,
             trygdOgPensjon = emptyList(),
             fritekst = null,
-            vedlegg = emptyList()
+            vedlegg = emptyList(),
         )
     }
 
