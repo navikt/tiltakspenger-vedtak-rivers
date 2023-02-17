@@ -8,6 +8,7 @@ import no.nav.helse.rapids_rivers.MessageContext
 import no.nav.helse.rapids_rivers.RapidsConnection
 import no.nav.helse.rapids_rivers.River
 import no.nav.helse.rapids_rivers.asLocalDateTime
+import no.nav.tiltakspenger.libs.overgangsstonad.OvergangsstønadResponsDTO
 import no.nav.tiltakspenger.vedtak.client.IVedtakClient
 
 internal class OvergangsstønadMottattRiver(
@@ -42,18 +43,13 @@ internal class OvergangsstønadMottattRiver(
                 val innhentet = packet["@opprettet"].asLocalDateTime()
                 val journalpostId = packet["journalpostId"].asText()
                 val overgangsstønadData =
-                    packet["@løsning.overgangsstønad"].asObject(OvergangsstønadLøsningDTO::class.java)
-
-                val feil = overgangsstønadData.feil
-                if (feil != null) {
-                    throw RuntimeException("Fikk feil fra løsning overgangsstønad-behov: $feil")
-                }
+                    packet["@løsning.overgangsstønad"].asObject(OvergangsstønadResponsDTO::class.java)
 
                 runBlocking(MDCContext()) {
                     vedtakClient.mottaOvergangsstønad(
                         overgangsstønadDTO = OvergangsstønadDTO(
                             ident = ident,
-                            perioder = overgangsstønadData.perioder,
+                            overgangsstønadRespons = overgangsstønadData,
                             innhentet = innhentet,
                             journalpostId = journalpostId,
                         ),
