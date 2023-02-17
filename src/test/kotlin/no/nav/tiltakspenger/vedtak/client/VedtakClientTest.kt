@@ -5,7 +5,7 @@ import io.ktor.client.engine.mock.respond
 import io.ktor.http.HttpStatusCode
 import kotlinx.coroutines.test.runTest
 import no.nav.tiltakspenger.libs.arena.tiltak.ArenaTiltaksaktivitetResponsDTO
-import no.nav.tiltakspenger.vedtak.rivers.ArenaTiltakMottattDTO
+import no.nav.tiltakspenger.vedtak.rivers.tiltak.ArenaTiltakMottattDTO
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows

@@ -14,16 +14,16 @@ import io.ktor.http.contentType
 import no.nav.tiltakspenger.vedtak.Configuration
 import no.nav.tiltakspenger.vedtak.defaultHttpClient
 import no.nav.tiltakspenger.vedtak.defaultObjectMapper
-import no.nav.tiltakspenger.vedtak.rivers.ArenaTiltakMottattDTO
-import no.nav.tiltakspenger.vedtak.rivers.ArenaYtelserMottattDTO
-import no.nav.tiltakspenger.vedtak.rivers.DayHasBegunEvent
-import no.nav.tiltakspenger.vedtak.rivers.ForeldrepengerDTO
-import no.nav.tiltakspenger.vedtak.rivers.InnsendingUtdatert
-import no.nav.tiltakspenger.vedtak.rivers.OvergangsstønadDTO
-import no.nav.tiltakspenger.vedtak.rivers.PersonopplysningerMottattDTO
-import no.nav.tiltakspenger.vedtak.rivers.SkjermingDTO
-import no.nav.tiltakspenger.vedtak.rivers.SøknadDTO
-import no.nav.tiltakspenger.vedtak.rivers.UføreDTO
+import no.nav.tiltakspenger.vedtak.rivers.events.DayHasBegunEvent
+import no.nav.tiltakspenger.vedtak.rivers.foreldrepenger.ForeldrepengerDTO
+import no.nav.tiltakspenger.vedtak.rivers.innsending.InnsendingUtdatert
+import no.nav.tiltakspenger.vedtak.rivers.overgangsstønad.OvergangsstønadDTO
+import no.nav.tiltakspenger.vedtak.rivers.personopplysninger.PersonopplysningerMottattDTO
+import no.nav.tiltakspenger.vedtak.rivers.skjerming.SkjermingDTO
+import no.nav.tiltakspenger.vedtak.rivers.søknad.SøknadDTO
+import no.nav.tiltakspenger.vedtak.rivers.tiltak.ArenaTiltakMottattDTO
+import no.nav.tiltakspenger.vedtak.rivers.uføre.UføreDTO
+import no.nav.tiltakspenger.vedtak.rivers.ytelser.ArenaYtelserMottattDTO
 
 interface IVedtakClient {
     suspend fun mottaOvergangsstønad(overgangsstønadDTO: OvergangsstønadDTO, behovId: String)
