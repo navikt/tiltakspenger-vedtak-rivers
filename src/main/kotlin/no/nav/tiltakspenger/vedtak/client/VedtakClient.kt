@@ -19,12 +19,14 @@ import no.nav.tiltakspenger.vedtak.rivers.ArenaYtelserMottattDTO
 import no.nav.tiltakspenger.vedtak.rivers.DayHasBegunEvent
 import no.nav.tiltakspenger.vedtak.rivers.ForeldrepengerDTO
 import no.nav.tiltakspenger.vedtak.rivers.InnsendingUtdatert
+import no.nav.tiltakspenger.vedtak.rivers.OvergangsstønadDTO
 import no.nav.tiltakspenger.vedtak.rivers.PersonopplysningerMottattDTO
 import no.nav.tiltakspenger.vedtak.rivers.SkjermingDTO
 import no.nav.tiltakspenger.vedtak.rivers.SøknadDTO
 import no.nav.tiltakspenger.vedtak.rivers.UføreDTO
 
 interface IVedtakClient {
+    suspend fun mottaOvergangsstønad(overgangsstønadDTO: OvergangsstønadDTO, behovId: String)
     suspend fun mottaUføre(uføreDTO: UføreDTO, behovId: String)
     suspend fun mottaForeldrepenger(foreldrepengerDTO: ForeldrepengerDTO, behovId: String)
     suspend fun mottaSkjerming(skjermingDTO: SkjermingDTO, behovId: String)
@@ -48,6 +50,20 @@ class VedtakClient(
 ) : IVedtakClient {
     companion object {
         const val navCallIdHeader = "Nav-Call-Id"
+    }
+
+    override suspend fun mottaOvergangsstønad(overgangsstønadDTO: OvergangsstønadDTO, behovId: String) {
+        val httpResponse = httpClient.preparePost("${vedtakClientConfig.baseUrl}/rivers/overgangsstonad") {
+            header(navCallIdHeader, behovId)
+            bearerAuth(getToken())
+            accept(ContentType.Application.Json)
+            contentType(ContentType.Application.Json)
+            setBody(overgangsstønadDTO)
+        }.execute()
+        when (httpResponse.status) {
+            HttpStatusCode.OK -> return
+            else -> throw RuntimeException("error (responseCode=${httpResponse.status.value}) from Vedtak")
+        }
     }
 
     override suspend fun mottaSøknad(søknadDTO: SøknadDTO, journalpostId: String) {
