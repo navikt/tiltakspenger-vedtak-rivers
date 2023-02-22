@@ -46,7 +46,11 @@ internal class OvergangsstønadMottattRiverTest {
         "@løsning": {
           "overgangsstønad": {
               "overgangsstønader": [
-                {"fomDato":"2025-01-01","tomDato":"2025-01-10","datakilde":"kilde"}
+                {
+                  "fom":"2025-01-01",
+                  "tom":"2025-01-10",
+                  "datakilde":"kilde"
+                }
               ]
           }
         }
