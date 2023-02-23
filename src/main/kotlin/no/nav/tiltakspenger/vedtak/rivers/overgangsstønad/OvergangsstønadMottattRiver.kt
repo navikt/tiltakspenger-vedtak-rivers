@@ -25,12 +25,12 @@ internal class OvergangsstønadMottattRiver(
             validate {
                 it.demandAllOrAny("@behov", listOf("overgangsstønad"))
                 it.demandKey("@løsning")
+                it.demandKey("@løsning.overgangsstønad")
                 it.demandKey("@id")
                 it.demandKey("@behovId")
                 it.requireKey("ident")
                 it.requireKey("journalpostId")
                 it.requireKey("@opprettet")
-                it.interestedIn("@løsning.overgangsstønad")
             }
         }.register(this)
     }
