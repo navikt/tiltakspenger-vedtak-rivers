@@ -28,6 +28,7 @@ private const val SIXTY_SECONDS = 60L
 
 // engine skal brukes primært i test-øyemed, når man sender med MockEngine.
 // Forøvrig kan man la den være null.
+
 fun defaultHttpClient(
     objectMapper: ObjectMapper,
     engine: HttpClientEngine? = null,
