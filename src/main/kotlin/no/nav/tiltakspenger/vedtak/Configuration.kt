@@ -35,7 +35,7 @@ object Configuration {
         mapOf(
             "application.profile" to Profile.LOCAL.toString(),
             "vedtakScope" to "api://dev-gcp.tpts.tiltakspenger-vedtak/.default",
-            "vedtakBaseUrl" to "https://tiltakspenger-vedtak.dev.intern.nav.no",
+            "vedtakBaseUrl" to "https://tiltakspenger-vedtak",
             "logback.configurationFile" to "resources/logback.local.xml",
         ),
     )
@@ -43,7 +43,7 @@ object Configuration {
         mapOf(
             "application.profile" to Profile.DEV.toString(),
             "vedtakScope" to "api://dev-gcp.tpts.tiltakspenger-vedtak/.default",
-            "vedtakBaseUrl" to "https://tiltakspenger-vedtak.dev.intern.nav.no",
+            "vedtakBaseUrl" to "https://tiltakspenger-vedtak.intern.dev.nav.no",
         ),
     )
     private val prodProperties = ConfigurationMap(
