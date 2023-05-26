@@ -8,7 +8,6 @@ import no.nav.tiltakspenger.vedtak.client.IVedtakClient
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import java.time.LocalDate
 import java.time.LocalDateTime
 
 internal class SøknadMottattRiverTest {
