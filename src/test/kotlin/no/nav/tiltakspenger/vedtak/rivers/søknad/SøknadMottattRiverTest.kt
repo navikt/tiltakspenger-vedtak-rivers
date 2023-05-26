@@ -32,7 +32,7 @@ internal class SøknadMottattRiverTest {
     fun `Når en søknad mottas, så videresender vi data til tiltakspenger-vedtak`() {
         coEvery { vedtakClient.mottaSøknad(any(), any()) } returns Unit
         testRapid.sendTestMessage(søknad())
-        coVerify { vedtakClient.mottaSøknad(dto(), "journalpostId1") }
+        coVerify { vedtakClient.mottaSøknad(søknadDTO(), "journalpostId1") }
     }
 
     @Test
@@ -41,40 +41,7 @@ internal class SøknadMottattRiverTest {
         assertThrows<RuntimeException> {
             testRapid.sendTestMessage(søknad())
         }
-        coVerify { vedtakClient.mottaSøknad(dto(), "journalpostId1") }
-    }
-
-    private fun dto(): SøknadDTO {
-        return SøknadDTO(
-            søknadId = "whatever",
-            journalpostId = "journalpostId1",
-            dokumentInfoId = "whatever3",
-            fornavn = "LEVENDE",
-            etternavn = "POTET",
-            ident = "ident1",
-            deltarKvp = false,
-            deltarIntroduksjonsprogrammet = false,
-            introduksjonsprogrammetDetaljer = null,
-            oppholdInstitusjon = false,
-            typeInstitusjon = null,
-            opprettet = LocalDateTime.of(2022, 6, 29, 16, 24, 2, 608000000),
-            barnetillegg = emptyList(),
-            arenaTiltak = ArenaTiltakDTO(
-                arenaId = "id",
-                arrangoer = "navn",
-                harSluttdatoFraArena = false,
-                tiltakskode = "MENTOR",
-                erIEndreStatus = false,
-                opprinneligSluttdato = null,
-                opprinneligStartdato = LocalDate.of(2022, 6, 21),
-                sluttdato = LocalDate.of(2022, 6, 29),
-                startdato = LocalDate.of(2022, 6, 21),
-            ),
-            brukerregistrertTiltak = null,
-            trygdOgPensjon = emptyList(),
-            fritekst = null,
-            vedlegg = emptyList(),
-        )
+        coVerify { vedtakClient.mottaSøknad(søknadDTO(), "journalpostId1") }
     }
 
     private fun søknad(): String =
@@ -82,37 +49,74 @@ internal class SøknadMottattRiverTest {
         {
           "@event_name": "søknad_mottatt",
           "søknad": {
-            "søknadId": "whatever",
-            "journalpostId": "journalpostId1",
-            "dokumentInfoId": "whatever3",
-            "id": "13306",
-            "fornavn": "LEVENDE",
-            "etternavn": "POTET",
-            "ident": "ident1",
-            "deltarKvp": false,
-            "deltarIntroduksjonsprogrammet": false,
-            "oppholdInstitusjon": false,
-            "typeInstitusjon": null,
-            "tiltaksArrangoer": "foo",
-            "tiltaksType": "JOBSOK",
-            "arenaTiltak" : {
-                 "arenaId" : "id",
-                 "arrangoer" : "navn",
-                 "harSluttdatoFraArena" : false,
-                 "tiltakskode" : "MENTOR",
-                 "erIEndreStatus" : false,
-                 "opprinneligSluttdato": null,
-                 "opprinneligStartdato" : "2022-06-21",
-                 "sluttdato" : "2022-06-29",
-                 "startdato" : "2022-06-21"
+            "versjon": "1",
+            "søknadId": "12304",
+            "dokInfo": {
+              "journalpostId": "journalpostId1",
+              "dokumentInfoId": "43",
+              "filnavn": "tiltakspenger.json"
             },
-            "opprettet": "2022-06-29T16:24:02.608",
-            "brukerRegistrertStartDato": "2022-06-21",
-            "brukerRegistrertSluttDato": "2022-06-30",
-            "systemRegistrertStartDato": null,
-            "systemRegistrertSluttDato": null,
-            "barnetillegg": [],
-            "vedlegg": []
+            "personopplysninger": {
+              "ident": "26037802335",
+              "fornavn": "TALENTFULL",
+              "etternavn": "GYNGEHEST"
+            },
+            "arenaTiltak": null,
+            "brukerTiltak": null,
+            "barnetilleggPdl": [],
+            "barnetilleggManuelle": [],
+            "vedlegg": [],
+            "kvp": {
+              "svar": "Nei",
+              "fom": null,
+              "tom": null
+            },
+            "intro": {
+              "svar": "IkkeBesvart",
+              "fom": null,
+              "tom": null
+            },
+            "institusjon": {
+              "svar": "Nei",
+              "fom": null,
+              "tom": null
+            },
+            "etterlønn": {
+              "svar": "Nei"
+            },
+            "gjenlevendepensjon": {
+              "svar": "IkkeMedISøknaden",
+              "fom": null
+            },
+            "alderspensjon": {
+              "svar": "IkkeMedISøknaden",
+              "fom": null
+            },
+            "sykepenger": {
+              "svar": "IkkeMedISøknaden",
+              "fom": null,
+              "tom": null
+            },
+            "supplerendeStønadAlder": {
+              "svar": "IkkeMedISøknaden",
+              "fom": null,
+              "tom": null
+            },
+            "supplerendeStønadFlyktning": {
+              "svar": "IkkeMedISøknaden",
+              "fom": null,
+              "tom": null
+            },
+            "jobbsjansen": {
+              "svar": "IkkeMedISøknaden",
+              "fom": null,
+              "tom": null
+            },
+            "trygdOgPensjon": {
+              "svar": "IkkeMedISøknaden",
+              "fom": null
+            },
+            "opprettet": "2022-02-08T14:26:42.000000831"
           },
           "@id": "369bf01c-f46f-4cb9-ba0d-01beb0905edc",
           "@opprettet": "2022-06-29T16:25:33.598375671",
@@ -128,4 +132,58 @@ internal class SøknadMottattRiverTest {
           ]
         }
         """.trimIndent()
+
+    private fun søknadDTO(
+        versjon: String = "1",
+        søknadId: String = "12304",
+        dokInfo: DokumentInfoDTO = DokumentInfoDTO(
+            journalpostId = "journalpostId1",
+            dokumentInfoId = "43",
+            filnavn = "tiltakspenger.json",
+        ),
+        personopplysninger: PersonopplysningerDTO = PersonopplysningerDTO(
+            fornavn = "TALENTFULL",
+            etternavn = "GYNGEHEST",
+            ident = "26037802335",
+        ),
+        kvp: PeriodeSpmDTO = PeriodeSpmDTO(svar = SpmSvarDTO.Nei, fom = null, tom = null),
+        intro: PeriodeSpmDTO = PeriodeSpmDTO(svar = SpmSvarDTO.IkkeBesvart, fom = null, tom = null),
+        institusjon: PeriodeSpmDTO = PeriodeSpmDTO(svar = SpmSvarDTO.Nei, fom = null, tom = null),
+        barnetilleggPdl: List<BarnetilleggDTO> = emptyList(),
+        barnetilleggManuelle: List<BarnetilleggDTO> = emptyList(),
+        opprettet: LocalDateTime = LocalDateTime.of(2022, 2, 8, 14, 26, 42, 831),
+        arenaTiltak: ArenaTiltakDTO? = null,
+        brukerTiltak: BrukerTiltakDTO? = null,
+        alderspensjon: FraOgMedDatoSpmDTO = FraOgMedDatoSpmDTO(svar = SpmSvarDTO.IkkeMedISøknaden, fom = null),
+        etterlønn: JaNeiSpmDTO = JaNeiSpmDTO(SpmSvarDTO.Nei),
+        gjenlevendePensjon: FraOgMedDatoSpmDTO = FraOgMedDatoSpmDTO(svar = SpmSvarDTO.IkkeMedISøknaden, fom = null),
+        jobbsjansen: PeriodeSpmDTO = PeriodeSpmDTO(svar = SpmSvarDTO.IkkeMedISøknaden, fom = null, tom = null),
+        supplerendeAlder: PeriodeSpmDTO = PeriodeSpmDTO(svar = SpmSvarDTO.IkkeMedISøknaden, fom = null, tom = null),
+        supplerendeFlykting: PeriodeSpmDTO = PeriodeSpmDTO(svar = SpmSvarDTO.IkkeMedISøknaden, fom = null, tom = null),
+        sykepenger: PeriodeSpmDTO = PeriodeSpmDTO(svar = SpmSvarDTO.IkkeMedISøknaden, fom = null, tom = null),
+        trygdOgPensjon: FraOgMedDatoSpmDTO = FraOgMedDatoSpmDTO(svar = SpmSvarDTO.IkkeMedISøknaden, fom = null),
+        vedlegg: List<DokumentInfoDTO> = emptyList(),
+    ) = SøknadDTO(
+        versjon = versjon,
+        søknadId = søknadId,
+        dokInfo = dokInfo,
+        personopplysninger = personopplysninger,
+        kvp = kvp,
+        intro = intro,
+        institusjon = institusjon,
+        barnetilleggPdl = barnetilleggPdl,
+        barnetilleggManuelle = barnetilleggManuelle,
+        arenaTiltak = arenaTiltak,
+        brukerTiltak = brukerTiltak,
+        alderspensjon = alderspensjon,
+        etterlønn = etterlønn,
+        gjenlevendepensjon = gjenlevendePensjon,
+        jobbsjansen = jobbsjansen,
+        supplerendeStønadAlder = supplerendeAlder,
+        supplerendeStønadFlyktning = supplerendeFlykting,
+        sykepenger = sykepenger,
+        trygdOgPensjon = trygdOgPensjon,
+        opprettet = opprettet,
+        vedlegg = vedlegg,
+    )
 }

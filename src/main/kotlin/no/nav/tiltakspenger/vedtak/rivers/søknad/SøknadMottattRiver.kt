@@ -26,8 +26,8 @@ internal class SøknadMottattRiver(
                 it.requireKey("@id")
                 it.requireKey("@opprettet")
                 it.requireKey("søknad")
-                it.requireKey("søknad.journalpostId")
-                it.requireKey("søknad.ident")
+                it.requireKey("søknad.dokInfo.journalpostId")
+                it.requireKey("søknad.personopplysninger.ident")
             }
         }.register(this)
     }
@@ -38,9 +38,9 @@ internal class SøknadMottattRiver(
             SECURELOG.info("Received søknad: ${packet.toJson()}")
             withLoggingContext(
                 "id" to packet["@id"].asText(),
-                "journalpostId" to packet["søknad.journalpostId"].asText(),
+                "journalpostId" to packet["søknad.dokInfo.journalpostId"].asText(),
             ) {
-                val journalpostId = packet["søknad.journalpostId"].asText()
+                val journalpostId = packet["søknad.dokInfo.journalpostId"].asText()
                 val dto = packet["søknad"].asObject(SøknadDTO::class.java)
 
                 runBlocking(MDCContext()) {
