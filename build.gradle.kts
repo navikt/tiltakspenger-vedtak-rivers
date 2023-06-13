@@ -56,7 +56,7 @@ dependencies {
     implementation(ktor("server-netty"))
     implementation(ktor("server-netty-jvm"))
     implementation("io.github.microutils:kotlin-logging-jvm:3.0.5")
-    implementation("ch.qos.logback:logback-classic:1.4.7")
+    implementation("ch.qos.logback:logback-classic:1.4.8")
     implementation("net.logstash.logback:logstash-logback-encoder:7.3")
     implementation("com.papertrailapp:logback-syslog4j:1.0.0")
     implementation("com.github.navikt:rapids-and-rivers:2023042609401682494832.502ede9d3e7e")
