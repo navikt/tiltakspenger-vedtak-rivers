@@ -113,7 +113,11 @@ internal class SøknadMottattRiverTest {
             },
             "trygdOgPensjon": {
               "svar": "IkkeMedISøknaden",
-              "fom": null
+              "fom": null,
+              "tom": null
+            },
+            "lønnetArbeid": {
+              "svar": "IkkeMedISøknaden"
             },
             "opprettet": "2022-02-08T14:26:42.000000831"
           },
@@ -160,7 +164,8 @@ internal class SøknadMottattRiverTest {
         supplerendeAlder: PeriodeSpmDTO = PeriodeSpmDTO(svar = SpmSvarDTO.IkkeMedISøknaden, fom = null, tom = null),
         supplerendeFlykting: PeriodeSpmDTO = PeriodeSpmDTO(svar = SpmSvarDTO.IkkeMedISøknaden, fom = null, tom = null),
         sykepenger: PeriodeSpmDTO = PeriodeSpmDTO(svar = SpmSvarDTO.IkkeMedISøknaden, fom = null, tom = null),
-        trygdOgPensjon: JaNeiSpmDTO = JaNeiSpmDTO(svar = SpmSvarDTO.IkkeMedISøknaden),
+        trygdOgPensjon: PeriodeSpmDTO = PeriodeSpmDTO(svar = SpmSvarDTO.IkkeMedISøknaden, fom = null, tom = null),
+        lønnetArbeid: JaNeiSpmDTO = JaNeiSpmDTO(svar = SpmSvarDTO.IkkeMedISøknaden),
         vedlegg: List<DokumentInfoDTO> = emptyList(),
     ) = SøknadDTO(
         versjon = versjon,
@@ -182,6 +187,7 @@ internal class SøknadMottattRiverTest {
         supplerendeStønadFlyktning = supplerendeFlykting,
         sykepenger = sykepenger,
         trygdOgPensjon = trygdOgPensjon,
+        lønnetArbeid = lønnetArbeid,
         opprettet = opprettet,
         vedlegg = vedlegg,
     )
