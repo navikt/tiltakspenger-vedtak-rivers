@@ -3,7 +3,7 @@ val ktorVersion = "2.3.2"
 val kotestVersion = "5.6.2"
 val kotlinxCoroutinesVersion = "1.7.2"
 val mockkVersion = "1.13.5"
-val felleslibVersion = "0.0.41"
+val felleslibVersion = "0.0.42"
 
 plugins {
     application
