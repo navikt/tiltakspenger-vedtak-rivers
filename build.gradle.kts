@@ -61,7 +61,7 @@ dependencies {
     implementation("com.papertrailapp:logback-syslog4j:1.0.0")
     implementation("com.github.navikt:rapids-and-rivers:2023042609401682494832.502ede9d3e7e")
     implementation("com.natpryce:konfig:1.6.10.0")
-    implementation("com.auth0:jwks-rsa:0.22.0")
+    implementation("com.auth0:jwks-rsa:0.22.1")
 
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinxCoroutinesVersion")
