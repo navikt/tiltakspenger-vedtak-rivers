@@ -8,14 +8,14 @@ import no.nav.helse.rapids_rivers.MessageContext
 import no.nav.helse.rapids_rivers.RapidsConnection
 import no.nav.helse.rapids_rivers.River
 import no.nav.helse.rapids_rivers.asLocalDateTime
-import no.nav.tiltakspenger.libs.arena.tiltak.ArenaTiltaksaktivitetResponsDTO
+import no.nav.tiltakspenger.libs.tiltak.TiltakResponsDTO
 import no.nav.tiltakspenger.vedtak.client.IVedtakClient
 import no.nav.tiltakspenger.vedtak.rivers.asObject
 import no.nav.tiltakspenger.vedtak.rivers.loggBehovVedFeil
 import no.nav.tiltakspenger.vedtak.rivers.loggBehovVedInngang
 import no.nav.tiltakspenger.vedtak.rivers.loggBehovVedUtgang
 
-internal class ArenaTiltakMottattRiver(
+internal class TiltakMottattRiver(
     private val vedtakClient: IVedtakClient,
     rapidsConnection: RapidsConnection,
 ) : River.PacketListener {
@@ -23,9 +23,9 @@ internal class ArenaTiltakMottattRiver(
     init {
         River(rapidsConnection).apply {
             validate {
-                it.demandAllOrAny("@behov", listOf("arenatiltak"))
+                it.demandAllOrAny("@behov", listOf("tiltak"))
                 it.demandKey("@løsning")
-                it.demandKey("@løsning.arenatiltak")
+                it.demandKey("@løsning.tiltak")
                 it.demandKey("@id")
                 it.demandKey("@behovId")
                 it.requireKey("ident")
@@ -37,7 +37,7 @@ internal class ArenaTiltakMottattRiver(
 
     override fun onPacket(packet: JsonMessage, context: MessageContext) {
         runCatching {
-            loggBehovVedInngang("arenatiltak", packet)
+            loggBehovVedInngang("tiltak", packet)
             withLoggingContext(
                 "id" to packet["@id"].asText(),
                 "behovId" to packet["@behovId"].asText(),
@@ -45,18 +45,18 @@ internal class ArenaTiltakMottattRiver(
                 val ident = packet["ident"].asText()
                 val behovId = packet["@behovId"].asText()
                 val tiltak =
-                    if (packet["@løsning.arenatiltak"].asText() == "null") {
+                    if (packet["@løsning.tiltak"].asText() == "null") {
                         null
                     } else {
-                        packet["@løsning.arenatiltak"]
+                        packet["@løsning.tiltak"]
                     }
                 val journalpostId = packet["journalpostId"].asText()
                 val innhentet = packet["@opprettet"].asLocalDateTime()
 
                 runBlocking(MDCContext()) {
                     vedtakClient.mottaTiltak(
-                        arenaTiltakMottattDTO = ArenaTiltakMottattDTO(
-                            respons = tiltak.asObject(ArenaTiltaksaktivitetResponsDTO::class.java),
+                        tiltakMottattDTO = TiltakMottattDTO(
+                            respons = tiltak.asObject(TiltakResponsDTO::class.java),
                             ident = ident,
                             journalpostId = journalpostId,
                             innhentet = innhentet,
@@ -64,10 +64,10 @@ internal class ArenaTiltakMottattRiver(
                         behovId = behovId,
                     )
                 }
-                loggBehovVedUtgang("arenatiltak", packet)
+                loggBehovVedUtgang("tiltak", packet)
             }
         }.onFailure {
-            loggBehovVedFeil("arenatiltak", it, packet)
+            loggBehovVedFeil("tiltak", it, packet)
         }.getOrThrow()
     }
 }

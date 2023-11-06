@@ -12,7 +12,7 @@ import no.nav.tiltakspenger.vedtak.rivers.overgangsstønad.OvergangsstønadMotta
 import no.nav.tiltakspenger.vedtak.rivers.personopplysninger.PersonopplysningerMottattRiver
 import no.nav.tiltakspenger.vedtak.rivers.skjerming.SkjermingMottattRiver
 import no.nav.tiltakspenger.vedtak.rivers.søknad.SøknadMottattRiver
-import no.nav.tiltakspenger.vedtak.rivers.tiltak.ArenaTiltakMottattRiver
+import no.nav.tiltakspenger.vedtak.rivers.tiltak.TiltakMottattRiver
 import no.nav.tiltakspenger.vedtak.rivers.uføre.UføreMottattRiver
 import no.nav.tiltakspenger.vedtak.rivers.ytelser.ArenaYtelserMottattRiver
 
@@ -49,7 +49,7 @@ fun main() {
             vedtakClient = vedtakClient,
         )
 
-        ArenaTiltakMottattRiver(
+        TiltakMottattRiver(
             rapidsConnection = this,
             vedtakClient = vedtakClient,
         )

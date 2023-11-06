@@ -3,7 +3,7 @@ val ktorVersion = "2.3.3"
 val kotestVersion = "5.6.2"
 val kotlinxCoroutinesVersion = "1.7.3"
 val mockkVersion = "1.13.7"
-val felleslibVersion = "0.0.44"
+val felleslibVersion = "0.0.49"
 
 plugins {
     application
@@ -26,7 +26,7 @@ dependencies {
     implementation(kotlin("stdlib"))
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-slf4j:$kotlinxCoroutinesVersion")
 
-    implementation("com.github.navikt.tiltakspenger-libs:arenatiltak-dtos:$felleslibVersion")
+    implementation("com.github.navikt.tiltakspenger-libs:tiltak-dtos:$felleslibVersion")
     implementation("com.github.navikt.tiltakspenger-libs:arenaytelser-dtos:$felleslibVersion")
     implementation("com.github.navikt.tiltakspenger-libs:person-dtos:$felleslibVersion")
     implementation("com.github.navikt.tiltakspenger-libs:skjerming-dtos:$felleslibVersion")
