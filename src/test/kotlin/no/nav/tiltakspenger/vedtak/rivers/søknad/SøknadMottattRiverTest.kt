@@ -8,6 +8,7 @@ import no.nav.tiltakspenger.vedtak.client.IVedtakClient
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
+import java.time.LocalDate
 import java.time.LocalDateTime
 
 internal class SøknadMottattRiverTest {
@@ -60,8 +61,14 @@ internal class SøknadMottattRiverTest {
               "fornavn": "TALENTFULL",
               "etternavn": "GYNGEHEST"
             },
-            "arenaTiltak": null,
-            "brukerTiltak": null,
+            "tiltak": {
+                "id": "id",
+                "deltakelseFom": "2022-02-01",
+                "deltakelseTom": "2022-02-28",
+                "arrangør": "arrangør",
+                "typeKode": "AMO",
+                "typeNavn": "AMO"
+            },
             "barnetilleggPdl": [],
             "barnetilleggManuelle": [],
             "vedlegg": [],
@@ -152,7 +159,14 @@ internal class SøknadMottattRiverTest {
         barnetilleggPdl: List<BarnetilleggDTO> = emptyList(),
         barnetilleggManuelle: List<BarnetilleggDTO> = emptyList(),
         opprettet: LocalDateTime = LocalDateTime.of(2022, 2, 8, 14, 26, 42, 831),
-        tiltak: TiltakDTO? = null,
+        tiltak: TiltakDTO = TiltakDTO(
+            id = "id",
+            deltakelseFom = LocalDate.of(2022, 2, 1),
+            deltakelseTom = LocalDate.of(2022, 2, 28),
+            arrangør = "arrangør",
+            typeKode = "AMO",
+            typeNavn = "AMO",
+        ),
         alderspensjon: FraOgMedDatoSpmDTO = FraOgMedDatoSpmDTO(svar = SpmSvarDTO.IkkeMedISøknaden, fom = null),
         etterlønn: JaNeiSpmDTO = JaNeiSpmDTO(SpmSvarDTO.Nei),
         gjenlevendePensjon: PeriodeSpmDTO = PeriodeSpmDTO(svar = SpmSvarDTO.IkkeMedISøknaden, fom = null, tom = null),

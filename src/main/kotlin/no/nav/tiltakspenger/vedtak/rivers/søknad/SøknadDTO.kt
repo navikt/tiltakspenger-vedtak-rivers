@@ -8,7 +8,7 @@ data class SøknadDTO(
     val søknadId: String,
     val dokInfo: DokumentInfoDTO,
     val personopplysninger: PersonopplysningerDTO,
-    val tiltak: TiltakDTO?,
+    val tiltak: TiltakDTO,
     val barnetilleggPdl: List<BarnetilleggDTO>,
     val barnetilleggManuelle: List<BarnetilleggDTO>,
     val vedlegg: List<DokumentInfoDTO>,
