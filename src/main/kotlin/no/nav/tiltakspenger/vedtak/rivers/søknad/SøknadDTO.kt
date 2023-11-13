@@ -8,8 +8,7 @@ data class SøknadDTO(
     val søknadId: String,
     val dokInfo: DokumentInfoDTO,
     val personopplysninger: PersonopplysningerDTO,
-    val arenaTiltak: ArenaTiltakDTO?,
-    val brukerTiltak: BrukerTiltakDTO?,
+    val tiltak: TiltakDTO?,
     val barnetilleggPdl: List<BarnetilleggDTO>,
     val barnetilleggManuelle: List<BarnetilleggDTO>,
     val vedlegg: List<DokumentInfoDTO>,
@@ -24,7 +23,6 @@ data class SøknadDTO(
     val supplerendeStønadFlyktning: PeriodeSpmDTO,
     val jobbsjansen: PeriodeSpmDTO,
     val trygdOgPensjon: PeriodeSpmDTO,
-    val lønnetArbeid: JaNeiSpmDTO,
     val opprettet: LocalDateTime,
 )
 

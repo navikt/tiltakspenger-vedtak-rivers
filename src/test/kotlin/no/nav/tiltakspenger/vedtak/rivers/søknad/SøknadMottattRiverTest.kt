@@ -116,9 +116,6 @@ internal class SøknadMottattRiverTest {
               "fom": null,
               "tom": null
             },
-            "lønnetArbeid": {
-              "svar": "IkkeMedISøknaden"
-            },
             "opprettet": "2022-02-08T14:26:42.000000831"
           },
           "@id": "369bf01c-f46f-4cb9-ba0d-01beb0905edc",
@@ -155,8 +152,7 @@ internal class SøknadMottattRiverTest {
         barnetilleggPdl: List<BarnetilleggDTO> = emptyList(),
         barnetilleggManuelle: List<BarnetilleggDTO> = emptyList(),
         opprettet: LocalDateTime = LocalDateTime.of(2022, 2, 8, 14, 26, 42, 831),
-        arenaTiltak: ArenaTiltakDTO? = null,
-        brukerTiltak: BrukerTiltakDTO? = null,
+        tiltak: TiltakDTO? = null,
         alderspensjon: FraOgMedDatoSpmDTO = FraOgMedDatoSpmDTO(svar = SpmSvarDTO.IkkeMedISøknaden, fom = null),
         etterlønn: JaNeiSpmDTO = JaNeiSpmDTO(SpmSvarDTO.Nei),
         gjenlevendePensjon: PeriodeSpmDTO = PeriodeSpmDTO(svar = SpmSvarDTO.IkkeMedISøknaden, fom = null, tom = null),
@@ -165,7 +161,6 @@ internal class SøknadMottattRiverTest {
         supplerendeFlykting: PeriodeSpmDTO = PeriodeSpmDTO(svar = SpmSvarDTO.IkkeMedISøknaden, fom = null, tom = null),
         sykepenger: PeriodeSpmDTO = PeriodeSpmDTO(svar = SpmSvarDTO.IkkeMedISøknaden, fom = null, tom = null),
         trygdOgPensjon: PeriodeSpmDTO = PeriodeSpmDTO(svar = SpmSvarDTO.IkkeMedISøknaden, fom = null, tom = null),
-        lønnetArbeid: JaNeiSpmDTO = JaNeiSpmDTO(svar = SpmSvarDTO.IkkeMedISøknaden),
         vedlegg: List<DokumentInfoDTO> = emptyList(),
     ) = SøknadDTO(
         versjon = versjon,
@@ -177,8 +172,7 @@ internal class SøknadMottattRiverTest {
         institusjon = institusjon,
         barnetilleggPdl = barnetilleggPdl,
         barnetilleggManuelle = barnetilleggManuelle,
-        arenaTiltak = arenaTiltak,
-        brukerTiltak = brukerTiltak,
+        tiltak = tiltak,
         alderspensjon = alderspensjon,
         etterlønn = etterlønn,
         gjenlevendepensjon = gjenlevendePensjon,
@@ -187,7 +181,6 @@ internal class SøknadMottattRiverTest {
         supplerendeStønadFlyktning = supplerendeFlykting,
         sykepenger = sykepenger,
         trygdOgPensjon = trygdOgPensjon,
-        lønnetArbeid = lønnetArbeid,
         opprettet = opprettet,
         vedlegg = vedlegg,
     )
