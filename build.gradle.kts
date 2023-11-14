@@ -1,4 +1,4 @@
-val javaVersion = JavaVersion.VERSION_17
+val javaVersion = JavaVersion.VERSION_20
 val ktorVersion = "2.3.3"
 val kotestVersion = "5.6.2"
 val kotlinxCoroutinesVersion = "1.7.3"
