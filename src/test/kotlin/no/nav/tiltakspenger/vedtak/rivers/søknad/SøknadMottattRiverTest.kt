@@ -78,7 +78,7 @@ internal class SøknadMottattRiverTest {
               "tom": null
             },
             "intro": {
-              "svar": "IkkeBesvart",
+              "svar": "Nei",
               "fom": null,
               "tom": null
             },
@@ -91,35 +91,35 @@ internal class SøknadMottattRiverTest {
               "svar": "Nei"
             },
             "gjenlevendepensjon": {
-              "svar": "IkkeMedISøknaden",
+              "svar": "Nei",
               "fom": null
             },
             "alderspensjon": {
-              "svar": "IkkeMedISøknaden",
+              "svar": "Nei",
               "fom": null
             },
             "sykepenger": {
-              "svar": "IkkeMedISøknaden",
+              "svar": "Nei",
               "fom": null,
               "tom": null
             },
             "supplerendeStønadAlder": {
-              "svar": "IkkeMedISøknaden",
+              "svar": "Nei",
               "fom": null,
               "tom": null
             },
             "supplerendeStønadFlyktning": {
-              "svar": "IkkeMedISøknaden",
+              "svar": "Nei",
               "fom": null,
               "tom": null
             },
             "jobbsjansen": {
-              "svar": "IkkeMedISøknaden",
+              "svar": "Nei",
               "fom": null,
               "tom": null
             },
             "trygdOgPensjon": {
-              "svar": "IkkeMedISøknaden",
+              "svar": "Nei",
               "fom": null,
               "tom": null
             },
@@ -154,7 +154,7 @@ internal class SøknadMottattRiverTest {
             ident = "26037802335",
         ),
         kvp: PeriodeSpmDTO = PeriodeSpmDTO(svar = SpmSvarDTO.Nei, fom = null, tom = null),
-        intro: PeriodeSpmDTO = PeriodeSpmDTO(svar = SpmSvarDTO.IkkeBesvart, fom = null, tom = null),
+        intro: PeriodeSpmDTO = PeriodeSpmDTO(svar = SpmSvarDTO.Nei, fom = null, tom = null),
         institusjon: PeriodeSpmDTO = PeriodeSpmDTO(svar = SpmSvarDTO.Nei, fom = null, tom = null),
         barnetilleggPdl: List<BarnetilleggDTO> = emptyList(),
         barnetilleggManuelle: List<BarnetilleggDTO> = emptyList(),
@@ -167,14 +167,14 @@ internal class SøknadMottattRiverTest {
             typeKode = "AMO",
             typeNavn = "AMO",
         ),
-        alderspensjon: FraOgMedDatoSpmDTO = FraOgMedDatoSpmDTO(svar = SpmSvarDTO.IkkeMedISøknaden, fom = null),
+        alderspensjon: FraOgMedDatoSpmDTO = FraOgMedDatoSpmDTO(svar = SpmSvarDTO.Nei, fom = null),
         etterlønn: JaNeiSpmDTO = JaNeiSpmDTO(SpmSvarDTO.Nei),
-        gjenlevendePensjon: PeriodeSpmDTO = PeriodeSpmDTO(svar = SpmSvarDTO.IkkeMedISøknaden, fom = null, tom = null),
-        jobbsjansen: PeriodeSpmDTO = PeriodeSpmDTO(svar = SpmSvarDTO.IkkeMedISøknaden, fom = null, tom = null),
-        supplerendeAlder: PeriodeSpmDTO = PeriodeSpmDTO(svar = SpmSvarDTO.IkkeMedISøknaden, fom = null, tom = null),
-        supplerendeFlykting: PeriodeSpmDTO = PeriodeSpmDTO(svar = SpmSvarDTO.IkkeMedISøknaden, fom = null, tom = null),
-        sykepenger: PeriodeSpmDTO = PeriodeSpmDTO(svar = SpmSvarDTO.IkkeMedISøknaden, fom = null, tom = null),
-        trygdOgPensjon: PeriodeSpmDTO = PeriodeSpmDTO(svar = SpmSvarDTO.IkkeMedISøknaden, fom = null, tom = null),
+        gjenlevendePensjon: PeriodeSpmDTO = PeriodeSpmDTO(svar = SpmSvarDTO.Nei, fom = null, tom = null),
+        jobbsjansen: PeriodeSpmDTO = PeriodeSpmDTO(svar = SpmSvarDTO.Nei, fom = null, tom = null),
+        supplerendeAlder: PeriodeSpmDTO = PeriodeSpmDTO(svar = SpmSvarDTO.Nei, fom = null, tom = null),
+        supplerendeFlykting: PeriodeSpmDTO = PeriodeSpmDTO(svar = SpmSvarDTO.Nei, fom = null, tom = null),
+        sykepenger: PeriodeSpmDTO = PeriodeSpmDTO(svar = SpmSvarDTO.Nei, fom = null, tom = null),
+        trygdOgPensjon: PeriodeSpmDTO = PeriodeSpmDTO(svar = SpmSvarDTO.Nei, fom = null, tom = null),
         vedlegg: List<DokumentInfoDTO> = emptyList(),
     ) = SøknadDTO(
         versjon = versjon,

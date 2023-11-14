@@ -38,25 +38,13 @@ data class PersonopplysningerDTO(
     val etternavn: String,
 )
 
-data class ArenaTiltakDTO(
-    val arenaId: String,
-    val arrangoernavn: String?,
-    val tiltakskode: String,
-    val opprinneligSluttdato: LocalDate? = null,
-    val opprinneligStartdato: LocalDate? = null,
-    val sluttdato: LocalDate? = null,
-    val startdato: LocalDate,
-)
-
-data class BrukerTiltakDTO(
-    val tiltakskode: String,
-    val arrangoernavn: String?,
-    val beskrivelse: String?,
-    val fom: LocalDate,
-    val tom: LocalDate,
-    val adresse: String? = null,
-    val postnummer: String? = null,
-    val antallDager: Int,
+data class TiltakDTO(
+    val id: String,
+    val deltakelseFom: LocalDate,
+    val deltakelseTom: LocalDate,
+    val arrangør: String,
+    val typeKode: String,
+    val typeNavn: String,
 )
 
 data class BarnetilleggDTO(
@@ -83,10 +71,6 @@ data class FraOgMedDatoSpmDTO(
 )
 
 enum class SpmSvarDTO {
-    IkkeMedISøknaden,
-    IkkeRelevant,
-    IkkeBesvart,
-    FeilaktigBesvart,
     Nei,
     Ja,
 }
