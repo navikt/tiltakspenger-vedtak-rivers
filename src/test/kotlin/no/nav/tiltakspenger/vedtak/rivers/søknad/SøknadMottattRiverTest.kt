@@ -8,6 +8,7 @@ import no.nav.tiltakspenger.vedtak.client.IVedtakClient
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
+import java.time.LocalDate
 import java.time.LocalDateTime
 
 internal class SøknadMottattRiverTest {
@@ -60,8 +61,14 @@ internal class SøknadMottattRiverTest {
               "fornavn": "TALENTFULL",
               "etternavn": "GYNGEHEST"
             },
-            "arenaTiltak": null,
-            "brukerTiltak": null,
+            "tiltak": {
+                "id": "id",
+                "deltakelseFom": "2022-02-01",
+                "deltakelseTom": "2022-02-28",
+                "arrangør": "arrangør",
+                "typeKode": "AMO",
+                "typeNavn": "AMO"
+            },
             "barnetilleggPdl": [],
             "barnetilleggManuelle": [],
             "vedlegg": [],
@@ -71,7 +78,7 @@ internal class SøknadMottattRiverTest {
               "tom": null
             },
             "intro": {
-              "svar": "IkkeBesvart",
+              "svar": "Nei",
               "fom": null,
               "tom": null
             },
@@ -84,40 +91,37 @@ internal class SøknadMottattRiverTest {
               "svar": "Nei"
             },
             "gjenlevendepensjon": {
-              "svar": "IkkeMedISøknaden",
+              "svar": "Nei",
               "fom": null
             },
             "alderspensjon": {
-              "svar": "IkkeMedISøknaden",
+              "svar": "Nei",
               "fom": null
             },
             "sykepenger": {
-              "svar": "IkkeMedISøknaden",
+              "svar": "Nei",
               "fom": null,
               "tom": null
             },
             "supplerendeStønadAlder": {
-              "svar": "IkkeMedISøknaden",
+              "svar": "Nei",
               "fom": null,
               "tom": null
             },
             "supplerendeStønadFlyktning": {
-              "svar": "IkkeMedISøknaden",
+              "svar": "Nei",
               "fom": null,
               "tom": null
             },
             "jobbsjansen": {
-              "svar": "IkkeMedISøknaden",
+              "svar": "Nei",
               "fom": null,
               "tom": null
             },
             "trygdOgPensjon": {
-              "svar": "IkkeMedISøknaden",
+              "svar": "Nei",
               "fom": null,
               "tom": null
-            },
-            "lønnetArbeid": {
-              "svar": "IkkeMedISøknaden"
             },
             "opprettet": "2022-02-08T14:26:42.000000831"
           },
@@ -150,22 +154,27 @@ internal class SøknadMottattRiverTest {
             ident = "26037802335",
         ),
         kvp: PeriodeSpmDTO = PeriodeSpmDTO(svar = SpmSvarDTO.Nei, fom = null, tom = null),
-        intro: PeriodeSpmDTO = PeriodeSpmDTO(svar = SpmSvarDTO.IkkeBesvart, fom = null, tom = null),
+        intro: PeriodeSpmDTO = PeriodeSpmDTO(svar = SpmSvarDTO.Nei, fom = null, tom = null),
         institusjon: PeriodeSpmDTO = PeriodeSpmDTO(svar = SpmSvarDTO.Nei, fom = null, tom = null),
         barnetilleggPdl: List<BarnetilleggDTO> = emptyList(),
         barnetilleggManuelle: List<BarnetilleggDTO> = emptyList(),
         opprettet: LocalDateTime = LocalDateTime.of(2022, 2, 8, 14, 26, 42, 831),
-        arenaTiltak: ArenaTiltakDTO? = null,
-        brukerTiltak: BrukerTiltakDTO? = null,
-        alderspensjon: FraOgMedDatoSpmDTO = FraOgMedDatoSpmDTO(svar = SpmSvarDTO.IkkeMedISøknaden, fom = null),
+        tiltak: TiltakDTO = TiltakDTO(
+            id = "id",
+            deltakelseFom = LocalDate.of(2022, 2, 1),
+            deltakelseTom = LocalDate.of(2022, 2, 28),
+            arrangør = "arrangør",
+            typeKode = "AMO",
+            typeNavn = "AMO",
+        ),
+        alderspensjon: FraOgMedDatoSpmDTO = FraOgMedDatoSpmDTO(svar = SpmSvarDTO.Nei, fom = null),
         etterlønn: JaNeiSpmDTO = JaNeiSpmDTO(SpmSvarDTO.Nei),
-        gjenlevendePensjon: PeriodeSpmDTO = PeriodeSpmDTO(svar = SpmSvarDTO.IkkeMedISøknaden, fom = null, tom = null),
-        jobbsjansen: PeriodeSpmDTO = PeriodeSpmDTO(svar = SpmSvarDTO.IkkeMedISøknaden, fom = null, tom = null),
-        supplerendeAlder: PeriodeSpmDTO = PeriodeSpmDTO(svar = SpmSvarDTO.IkkeMedISøknaden, fom = null, tom = null),
-        supplerendeFlykting: PeriodeSpmDTO = PeriodeSpmDTO(svar = SpmSvarDTO.IkkeMedISøknaden, fom = null, tom = null),
-        sykepenger: PeriodeSpmDTO = PeriodeSpmDTO(svar = SpmSvarDTO.IkkeMedISøknaden, fom = null, tom = null),
-        trygdOgPensjon: PeriodeSpmDTO = PeriodeSpmDTO(svar = SpmSvarDTO.IkkeMedISøknaden, fom = null, tom = null),
-        lønnetArbeid: JaNeiSpmDTO = JaNeiSpmDTO(svar = SpmSvarDTO.IkkeMedISøknaden),
+        gjenlevendePensjon: PeriodeSpmDTO = PeriodeSpmDTO(svar = SpmSvarDTO.Nei, fom = null, tom = null),
+        jobbsjansen: PeriodeSpmDTO = PeriodeSpmDTO(svar = SpmSvarDTO.Nei, fom = null, tom = null),
+        supplerendeAlder: PeriodeSpmDTO = PeriodeSpmDTO(svar = SpmSvarDTO.Nei, fom = null, tom = null),
+        supplerendeFlykting: PeriodeSpmDTO = PeriodeSpmDTO(svar = SpmSvarDTO.Nei, fom = null, tom = null),
+        sykepenger: PeriodeSpmDTO = PeriodeSpmDTO(svar = SpmSvarDTO.Nei, fom = null, tom = null),
+        trygdOgPensjon: PeriodeSpmDTO = PeriodeSpmDTO(svar = SpmSvarDTO.Nei, fom = null, tom = null),
         vedlegg: List<DokumentInfoDTO> = emptyList(),
     ) = SøknadDTO(
         versjon = versjon,
@@ -177,8 +186,7 @@ internal class SøknadMottattRiverTest {
         institusjon = institusjon,
         barnetilleggPdl = barnetilleggPdl,
         barnetilleggManuelle = barnetilleggManuelle,
-        arenaTiltak = arenaTiltak,
-        brukerTiltak = brukerTiltak,
+        tiltak = tiltak,
         alderspensjon = alderspensjon,
         etterlønn = etterlønn,
         gjenlevendepensjon = gjenlevendePensjon,
@@ -187,7 +195,6 @@ internal class SøknadMottattRiverTest {
         supplerendeStønadFlyktning = supplerendeFlykting,
         sykepenger = sykepenger,
         trygdOgPensjon = trygdOgPensjon,
-        lønnetArbeid = lønnetArbeid,
         opprettet = opprettet,
         vedlegg = vedlegg,
     )
