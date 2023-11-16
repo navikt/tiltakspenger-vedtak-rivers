@@ -29,30 +29,30 @@ internal class TiltakMottattRiverTest {
 
     @Test
     fun `Når en løsning for tiltak mottas, så videresender vi data til tiltakspenger-vedtak`() {
-        coEvery { vedtakClient.mottaTiltak(any(), "42") } returns Unit
+        coEvery { vedtakClient.mottaTiltak(any<TiltakMottattDTO>(), "42") } returns Unit
         val tiltakMottattHendelse =
             javaClass.getResource("/tiltakMottattHendelse.json")?.readText(Charsets.UTF_8)!!
         testRapid.sendTestMessage(tiltakMottattHendelse)
-        coVerify { vedtakClient.mottaTiltak(any(), "42") }
+        coVerify { vedtakClient.mottaTiltak(any<TiltakMottattDTO>(), "42") }
     }
 
     @Test
     fun `Når en løsning for tiltak mottas, så videresender vi data til tiltakspenger-vedtak som feiler`() {
-        coEvery { vedtakClient.mottaTiltak(any(), "42") } throws RuntimeException()
+        coEvery { vedtakClient.mottaTiltak(any<TiltakMottattDTO>(), "42") } throws RuntimeException()
         val tiltakMottattHendelse =
             javaClass.getResource("/tiltakMottattHendelse.json")?.readText(Charsets.UTF_8)!!
         assertThrows<RuntimeException> {
             testRapid.sendTestMessage(tiltakMottattHendelse)
         }
-        coVerify { vedtakClient.mottaTiltak(any(), "42") }
+        coVerify { vedtakClient.mottaTiltak(any<TiltakMottattDTO>(), "42") }
     }
 
     @Test
     fun `Når en løsning er på et annet behov i en multibehovsmelding så skal meldingen ignoreres`() {
-        coEvery { vedtakClient.mottaTiltak(any(), "2d7b311c-f8a8-4b73-b256-de6f3d709cc7") } returns Unit
+        coEvery { vedtakClient.mottaTiltak(any<TiltakMottattDTO>(), "2d7b311c-f8a8-4b73-b256-de6f3d709cc7") } returns Unit
         testRapid.sendTestMessage(løsningPåEtAnnetBehovNårFlereBehovErISammeMelding)
 
-        coVerify(exactly = 0) { vedtakClient.mottaTiltak(any(), "2d7b311c-f8a8-4b73-b256-de6f3d709cc7") }
+        coVerify(exactly = 0) { vedtakClient.mottaTiltak(any<TiltakMottattDTO>(), "2d7b311c-f8a8-4b73-b256-de6f3d709cc7") }
     }
 
     private val løsningPåEtAnnetBehovNårFlereBehovErISammeMelding =

@@ -21,6 +21,7 @@ import no.nav.tiltakspenger.vedtak.rivers.overgangsstønad.OvergangsstønadDTO
 import no.nav.tiltakspenger.vedtak.rivers.personopplysninger.PersonopplysningerMottattDTO
 import no.nav.tiltakspenger.vedtak.rivers.skjerming.SkjermingDTO
 import no.nav.tiltakspenger.vedtak.rivers.søknad.SøknadDTO
+import no.nav.tiltakspenger.vedtak.rivers.tiltak.ArenaTiltakMottattDTO
 import no.nav.tiltakspenger.vedtak.rivers.tiltak.TiltakMottattDTO
 import no.nav.tiltakspenger.vedtak.rivers.uføre.UføreDTO
 import no.nav.tiltakspenger.vedtak.rivers.ytelser.ArenaYtelserMottattDTO
@@ -31,6 +32,7 @@ interface IVedtakClient {
     suspend fun mottaForeldrepenger(foreldrepengerDTO: ForeldrepengerDTO, behovId: String)
     suspend fun mottaSkjerming(skjermingDTO: SkjermingDTO, behovId: String)
     suspend fun mottaTiltak(tiltakMottattDTO: TiltakMottattDTO, behovId: String)
+    suspend fun mottaTiltak(tiltakMottattDTO: ArenaTiltakMottattDTO, behovId: String)
     suspend fun mottaYtelser(arenaYtelserMottattDTO: ArenaYtelserMottattDTO, behovId: String)
     suspend fun mottaSøknad(søknadDTO: SøknadDTO, journalpostId: String)
     suspend fun mottaPersonopplysninger(personopplysningerMottattDTO: PersonopplysningerMottattDTO, behovId: String)
@@ -151,6 +153,20 @@ class VedtakClient(
     }
 
     override suspend fun mottaTiltak(tiltakMottattDTO: TiltakMottattDTO, behovId: String) {
+        val httpResponse = httpClient.preparePost("${vedtakClientConfig.baseUrl}/rivers/tiltak") {
+            header(navCallIdHeader, behovId)
+            bearerAuth(getToken())
+            accept(ContentType.Application.Json)
+            contentType(ContentType.Application.Json)
+            setBody(tiltakMottattDTO)
+        }.execute()
+        when (httpResponse.status) {
+            HttpStatusCode.OK -> return
+            else -> throw RuntimeException("error (responseCode=${httpResponse.status.value}) from Vedtak")
+        }
+    }
+
+    override suspend fun mottaTiltak(tiltakMottattDTO: ArenaTiltakMottattDTO, behovId: String) {
         val httpResponse = httpClient.preparePost("${vedtakClientConfig.baseUrl}/rivers/tiltak") {
             header(navCallIdHeader, behovId)
             bearerAuth(getToken())
