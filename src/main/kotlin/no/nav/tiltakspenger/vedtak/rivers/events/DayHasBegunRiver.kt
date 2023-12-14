@@ -8,6 +8,7 @@ import no.nav.helse.rapids_rivers.MessageContext
 import no.nav.helse.rapids_rivers.RapidsConnection
 import no.nav.helse.rapids_rivers.River
 import no.nav.helse.rapids_rivers.asLocalDate
+import no.nav.tiltakspenger.vedtak.client.IMeldekortClient
 import no.nav.tiltakspenger.vedtak.client.IVedtakClient
 import no.nav.tiltakspenger.vedtak.rivers.loggEventVedFeil
 import no.nav.tiltakspenger.vedtak.rivers.loggEventVedInngang
@@ -18,6 +19,7 @@ data class DayHasBegunEvent(val date: LocalDate)
 
 internal class DayHasBegunRiver(
     private val vedtakClient: IVedtakClient,
+    private val meldekortClient: IMeldekortClient,
     rapidsConnection: RapidsConnection,
 ) : River.PacketListener {
 
@@ -44,6 +46,9 @@ internal class DayHasBegunRiver(
 
                 runBlocking(MDCContext()) {
                     vedtakClient.mottaDayHasBegun(
+                        DayHasBegunEvent(date = dag),
+                    )
+                    meldekortClient.mottaDayHasBegun(
                         DayHasBegunEvent(date = dag),
                     )
                 }
