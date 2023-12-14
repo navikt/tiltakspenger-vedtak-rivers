@@ -6,7 +6,6 @@ import com.natpryce.konfig.EnvironmentVariables
 import com.natpryce.konfig.Key
 import com.natpryce.konfig.overriding
 import com.natpryce.konfig.stringType
-import no.nav.tiltakspenger.vedtak.client.VedtakClient
 import no.nav.tiltakspenger.vedtak.oauth.AzureTokenProvider
 
 object Configuration {
@@ -36,6 +35,8 @@ object Configuration {
             "application.profile" to Profile.LOCAL.toString(),
             "vedtakScope" to "api://dev-gcp.tpts.tiltakspenger-vedtak/.default",
             "vedtakBaseUrl" to "http://tiltakspenger-vedtak",
+            "meldekortScope" to "api://dev-gcp.tpts.tiltakspenger-meldekort-api/.default",
+            "meldekortBaseUrl" to "http://tiltakspenger-meldekort-api",
             "logback.configurationFile" to "resources/logback.local.xml",
         ),
     )
@@ -44,6 +45,8 @@ object Configuration {
             "application.profile" to Profile.DEV.toString(),
             "vedtakScope" to "api://dev-gcp.tpts.tiltakspenger-vedtak/.default",
             "vedtakBaseUrl" to "http://tiltakspenger-vedtak",
+            "meldekortScope" to "api://dev-gcp.tpts.tiltakspenger-meldekort-api/.default",
+            "meldekortBaseUrl" to "http://tiltakspenger-meldekort-api",
         ),
     )
     private val prodProperties = ConfigurationMap(
@@ -51,6 +54,8 @@ object Configuration {
             "application.profile" to Profile.PROD.toString(),
             "vedtakScope" to "api://prod-gcp.tpts.tiltakspenger-vedtak/.default",
             "vedtakBaseUrl" to "http://tiltakspenger-vedtak",
+            "meldekortScope" to "api://prod-gcp.tpts.tiltakspenger-meldekort-api/.default",
+            "meldekortBaseUrl" to "http://tiltakspenger-meldekort-api",
         ),
     )
 
@@ -68,8 +73,14 @@ object Configuration {
 
     fun logbackConfigurationFile() = config()[Key("logback.configurationFile", stringType)]
 
+    fun vedtakScope() = config()[Key("vedtakScope", stringType)]
+    fun vedtakBaseUrl() = config()[Key("vedtakBaseUrl", stringType)]
+
+    fun meldekortScope() = config()[Key("meldekortScope", stringType)]
+    fun meldekortBaseUrl() = config()[Key("meldekortBaseUrl", stringType)]
+
     fun oauthConfig(
-        scope: String = config()[Key("vedtakScope", stringType)],
+        scope: String,
         clientId: String = config()[Key("AZURE_APP_CLIENT_ID", stringType)],
         clientSecret: String = config()[Key("AZURE_APP_CLIENT_SECRET", stringType)],
         wellknownUrl: String = config()[Key("AZURE_APP_WELL_KNOWN_URL", stringType)],
@@ -80,9 +91,13 @@ object Configuration {
         wellknownUrl = wellknownUrl,
     )
 
-    fun vedtakClientConfig(baseUrl: String = config()[Key("vedtakBaseUrl", stringType)]) =
-        VedtakClient.VedtakClientConfig(baseUrl = baseUrl)
+    fun clientConfig(baseUrl: String) =
+        ClientConfig(baseUrl = baseUrl)
 }
+
+data class ClientConfig(
+    val baseUrl: String,
+)
 
 enum class Profile {
     LOCAL, DEV, PROD

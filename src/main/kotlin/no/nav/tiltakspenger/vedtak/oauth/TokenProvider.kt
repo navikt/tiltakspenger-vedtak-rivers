@@ -8,7 +8,6 @@ import io.ktor.client.engine.HttpClientEngine
 import io.ktor.client.request.forms.submitForm
 import io.ktor.client.request.get
 import io.ktor.http.Parameters
-import no.nav.tiltakspenger.vedtak.Configuration
 import no.nav.tiltakspenger.vedtak.defaultHttpClient
 import no.nav.tiltakspenger.vedtak.defaultObjectMapper
 import java.time.LocalDateTime
@@ -20,7 +19,7 @@ fun interface TokenProvider {
 class AzureTokenProvider(
     objectMapper: ObjectMapper = defaultObjectMapper(),
     engine: HttpClientEngine? = null,
-    private val config: OauthConfig = Configuration.oauthConfig(),
+    private val config: OauthConfig,
 ) : TokenProvider {
     private val azureHttpClient = defaultHttpClient(
         objectMapper = objectMapper,

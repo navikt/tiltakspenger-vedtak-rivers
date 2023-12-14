@@ -11,7 +11,9 @@ import io.ktor.client.request.setBody
 import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.contentType
+import no.nav.tiltakspenger.vedtak.ClientConfig
 import no.nav.tiltakspenger.vedtak.Configuration
+import no.nav.tiltakspenger.vedtak.Configuration.vedtakBaseUrl
 import no.nav.tiltakspenger.vedtak.defaultHttpClient
 import no.nav.tiltakspenger.vedtak.defaultObjectMapper
 import no.nav.tiltakspenger.vedtak.rivers.events.DayHasBegunEvent
@@ -41,7 +43,7 @@ interface IVedtakClient {
 }
 
 class VedtakClient(
-    private val vedtakClientConfig: VedtakClientConfig = Configuration.vedtakClientConfig(),
+    private val clientConfig: ClientConfig = Configuration.clientConfig(baseUrl = vedtakBaseUrl()),
     private val objectMapper: ObjectMapper = defaultObjectMapper(),
     private val getToken: suspend () -> String,
     engine: HttpClientEngine? = null,
@@ -55,7 +57,7 @@ class VedtakClient(
     }
 
     override suspend fun mottaOvergangsstønad(overgangsstønadDTO: OvergangsstønadDTO, behovId: String) {
-        val httpResponse = httpClient.preparePost("${vedtakClientConfig.baseUrl}/rivers/overgangsstonad") {
+        val httpResponse = httpClient.preparePost("${clientConfig.baseUrl}/rivers/overgangsstonad") {
             header(navCallIdHeader, behovId)
             bearerAuth(getToken())
             accept(ContentType.Application.Json)
@@ -69,7 +71,7 @@ class VedtakClient(
     }
 
     override suspend fun mottaSøknad(søknadDTO: SøknadDTO, journalpostId: String) {
-        val httpResponse = httpClient.preparePost("${vedtakClientConfig.baseUrl}/rivers/soknad") {
+        val httpResponse = httpClient.preparePost("${clientConfig.baseUrl}/rivers/soknad") {
             header(navCallIdHeader, journalpostId)
             bearerAuth(getToken())
             accept(ContentType.Application.Json)
@@ -83,7 +85,7 @@ class VedtakClient(
     }
 
     override suspend fun mottaDayHasBegun(dayHasBegunEvent: DayHasBegunEvent) {
-        val httpResponse = httpClient.preparePost("${vedtakClientConfig.baseUrl}/rivers/passageoftime/dayhasbegun") {
+        val httpResponse = httpClient.preparePost("${clientConfig.baseUrl}/rivers/passageoftime/dayhasbegun") {
             header(navCallIdHeader, dayHasBegunEvent.date)
             bearerAuth(getToken())
             accept(ContentType.Application.Json)
@@ -97,7 +99,7 @@ class VedtakClient(
     }
 
     override suspend fun mottaUtdatert(utdatertDTO: InnsendingUtdatert) {
-        val httpResponse = httpClient.preparePost("${vedtakClientConfig.baseUrl}/rivers/innsendingutdatert") {
+        val httpResponse = httpClient.preparePost("${clientConfig.baseUrl}/rivers/innsendingutdatert") {
             header(navCallIdHeader, utdatertDTO.journalpostId)
             bearerAuth(getToken())
             accept(ContentType.Application.Json)
@@ -111,7 +113,7 @@ class VedtakClient(
     }
 
     override suspend fun mottaForeldrepenger(foreldrepengerDTO: ForeldrepengerDTO, behovId: String) {
-        val httpResponse = httpClient.preparePost("${vedtakClientConfig.baseUrl}/rivers/foreldrepenger") {
+        val httpResponse = httpClient.preparePost("${clientConfig.baseUrl}/rivers/foreldrepenger") {
             header(navCallIdHeader, behovId)
             bearerAuth(getToken())
             accept(ContentType.Application.Json)
@@ -125,7 +127,7 @@ class VedtakClient(
     }
 
     override suspend fun mottaUføre(uføreDTO: UføreDTO, behovId: String) {
-        val httpResponse = httpClient.preparePost("${vedtakClientConfig.baseUrl}/rivers/ufore") {
+        val httpResponse = httpClient.preparePost("${clientConfig.baseUrl}/rivers/ufore") {
             header(navCallIdHeader, behovId)
             bearerAuth(getToken())
             accept(ContentType.Application.Json)
@@ -139,7 +141,7 @@ class VedtakClient(
     }
 
     override suspend fun mottaSkjerming(skjermingDTO: SkjermingDTO, behovId: String) {
-        val httpResponse = httpClient.preparePost("${vedtakClientConfig.baseUrl}/rivers/skjerming") {
+        val httpResponse = httpClient.preparePost("${clientConfig.baseUrl}/rivers/skjerming") {
             header(navCallIdHeader, behovId)
             bearerAuth(getToken())
             accept(ContentType.Application.Json)
@@ -153,7 +155,7 @@ class VedtakClient(
     }
 
     override suspend fun mottaTiltak(tiltakMottattDTO: TiltakMottattDTO, behovId: String) {
-        val httpResponse = httpClient.preparePost("${vedtakClientConfig.baseUrl}/rivers/tiltak") {
+        val httpResponse = httpClient.preparePost("${clientConfig.baseUrl}/rivers/tiltak") {
             header(navCallIdHeader, behovId)
             bearerAuth(getToken())
             accept(ContentType.Application.Json)
@@ -167,7 +169,7 @@ class VedtakClient(
     }
 
     override suspend fun mottaTiltak(tiltakMottattDTO: ArenaTiltakMottattDTO, behovId: String) {
-        val httpResponse = httpClient.preparePost("${vedtakClientConfig.baseUrl}/rivers/tiltak") {
+        val httpResponse = httpClient.preparePost("${clientConfig.baseUrl}/rivers/tiltak") {
             header(navCallIdHeader, behovId)
             bearerAuth(getToken())
             accept(ContentType.Application.Json)
@@ -181,7 +183,7 @@ class VedtakClient(
     }
 
     override suspend fun mottaYtelser(arenaYtelserMottattDTO: ArenaYtelserMottattDTO, behovId: String) {
-        val httpResponse = httpClient.preparePost("${vedtakClientConfig.baseUrl}/rivers/ytelser") {
+        val httpResponse = httpClient.preparePost("${clientConfig.baseUrl}/rivers/ytelser") {
             header(navCallIdHeader, behovId)
             bearerAuth(getToken())
             accept(ContentType.Application.Json)
@@ -198,7 +200,7 @@ class VedtakClient(
         personopplysningerMottattDTO: PersonopplysningerMottattDTO,
         behovId: String,
     ) {
-        val httpResponse = httpClient.preparePost("${vedtakClientConfig.baseUrl}/rivers/personopplysninger") {
+        val httpResponse = httpClient.preparePost("${clientConfig.baseUrl}/rivers/personopplysninger") {
             header(navCallIdHeader, behovId)
             bearerAuth(getToken())
             accept(ContentType.Application.Json)
@@ -210,8 +212,4 @@ class VedtakClient(
             else -> throw RuntimeException("error (responseCode=${httpResponse.status.value}) from Vedtak")
         }
     }
-
-    data class VedtakClientConfig(
-        val baseUrl: String,
-    )
 }

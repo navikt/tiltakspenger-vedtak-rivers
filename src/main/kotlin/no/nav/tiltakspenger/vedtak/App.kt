@@ -3,6 +3,7 @@ package no.nav.tiltakspenger.vedtak
 import mu.KotlinLogging
 import no.nav.helse.rapids_rivers.RapidApplication
 import no.nav.helse.rapids_rivers.RapidsConnection
+import no.nav.tiltakspenger.vedtak.client.MeldekortClient
 import no.nav.tiltakspenger.vedtak.client.VedtakClient
 import no.nav.tiltakspenger.vedtak.oauth.AzureTokenProvider
 import no.nav.tiltakspenger.vedtak.rivers.events.DayHasBegunRiver
@@ -28,10 +29,14 @@ fun main() {
         securelog.error(e) { e.message }
     }
 
-    val tokenProvider = AzureTokenProvider()
+    val meldekortTokenProvider = AzureTokenProvider(config = Configuration.oauthConfig(scope = Configuration.meldekortScope()))
+    val vedtakTokenProvider = AzureTokenProvider(config = Configuration.oauthConfig(scope = Configuration.vedtakScope()))
 
     val vedtakClient = VedtakClient(
-        getToken = tokenProvider::getToken,
+        getToken = vedtakTokenProvider::getToken,
+    )
+    val meldekortClient = MeldekortClient(
+        getToken = meldekortTokenProvider::getToken,
     )
 
     RapidApplication.create(Configuration.rapidsAndRivers).apply {
@@ -48,6 +53,7 @@ fun main() {
         DayHasBegunRiver(
             rapidsConnection = this,
             vedtakClient = vedtakClient,
+            meldekortClient = meldekortClient,
         )
 
         TiltakMottattRiver(
