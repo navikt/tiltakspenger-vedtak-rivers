@@ -29,7 +29,7 @@ spec:
       rules:
         - application: tiltakspenger-meldekort-api
           namespace: tpts
-          cluster: { { cluster } }
+          cluster: {{ cluster }}
         - application: tiltakspenger-vedtak
           namespace: tpts
           cluster: {{ cluster }}
