@@ -19,6 +19,7 @@ object Configuration {
         "KAFKA_RAPID_TOPIC" to "tpts.rapid.v1",
         "KAFKA_RESET_POLICY" to "latest",
         "KAFKA_CONSUMER_GROUP_ID" to "tiltakspenger-skjerming-rivers-v1",
+        "HTTP_PORT" to "8080",
     )
 
     private val otherDefaultProperties = mapOf(
@@ -34,9 +35,9 @@ object Configuration {
         mapOf(
             "application.profile" to Profile.LOCAL.toString(),
             "vedtakScope" to "api://dev-gcp.tpts.tiltakspenger-vedtak/.default",
-            "vedtakBaseUrl" to "http://tiltakspenger-vedtak",
+            "vedtakBaseUrl" to "http://localhost:8080",
             "meldekortScope" to "api://dev-gcp.tpts.tiltakspenger-meldekort-api/.default",
-            "meldekortBaseUrl" to "http://tiltakspenger-meldekort-api",
+            "meldekortBaseUrl" to "http://localhost:8086",
             "logback.configurationFile" to "resources/logback.local.xml",
         ),
     )

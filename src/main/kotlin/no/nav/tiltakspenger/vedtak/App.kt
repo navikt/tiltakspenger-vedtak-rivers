@@ -9,6 +9,7 @@ import no.nav.tiltakspenger.vedtak.oauth.AzureTokenProvider
 import no.nav.tiltakspenger.vedtak.rivers.events.DayHasBegunRiver
 import no.nav.tiltakspenger.vedtak.rivers.foreldrepenger.ForeldrepengerMottattRiver
 import no.nav.tiltakspenger.vedtak.rivers.innsending.InnsendingUtdatertRiver
+import no.nav.tiltakspenger.vedtak.rivers.meldekort.MeldekortGrunnlagRiver
 import no.nav.tiltakspenger.vedtak.rivers.overgangsstønad.OvergangsstønadMottattRiver
 import no.nav.tiltakspenger.vedtak.rivers.personopplysninger.PersonopplysningerMottattRiver
 import no.nav.tiltakspenger.vedtak.rivers.skjerming.SkjermingMottattRiver
@@ -79,6 +80,11 @@ fun main() {
         ForeldrepengerMottattRiver(
             rapidsConnection = this,
             vedtakClient = vedtakClient,
+        )
+
+        MeldekortGrunnlagRiver(
+            rapidsConnection = this,
+            meldekortClient = meldekortClient,
         )
 
         UføreMottattRiver(
