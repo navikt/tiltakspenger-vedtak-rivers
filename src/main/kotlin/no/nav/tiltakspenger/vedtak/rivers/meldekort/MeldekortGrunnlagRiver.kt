@@ -7,8 +7,6 @@ import no.nav.helse.rapids_rivers.JsonMessage
 import no.nav.helse.rapids_rivers.MessageContext
 import no.nav.helse.rapids_rivers.RapidsConnection
 import no.nav.helse.rapids_rivers.River
-import no.nav.helse.rapids_rivers.asLocalDate
-import no.nav.tiltakspenger.libs.fp.FPResponsDTO
 import no.nav.tiltakspenger.vedtak.client.IMeldekortClient
 import no.nav.tiltakspenger.vedtak.rivers.asObject
 import no.nav.tiltakspenger.vedtak.rivers.loggEventVedFeil
@@ -60,7 +58,7 @@ data class MeldekortGrunnlagDTO(
     val tiltak: List<TiltakDTO>,
 )
 
-enum class StatusDTO{
+enum class StatusDTO {
     AKTIV,
     IKKE_AKTIV,
 }
