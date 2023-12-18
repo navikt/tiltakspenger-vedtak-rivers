@@ -61,10 +61,8 @@ data class MeldekortGrunnlagDTO(
 )
 
 enum class StatusDTO{
-    INNVILGET,
-    AVSLAG,
-    STANS,
-    FORLENGELSE,
+    AKTIV,
+    IKKE_AKTIV,
 }
 
 data class TiltakDTO(
