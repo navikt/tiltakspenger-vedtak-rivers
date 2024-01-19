@@ -33,6 +33,7 @@ object Configuration {
 
     private val localProperties = ConfigurationMap(
         mapOf(
+            "application.httpPort" to 8082.toString(),
             "application.profile" to Profile.LOCAL.toString(),
             "vedtakScope" to "api://dev-gcp.tpts.tiltakspenger-vedtak/.default",
             "vedtakBaseUrl" to "http://localhost:8080",
@@ -69,6 +70,9 @@ object Configuration {
     private fun config() = when (System.getenv("NAIS_CLUSTER_NAME") ?: System.getProperty("NAIS_CLUSTER_NAME")) {
         "dev-gcp" ->
             systemProperties() overriding EnvironmentVariables overriding devProperties overriding defaultProperties
+
+        "compose" ->
+            systemProperties() overriding EnvironmentVariables overriding defaultProperties
 
         "prod-gcp" ->
             systemProperties() overriding EnvironmentVariables overriding prodProperties overriding defaultProperties
