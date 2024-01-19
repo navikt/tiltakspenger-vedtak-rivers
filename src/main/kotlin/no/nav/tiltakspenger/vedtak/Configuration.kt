@@ -39,6 +39,8 @@ object Configuration {
             "vedtakBaseUrl" to "http://localhost:8080",
             "meldekortScope" to "api://dev-gcp.tpts.tiltakspenger-meldekort-api/.default",
             "meldekortBaseUrl" to "http://localhost:8086",
+            "dokumentScope" to "api://dev-gcp.tpts.tiltakspenger-dokument/.default",
+            "dokumentBaseUrl" to "http://localhost:8087",
             "logback.configurationFile" to "resources/logback.local.xml",
         ),
     )
@@ -49,6 +51,8 @@ object Configuration {
             "vedtakBaseUrl" to "http://tiltakspenger-vedtak",
             "meldekortScope" to "api://dev-gcp.tpts.tiltakspenger-meldekort-api/.default",
             "meldekortBaseUrl" to "http://tiltakspenger-meldekort-api",
+            "dokumentScope" to "api://dev-gcp.tpts.tiltakspenger-dokument/.default",
+            "dokumentBaseUrl" to "http://tiltakspenger-dokument",
         ),
     )
     private val prodProperties = ConfigurationMap(
@@ -58,6 +62,8 @@ object Configuration {
             "vedtakBaseUrl" to "http://tiltakspenger-vedtak",
             "meldekortScope" to "api://prod-gcp.tpts.tiltakspenger-meldekort-api/.default",
             "meldekortBaseUrl" to "http://tiltakspenger-meldekort-api",
+            "dokumentScope" to "api://prod-gcp.tpts.tiltakspenger-dokument/.default",
+            "dokumentBaseUrl" to "http://tiltakspenger-dokument",
         ),
     )
 
@@ -83,6 +89,9 @@ object Configuration {
 
     fun meldekortScope() = config()[Key("meldekortScope", stringType)]
     fun meldekortBaseUrl() = config()[Key("meldekortBaseUrl", stringType)]
+
+    fun dokumentScope() = config()[Key("dokumentScope", stringType)]
+    fun dokumentBaseUrl() = config()[Key("dokumentBaseUrl", stringType)]
 
     fun oauthConfig(
         scope: String,
