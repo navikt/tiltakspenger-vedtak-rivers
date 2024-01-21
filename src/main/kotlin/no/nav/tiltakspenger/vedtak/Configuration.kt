@@ -29,7 +29,14 @@ object Configuration {
         "AZURE_APP_WELL_KNOWN_URL" to System.getenv("AZURE_APP_WELL_KNOWN_URL"),
         "logback.configurationFile" to "resources/logback.gcp.xml",
     )
+
     private val defaultProperties = ConfigurationMap(rapidsAndRivers + otherDefaultProperties)
+
+    private val composeProperties = ConfigurationMap(
+        mapOf(
+            "logback.configurationFile" to "logback.local.xml",
+        ),
+    )
 
     private val localProperties = ConfigurationMap(
         mapOf(
@@ -39,7 +46,7 @@ object Configuration {
             "vedtakBaseUrl" to "http://localhost:8080",
             "meldekortScope" to "api://dev-gcp.tpts.tiltakspenger-meldekort-api/.default",
             "meldekortBaseUrl" to "http://localhost:8086",
-            "logback.configurationFile" to "resources/logback.local.xml",
+            "logback.configurationFile" to "src/main/resources/logback.local.xml",
         ),
     )
     private val devProperties = ConfigurationMap(
@@ -66,7 +73,7 @@ object Configuration {
             systemProperties() overriding EnvironmentVariables overriding devProperties overriding defaultProperties
 
         "compose" ->
-            systemProperties() overriding EnvironmentVariables overriding defaultProperties
+            systemProperties() overriding EnvironmentVariables overriding composeProperties overriding defaultProperties
 
         "prod-gcp" ->
             systemProperties() overriding EnvironmentVariables overriding prodProperties overriding defaultProperties
