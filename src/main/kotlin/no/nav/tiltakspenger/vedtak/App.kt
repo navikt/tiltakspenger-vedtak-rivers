@@ -3,6 +3,7 @@ package no.nav.tiltakspenger.vedtak
 import mu.KotlinLogging
 import no.nav.helse.rapids_rivers.RapidApplication
 import no.nav.helse.rapids_rivers.RapidsConnection
+import no.nav.tiltakspenger.vedtak.client.DokumentClient
 import no.nav.tiltakspenger.vedtak.client.MeldekortClient
 import no.nav.tiltakspenger.vedtak.client.VedtakClient
 import no.nav.tiltakspenger.vedtak.oauth.AzureTokenProvider
@@ -10,6 +11,7 @@ import no.nav.tiltakspenger.vedtak.rivers.events.DayHasBegunRiver
 import no.nav.tiltakspenger.vedtak.rivers.foreldrepenger.ForeldrepengerMottattRiver
 import no.nav.tiltakspenger.vedtak.rivers.innsending.InnsendingUtdatertRiver
 import no.nav.tiltakspenger.vedtak.rivers.meldekort.MeldekortGrunnlagRiver
+import no.nav.tiltakspenger.vedtak.rivers.meldekort.VedtaksBrevRiver
 import no.nav.tiltakspenger.vedtak.rivers.overgangsstønad.OvergangsstønadMottattRiver
 import no.nav.tiltakspenger.vedtak.rivers.personopplysninger.PersonopplysningerMottattRiver
 import no.nav.tiltakspenger.vedtak.rivers.skjerming.SkjermingMottattRiver
@@ -31,6 +33,7 @@ fun main() {
     }
 
     val meldekortTokenProvider = AzureTokenProvider(config = Configuration.oauthConfig(scope = Configuration.meldekortScope()))
+    val dokumentTokenProvider = AzureTokenProvider(config = Configuration.oauthConfig(scope = Configuration.dokumentScope()))
     val vedtakTokenProvider = AzureTokenProvider(config = Configuration.oauthConfig(scope = Configuration.vedtakScope()))
 
     val vedtakClient = VedtakClient(
@@ -38,6 +41,9 @@ fun main() {
     )
     val meldekortClient = MeldekortClient(
         getToken = meldekortTokenProvider::getToken,
+    )
+    val dokumentClient = DokumentClient(
+        getToken = dokumentTokenProvider::getToken,
     )
 
     RapidApplication.create(Configuration.rapidsAndRivers).apply {
@@ -85,6 +91,11 @@ fun main() {
         MeldekortGrunnlagRiver(
             rapidsConnection = this,
             meldekortClient = meldekortClient,
+        )
+
+        VedtaksBrevRiver(
+            rapidsConnection = this,
+            dokumentClient = dokumentClient,
         )
 
         UføreMottattRiver(
