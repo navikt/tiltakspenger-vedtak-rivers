@@ -33,3 +33,6 @@ spec:
         - application: tiltakspenger-vedtak
           namespace: tpts
           cluster: {{ cluster }}
+        - application: tiltakspenger-dokument
+          namespace: tpts
+          cluster: { { cluster } }
