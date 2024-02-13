@@ -15,7 +15,7 @@ import no.nav.tiltakspenger.vedtak.ClientConfig
 import no.nav.tiltakspenger.vedtak.Configuration
 import no.nav.tiltakspenger.vedtak.defaultHttpClient
 import no.nav.tiltakspenger.vedtak.defaultObjectMapper
-import no.nav.tiltakspenger.vedtak.rivers.meldekort.BrevDTO
+import no.nav.tiltakspenger.vedtak.rivers.vedtaksbrev.BrevDTO
 
 interface IDokumentClient {
     suspend fun mottaVedtaksBrev(brevDTO: BrevDTO)
@@ -36,7 +36,7 @@ class DokumentClient(
     }
 
     override suspend fun mottaVedtaksBrev(brevDTO: BrevDTO) {
-        val httpResponse = httpClient.preparePost("${clientConfig.baseUrl}/dokument/vedtaksbrev") {
+        val httpResponse = httpClient.preparePost("${clientConfig.baseUrl}/brev") {
             header(navCallIdHeader, "vedtaksbrev")
             bearerAuth(getToken())
             accept(ContentType.Application.Json)

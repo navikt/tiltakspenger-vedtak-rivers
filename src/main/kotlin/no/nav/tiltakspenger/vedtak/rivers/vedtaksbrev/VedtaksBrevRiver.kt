@@ -1,4 +1,4 @@
-package no.nav.tiltakspenger.vedtak.rivers.meldekort
+package no.nav.tiltakspenger.vedtak.rivers.vedtaksbrev
 
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.slf4j.MDCContext
@@ -12,7 +12,7 @@ import no.nav.tiltakspenger.vedtak.rivers.asObject
 import no.nav.tiltakspenger.vedtak.rivers.loggEventVedFeil
 import no.nav.tiltakspenger.vedtak.rivers.loggEventVedInngang
 import no.nav.tiltakspenger.vedtak.rivers.loggEventVedUtgang
-import java.time.LocalDate
+import java.time.LocalDateTime
 
 internal class VedtaksBrevRiver(
     private val dokumentClient: IDokumentClient,
@@ -50,14 +50,36 @@ internal class VedtaksBrevRiver(
     }
 }
 
-data class BrevDTO(
-    val vedtakId: String,
-    val vedtaksdato: LocalDate,
-    val vedtaksType: VedtaksTypeDTO,
-    val periode: PeriodeDTO,
+class BrevDTO(
+    val personalia: Personalia,
+    val tiltaksinfo: Tiltaksinfo,
+    val fraDato: String,
+    val tilDato: String,
+    val saksnummer: String,
+    val barnetillegg: Boolean,
     val saksbehandler: String,
-    val beslutter: String,
-    val tiltak: List<TiltakDTO>,
+    val kontor: String,
+    val innsendingTidspunkt: LocalDateTime,
+)
+
+data class Personalia(
+    val dato: String,
+    val ident: String,
+    val fornavn: String,
+    val etternavn: String,
+    val adresse: String,
+    val husnummer: String,
+    val bruksenhet: String,
+    val postnummer: String,
+    val poststed: String,
+    val antallBarn: Int,
+)
+
+data class Tiltaksinfo(
+    val tiltak: String,
+    val tiltaksnavn: String,
+    val tiltaksnummer: String,
+    val arrangør: String,
 )
 
 enum class VedtaksTypeDTO(val navn: String, val skalSendeBrev: Boolean) {

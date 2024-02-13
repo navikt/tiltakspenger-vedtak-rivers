@@ -11,7 +11,6 @@ import no.nav.tiltakspenger.vedtak.rivers.events.DayHasBegunRiver
 import no.nav.tiltakspenger.vedtak.rivers.foreldrepenger.ForeldrepengerMottattRiver
 import no.nav.tiltakspenger.vedtak.rivers.innsending.InnsendingUtdatertRiver
 import no.nav.tiltakspenger.vedtak.rivers.meldekort.MeldekortGrunnlagRiver
-import no.nav.tiltakspenger.vedtak.rivers.meldekort.VedtaksBrevRiver
 import no.nav.tiltakspenger.vedtak.rivers.overgangsstønad.OvergangsstønadMottattRiver
 import no.nav.tiltakspenger.vedtak.rivers.personopplysninger.PersonopplysningerMottattRiver
 import no.nav.tiltakspenger.vedtak.rivers.skjerming.SkjermingMottattRiver
@@ -19,6 +18,7 @@ import no.nav.tiltakspenger.vedtak.rivers.søknad.SøknadMottattRiver
 import no.nav.tiltakspenger.vedtak.rivers.tiltak.ArenaTiltakMottattRiver
 import no.nav.tiltakspenger.vedtak.rivers.tiltak.TiltakMottattRiver
 import no.nav.tiltakspenger.vedtak.rivers.uføre.UføreMottattRiver
+import no.nav.tiltakspenger.vedtak.rivers.vedtaksbrev.VedtaksBrevRiver
 import no.nav.tiltakspenger.vedtak.rivers.ytelser.ArenaYtelserMottattRiver
 
 fun main() {
