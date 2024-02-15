@@ -114,6 +114,14 @@ object Configuration {
 
     fun clientConfig(baseUrl: String) =
         ClientConfig(baseUrl = baseUrl)
+
+    fun applicationProfile() = when (System.getenv("NAIS_CLUSTER_NAME") ?: System.getProperty("NAIS_CLUSTER_NAME")) {
+        "dev-gcp" -> Profile.DEV
+        "prod-gcp" -> Profile.PROD
+        else -> Profile.LOCAL
+    }
+
+    fun kafkaBootstrapLocal(): String = config()[Key("KAFKA_BROKERS", stringType)]
 }
 
 data class ClientConfig(
