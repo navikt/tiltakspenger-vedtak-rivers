@@ -51,8 +51,8 @@ internal class VedtaksBrevRiver(
 }
 
 class BrevDTO(
-    val personalia: Personalia,
-    val tiltaksinfo: Tiltaksinfo,
+    val personaliaDTO: PersonaliaDTO,
+    val tiltaksinfoDTO: TiltaksinfoDTO,
     val fraDato: String,
     val tilDato: String,
     val saksnummer: String,
@@ -62,7 +62,7 @@ class BrevDTO(
     val innsendingTidspunkt: LocalDateTime,
 )
 
-data class Personalia(
+data class PersonaliaDTO(
     val dato: String,
     val ident: String,
     val fornavn: String,
@@ -75,7 +75,7 @@ data class Personalia(
     val antallBarn: Int,
 )
 
-data class Tiltaksinfo(
+data class TiltaksinfoDTO(
     val tiltak: String,
     val tiltaksnavn: String,
     val tiltaksnummer: String,
