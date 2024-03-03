@@ -11,11 +11,11 @@ import io.ktor.client.request.setBody
 import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.contentType
+import no.nav.tiltakspenger.libs.dokument.BrevDTO
 import no.nav.tiltakspenger.vedtak.ClientConfig
 import no.nav.tiltakspenger.vedtak.Configuration
 import no.nav.tiltakspenger.vedtak.defaultHttpClient
 import no.nav.tiltakspenger.vedtak.defaultObjectMapper
-import no.nav.tiltakspenger.vedtak.rivers.vedtaksbrev.BrevDTO
 
 interface IDokumentClient {
     suspend fun mottaVedtaksBrev(brevDTO: BrevDTO)
