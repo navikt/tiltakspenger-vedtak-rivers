@@ -58,7 +58,21 @@ data class MeldekortGrunnlagDTO(
     val vurderingsperiode: PeriodeDTO,
     val tiltak: List<TiltakDTO>,
     val personopplysninger: PersonopplysningerDTO,
+    val utfallsperioder: List<UtfallsperiodeDTO>,
 )
+
+data class UtfallsperiodeDTO(
+    val fom: LocalDate,
+    val tom: LocalDate,
+    val antallBarn: Int,
+    val utfall: UtfallForPeriodeDTO,
+)
+
+enum class UtfallForPeriodeDTO {
+    GIR_RETT_TILTAKSPENGER,
+    GIR_IKKE_RETT_TILTAKSPENGER,
+    KREVER_MANUELL_VURDERING,
+}
 
 data class PersonopplysningerDTO(
     val fornavn: String,
