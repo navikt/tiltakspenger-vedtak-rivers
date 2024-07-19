@@ -48,9 +48,6 @@ internal class DayHasBegunRiver(
                     vedtakClient.mottaDayHasBegun(
                         DayHasBegunEvent(date = dag),
                     )
-                    meldekortClient.mottaDayHasBegun(
-                        DayHasBegunEvent(date = dag),
-                    )
                 }
                 loggEventVedUtgang("dayHasBegun", packet)
             }

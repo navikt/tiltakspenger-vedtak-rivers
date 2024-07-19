@@ -15,11 +15,9 @@ import no.nav.tiltakspenger.vedtak.ClientConfig
 import no.nav.tiltakspenger.vedtak.Configuration
 import no.nav.tiltakspenger.vedtak.defaultHttpClient
 import no.nav.tiltakspenger.vedtak.defaultObjectMapper
-import no.nav.tiltakspenger.vedtak.rivers.events.DayHasBegunEvent
 import no.nav.tiltakspenger.vedtak.rivers.meldekort.MeldekortGrunnlagDTO
 
 interface IMeldekortClient {
-    suspend fun mottaDayHasBegun(dayHasBegunEvent: DayHasBegunEvent)
     suspend fun mottaMeldekortGrunnlag(meldekortGrunnlagDTO: MeldekortGrunnlagDTO)
 }
 
@@ -35,20 +33,6 @@ class MeldekortClient(
 ) : IMeldekortClient {
     companion object {
         const val navCallIdHeader = "Nav-Call-Id"
-    }
-
-    override suspend fun mottaDayHasBegun(dayHasBegunEvent: DayHasBegunEvent) {
-        val httpResponse = httpClient.preparePost("${clientConfig.baseUrl}/meldekort/nyDag") {
-            header(navCallIdHeader, dayHasBegunEvent.date)
-            bearerAuth(getToken())
-            accept(ContentType.Application.Json)
-            contentType(ContentType.Application.Json)
-            setBody(dayHasBegunEvent)
-        }.execute()
-        when (httpResponse.status) {
-            HttpStatusCode.OK -> return
-            else -> throw RuntimeException("error (responseCode=${httpResponse.status.value}) from Meldekort ny dag")
-        }
     }
 
     override suspend fun mottaMeldekortGrunnlag(meldekortGrunnlagDTO: MeldekortGrunnlagDTO) {
