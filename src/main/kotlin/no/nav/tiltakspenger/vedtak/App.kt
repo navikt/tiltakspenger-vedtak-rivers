@@ -7,7 +7,6 @@ import no.nav.tiltakspenger.vedtak.client.DokumentClient
 import no.nav.tiltakspenger.vedtak.client.MeldekortClient
 import no.nav.tiltakspenger.vedtak.client.VedtakClient
 import no.nav.tiltakspenger.vedtak.oauth.AzureTokenProvider
-import no.nav.tiltakspenger.vedtak.rivers.events.DayHasBegunRiver
 import no.nav.tiltakspenger.vedtak.rivers.meldekort.MeldekortGrunnlagRiver
 import no.nav.tiltakspenger.vedtak.rivers.søknad.SøknadMottattRiver
 import no.nav.tiltakspenger.vedtak.rivers.vedtaksbrev.VedtaksBrevRiver
@@ -49,11 +48,6 @@ fun main() {
         SøknadMottattRiver(
             rapidsConnection = this,
             vedtakClient = vedtakClient,
-        )
-        DayHasBegunRiver(
-            rapidsConnection = this,
-            vedtakClient = vedtakClient,
-            meldekortClient = meldekortClient,
         )
         MeldekortGrunnlagRiver(
             rapidsConnection = this,
