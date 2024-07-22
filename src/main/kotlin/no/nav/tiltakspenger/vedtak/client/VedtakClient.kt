@@ -16,12 +16,10 @@ import no.nav.tiltakspenger.vedtak.Configuration
 import no.nav.tiltakspenger.vedtak.Configuration.vedtakBaseUrl
 import no.nav.tiltakspenger.vedtak.defaultHttpClient
 import no.nav.tiltakspenger.vedtak.defaultObjectMapper
-import no.nav.tiltakspenger.vedtak.rivers.events.DayHasBegunEvent
 import no.nav.tiltakspenger.vedtak.rivers.søknad.SøknadDTO
 
 interface IVedtakClient {
     suspend fun mottaSøknad(søknadDTO: SøknadDTO, journalpostId: String)
-    suspend fun mottaDayHasBegun(dayHasBegunEvent: DayHasBegunEvent)
 }
 
 class VedtakClient(
@@ -45,20 +43,6 @@ class VedtakClient(
             accept(ContentType.Application.Json)
             contentType(ContentType.Application.Json)
             setBody(søknadDTO)
-        }.execute()
-        when (httpResponse.status) {
-            HttpStatusCode.OK -> return
-            else -> throw RuntimeException("error (responseCode=${httpResponse.status.value}) from Vedtak")
-        }
-    }
-
-    override suspend fun mottaDayHasBegun(dayHasBegunEvent: DayHasBegunEvent) {
-        val httpResponse = httpClient.preparePost("${clientConfig.baseUrl}/rivers/passageoftime/dayhasbegun") {
-            header(navCallIdHeader, dayHasBegunEvent.date)
-            bearerAuth(getToken())
-            accept(ContentType.Application.Json)
-            contentType(ContentType.Application.Json)
-            setBody(dayHasBegunEvent)
         }.execute()
         when (httpResponse.status) {
             HttpStatusCode.OK -> return
