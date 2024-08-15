@@ -62,7 +62,7 @@ dependencies {
     implementation("ch.qos.logback:logback-classic:1.5.6")
     implementation("net.logstash.logback:logstash-logback-encoder:8.0")
     implementation("com.papertrailapp:logback-syslog4j:1.0.0")
-    implementation("com.github.navikt:rapids-and-rivers:2024061408021718344972.64ebbdb34321")
+    implementation("com.github.navikt:rapids-and-rivers:2024081412411723632093.f3cd450418cb")
     implementation("com.natpryce:konfig:1.6.10.0")
     implementation("com.auth0:jwks-rsa:0.22.1")
 
