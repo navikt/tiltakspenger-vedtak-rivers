@@ -4,10 +4,8 @@ import mu.KotlinLogging
 import no.nav.helse.rapids_rivers.RapidApplication
 import no.nav.helse.rapids_rivers.RapidsConnection
 import no.nav.tiltakspenger.vedtak.client.DokumentClient
-import no.nav.tiltakspenger.vedtak.client.MeldekortClient
 import no.nav.tiltakspenger.vedtak.client.VedtakClient
 import no.nav.tiltakspenger.vedtak.oauth.AzureTokenProvider
-import no.nav.tiltakspenger.vedtak.rivers.meldekort.MeldekortGrunnlagRiver
 import no.nav.tiltakspenger.vedtak.rivers.søknad.SøknadMottattRiver
 import no.nav.tiltakspenger.vedtak.rivers.vedtaksbrev.VedtaksBrevRiver
 
@@ -32,9 +30,6 @@ fun main() {
     val vedtakClient = VedtakClient(
         getToken = vedtakTokenProvider::getToken,
     )
-    val meldekortClient = MeldekortClient(
-        getToken = meldekortTokenProvider::getToken,
-    )
     val dokumentClient = DokumentClient(
         getToken = dokumentTokenProvider::getToken,
     )
@@ -48,10 +43,6 @@ fun main() {
         SøknadMottattRiver(
             rapidsConnection = this,
             vedtakClient = vedtakClient,
-        )
-        MeldekortGrunnlagRiver(
-            rapidsConnection = this,
-            meldekortClient = meldekortClient,
         )
         VedtaksBrevRiver(
             rapidsConnection = this,
