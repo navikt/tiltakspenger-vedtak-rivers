@@ -18,7 +18,7 @@ object Configuration {
         "KAFKA_KEYSTORE_PATH" to System.getenv("KAFKA_KEYSTORE_PATH"),
         "KAFKA_RAPID_TOPIC" to "tpts.rapid.v1",
         "KAFKA_RESET_POLICY" to "latest",
-        "KAFKA_CONSUMER_GROUP_ID" to "tiltakspenger-skjerming-rivers-v1",
+        "KAFKA_CONSUMER_GROUP_ID" to "tiltakspenger-skjerming-rivers-v2",
         "HTTP_PORT" to "8080",
     )
 
