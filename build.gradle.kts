@@ -65,7 +65,7 @@ dependencies {
     implementation("com.natpryce:konfig:1.6.10.0")
     implementation("com.auth0:jwks-rsa:0.22.1")
 
-    testImplementation(platform("org.junit:junit-bom:5.10.3"))
+    testImplementation(platform("org.junit:junit-bom:5.11.0"))
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinxCoroutinesVersion")
     testImplementation("org.junit.jupiter:junit-jupiter")
     testImplementation("org.junit.jupiter:junit-jupiter-params")
