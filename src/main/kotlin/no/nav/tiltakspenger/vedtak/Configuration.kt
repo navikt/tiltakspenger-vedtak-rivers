@@ -54,6 +54,8 @@ object Configuration {
             "application.profile" to Profile.DEV.toString(),
             "vedtakScope" to "api://dev-gcp.tpts.tiltakspenger-vedtak/.default",
             "vedtakBaseUrl" to "http://tiltakspenger-vedtak",
+            "dokumentScope" to "api://dev-gcp.tpts.tiltakspenger-dokument/.default",
+            "dokumentBaseUrl" to "http://tiltakspenger-dokument",
         ),
     )
     private val prodProperties = ConfigurationMap(
