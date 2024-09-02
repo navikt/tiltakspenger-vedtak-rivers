@@ -44,8 +44,6 @@ object Configuration {
             "application.profile" to Profile.LOCAL.toString(),
             "vedtakScope" to "api://dev-gcp.tpts.tiltakspenger-vedtak/.default",
             "vedtakBaseUrl" to "http://localhost:8080",
-            "meldekortScope" to "api://dev-gcp.tpts.tiltakspenger-meldekort-api/.default",
-            "meldekortBaseUrl" to "http://localhost:8086",
             "dokumentScope" to "api://dev-gcp.tpts.tiltakspenger-dokument/.default",
             "dokumentBaseUrl" to "http://localhost:8087",
             "logback.configurationFile" to "src/main/resources/logback.local.xml",
@@ -56,10 +54,6 @@ object Configuration {
             "application.profile" to Profile.DEV.toString(),
             "vedtakScope" to "api://dev-gcp.tpts.tiltakspenger-vedtak/.default",
             "vedtakBaseUrl" to "http://tiltakspenger-vedtak",
-            "meldekortScope" to "api://dev-gcp.tpts.tiltakspenger-meldekort-api/.default",
-            "meldekortBaseUrl" to "http://tiltakspenger-meldekort-api",
-            "dokumentScope" to "api://dev-gcp.tpts.tiltakspenger-dokument/.default",
-            "dokumentBaseUrl" to "http://tiltakspenger-dokument",
         ),
     )
     private val prodProperties = ConfigurationMap(
@@ -67,8 +61,6 @@ object Configuration {
             "application.profile" to Profile.PROD.toString(),
             "vedtakScope" to "api://prod-gcp.tpts.tiltakspenger-vedtak/.default",
             "vedtakBaseUrl" to "http://tiltakspenger-vedtak",
-            "meldekortScope" to "api://prod-gcp.tpts.tiltakspenger-meldekort-api/.default",
-            "meldekortBaseUrl" to "http://tiltakspenger-meldekort-api",
             "dokumentScope" to "api://prod-gcp.tpts.tiltakspenger-dokument/.default",
             "dokumentBaseUrl" to "http://tiltakspenger-dokument",
         ),
