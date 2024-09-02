@@ -86,9 +86,6 @@ object Configuration {
     fun vedtakScope() = config()[Key("vedtakScope", stringType)]
     fun vedtakBaseUrl() = config()[Key("vedtakBaseUrl", stringType)]
 
-    fun meldekortScope() = config()[Key("meldekortScope", stringType)]
-    fun meldekortBaseUrl() = config()[Key("meldekortBaseUrl", stringType)]
-
     fun dokumentScope() = config()[Key("dokumentScope", stringType)]
     fun dokumentBaseUrl() = config()[Key("dokumentBaseUrl", stringType)]
 

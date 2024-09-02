@@ -20,8 +20,6 @@ fun main() {
         securelog.error(e) { e.message }
     }
 
-    val meldekortTokenProvider =
-        AzureTokenProvider(config = Configuration.oauthConfig(scope = Configuration.meldekortScope()))
     val dokumentTokenProvider =
         AzureTokenProvider(config = Configuration.oauthConfig(scope = Configuration.dokumentScope()))
     val vedtakTokenProvider =
